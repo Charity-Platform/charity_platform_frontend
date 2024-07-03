@@ -3,7 +3,8 @@ import React, { useState } from "react";
 import Card from 'react-bootstrap/Card';
 import { Container, Row, Col, Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import Footer from '../HomePage/Footer/Footer';
+
+
 const Card_services = () => {
   const [show, setShow] = useState(false);
 
@@ -64,7 +65,7 @@ const Card_services = () => {
          
     </Container>
  
-    <Footer/>
+   
     </>
   )
 }

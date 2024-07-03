@@ -1,0 +1,38 @@
+.paralex {
+    background: url("..//../assets/4.jpg")center no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: auto;
+    padding: 30px 0px;
+    text-align: center;
+    margin: 5rem 0; 
+    
+}
+.paralex h2{
+    font-size: 35px;
+    font-weight: 600;
+    width: 100%;
+    line-height: 50px;
+    margin: 10px 0px;
+    color:#fff;
+    margin-top: 80px;
+  
+}
+.paralex p{
+    font-size: 16px;
+    line-height: 25px;
+    color: #07a79d;
+    margin-top: 20px;
+    line-height: 32px;
+}
+.paralex a{
+    color: #fff;
+    font-size: 20px;
+    margin: 25px 0px;
+    text-decoration: none;
+    background-color: #07a79d;
+    margin: 10px 15px;
+    padding: 10px;
+    border-radius: 10px;
+
+}
