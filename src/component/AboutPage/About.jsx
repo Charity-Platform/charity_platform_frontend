@@ -9,7 +9,7 @@ const About = () => {
   return (
     <>
       <NavBar/>
-    <Back title={" هنا من نحن"}/>
+    <Back title={" من نحن"}/>
     <div className="about-body-container">
         <Aboutbody />
       </div>
