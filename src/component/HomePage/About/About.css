@@ -1,0 +1,96 @@
+.about{
+    height: 80vh;
+    background-color: #ced4da;
+}
+.about .heading{
+    text-align: center;
+    padding: 25px;
+    font-size: 70px;
+    font-weight: 700;
+    
+}
+.text-about{
+    font-size: 40px;
+    font-weight: 600;
+    padding: 20px;
+    margin: 30px;
+}
+span{
+    color: #07a79d;
+}
+.about-content{
+    display: flex;
+    margin-top: 50px;
+    
+}
+.about-content .image img{
+    width: 100%;
+    height: 60%;
+    margin-left:50px;
+    filter: brightness(1.25);
+}
+.content{
+    margin: 20px;
+    padding-bottom: 40px;
+    padding-left: 15px;
+}
+.about-h1{
+color: #07a79d;
+
+margin-bottom: 15px;
+}
+.about-p{
+    font-size: 18px;
+}
+.btn-about{
+    background-color: #07a79d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+    font-size: 20px;
+    margin: 25px;
+}
+.btn-about:hover{
+    background-color:#cecdcd;
+    color: #000;
+    transition: 0.5s;
+}
+/* next page in this folder */
+
+
+.icon-about{
+align-items: center;
+padding: 5px;
+}
+.icon-about .icon{
+    background-color: #fafafa;
+    padding: 20px;
+    margin: 50px;
+    border-radius: 10px;
+    box-shadow: 1px 1px  #888888;
+}
+@media (max-width: 576px) { 
+    .icon-about .icon{
+        background-color: #fff;
+        padding: 10px;
+        margin-left: 10px;
+        border-radius: 20px;
+        box-shadow: 1px 1px  #888888;
+    } 
+
+}
+.icon-about .icon:hover{
+    background-color: #f5f0f0;
+   transition: 0.5s;
+}
+.center-icon{
+text-align: center;
+align-items: center;
+padding: 20px;
+
+}
+.center-icon h2{
+    font-weight: 600;
+    font-size: 40px;
+}
