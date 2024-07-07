@@ -1,0 +1,20 @@
+@media (max-width: 576px) { 
+    .instructor-section{
+      padding-top: 20px;
+    }
+    .btn-card{
+        padding-bottom: 20px;
+    }
+    .card-instructor{
+        margin-top: 20px;
+    }
+    }
+
+    .card-image{
+        width: 100%;
+        height: 200px;
+        background-size: contain;
+    }
+    .instructor-section{
+       
+    }

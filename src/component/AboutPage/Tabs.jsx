@@ -17,7 +17,7 @@ const TabsCustomAnimation = () => {
         <Tab className="tab">اهدافنا </Tab>
         
       </TabList>
-      <TabPanels className="tab-panels" p="2rem">
+      <TabPanels className="tab-panels" p="2rem" style={{}}>
         <TabPanel className="tab-panel">
             <ul className='list-of-plan'>
            <li> خلق أفكار وحلول للمشاريع</li>

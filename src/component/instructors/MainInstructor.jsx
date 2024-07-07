@@ -1,42 +1,31 @@
-import 'react-multi-carousel/lib/styles.css';
-import image2 from '../../../assets/img-2.jpeg';
-import './Instructors.css';
+import React from 'react'
 import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import Card from 'react-bootstrap/Card';
-import { Link } from 'react-router-dom';
+import image2 from '../../assets/4.jpg';
+import './MainInstructor.css';
 
-
-const Instructor = () => { 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth" // هذا الخيار يجعل التمرير سلسًا
-    });
-  };
-  const responsive = {
-    superLargeDesktop: {
-      breakpoint: { max: 4000, min: 3000 },
-      items: 3
-    },
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1
-    }
-  };
-
-return (
-  <div className="container text-center p-3 instructor-section">
-    <h1 className="heading w-2 p-5 text-center-instructor ">المستشارين </h1>
-    <Carousel 
+const MainInstructor = () => {
+    const responsive = {
+        superLargeDesktop: {
+          breakpoint: { max: 4000, min: 3000 },
+          items: 3
+        },
+        desktop: {
+          breakpoint: { max: 3000, min: 1024 },
+          items: 3
+        },
+        tablet: {
+          breakpoint: { max: 1024, min: 464 },
+          items: 2
+        },
+        mobile: {
+          breakpoint: { max: 464, min: 0 },
+          items: 1
+        }
+      };
+  return (
+    <div className="container text-center p-3 instructor-section">
+       <Carousel 
         responsive={responsive} 
         swipeable={true} 
         draggable={true}
@@ -95,16 +84,11 @@ return (
              <button  className="btn-card"> استشرنى</button>
           </Card>
         </div>
+        
       </Carousel>
-      
-      <Link to="/instructors" onClick={scrollToTop}>
-      <div className='btn-more'>
-      <button  className="btn-more-dir"> عرض الجميع </button>
-
-      </div>
-      </Link>
+  
   </div>
-  );
+  )
 }
 
-export default Instructor;
+export default MainInstructor

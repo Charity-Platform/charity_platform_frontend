@@ -60,3 +60,14 @@
   .list-of-plan li{
     margin-bottom: 8px;
   }
+  @media (max-width: 576px){
+    .tabs-custom{
+      margin: 20px 10px;
+    }
+    .tab-list{
+      padding: 5px;
+      margin-left: 5px;
+     
+    }
+   
+  }
