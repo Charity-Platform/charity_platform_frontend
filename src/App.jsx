@@ -1,10 +1,10 @@
-import Home from "./component/Home/Home";
+import Home from "./pages/Home/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import About from "./component/AboutPage/About";
-import Instructors from "./component/instructors/Instructors";
-import Services from "./component/Service_instruct/Services";
+import About from "./pages/About/About";
+import Instructors from "./pages/Instructors/Instructors";
+import Services from "./pages/Services/Services";
 
 function App() {
   return (

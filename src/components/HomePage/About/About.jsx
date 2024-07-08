@@ -1,7 +1,7 @@
 import React from 'react'
 import './About.css';
 import imag1 from '../../../assets/1.jpg';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import About_Icon from './About-Icon';
 
 
