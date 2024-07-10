@@ -17,7 +17,7 @@ const About_Icon = () => {
       <div className='center-icon'>
         <h2>? <span>لماذا  </span> المرشد الخيرى </h2>
       </div>
-      <div className="row">
+      <div className="row p-2">
         <div className="col-md-2 col-sm-6 mb-sm-3 icon">
           <img src={icon1} alt='' />
           <h2 className="fw-bolder">

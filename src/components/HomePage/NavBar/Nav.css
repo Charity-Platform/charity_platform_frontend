@@ -1,11 +1,50 @@
-.Nav{
+
+ .logo .img{
+    width: 110px;
+    margin-left: 25px;
+    padding: 0;
+ }
+ .Nav{
     font-size: 18px;
     font-weight: 500;
 }
 .icon-user{
-    
     margin-right: 20px;
-    padding: 12px  8px;
-   font-size: 20px;
-color: #07a79d;
+    width: 80px;
+   color: #07a79d;
+}
+.icon-user i{
+  font-size: 22px;
+}
+.toggle{
+    width: 120px;
+    padding: 5px 20px;
+   
+    
+}
+
+@media (max-width: 576px) {
+    .logo .img{
+        width: 100px;
+        height: auto;
+    }
+  
+    .toggle {
+        width: 80px;
+        padding: 5px ;
+    }
+    .icon-user{
+       width:80px;
+      
+    }
+    .icon-user i{
+        margin-right: 5px;
+       font-size: 21px;
+       color: #07a79d;
+       
+    }
+    .Nav{
+        font-size: 20px;
+        font-weight: 500;
+    }
 }

@@ -21,7 +21,7 @@ const Card_services = () => {
   ];
 
   return (
-    <>
+    <div className='card-total'>
    <Container>
       <Row xs={1} md={2} lg={3} xl={4} className="g-4">
         {cardData.map((card) => (
@@ -66,7 +66,7 @@ const Card_services = () => {
     </Container>
  
    
-    </>
+    </div>
   )
 }
 

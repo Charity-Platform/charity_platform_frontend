@@ -41,19 +41,26 @@
 }
 
 @media (max-width: 576px) {
+  
   .text-overlay h1 {
-    font-size: 70px;
+    font-size: 50px;
     font-weight: 400;
-    margin-bottom: 50%;
-    color: #fff; /* Ensure text color is white */
+    margin-bottom: 65%;
+    color: #fff; 
   }
   .text-overlay h2 {
     margin-top: 50px;
-    font-size: 20px;
+    font-size: 15px;
     margin-top: 30%;
-    color: #fff; /* Ensure text color is white */
+    color: #fff; 
   }
   .back{
-    height: 70%;
+    height:80%;
+   background-size: cover;
+  
+  
+  }
+   .text-overlay {
+
   }
 }

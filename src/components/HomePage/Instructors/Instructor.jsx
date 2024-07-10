@@ -34,7 +34,7 @@ const Instructor = () => {
   };
 
 return (
-  <div className="container text-center p-3 instructor-section">
+  <div className="container text-center  instructor-section">
     <h1 className="heading w-2 p-5 text-center-instructor ">المستشارين </h1>
     <Carousel 
         responsive={responsive} 
@@ -44,8 +44,8 @@ return (
         autoPlaySpeed={3000} // سرعة التشغيل التلقائي بالمللي ثانية (1000 مللي ثانية = 1 ثانية)
         infinite={true}
       >
-        <div className="p-2 ">
-          <Card style={{ width: '25rem',height:'32rem'}}>
+        <div className="p-2  card-total">
+          <Card style={{ width: '25rem',height:'32rem'}} className='card'>
             <Card.Img variant="top" src={image2} className='card-image'/>
             <Card.Body>
               <Card.Title>الدكتور : محمد عبد العاطى </Card.Title>
@@ -57,7 +57,7 @@ return (
 
           </Card>
         </div>
-        <div className="p-2">
+        <div className="p-2 card-total">
           <Card style={{ width: '25rem',height:'32rem' }} className='card'>
             <Card.Img variant="top" src={image2}  className='card-image'/>
             <Card.Body>
@@ -70,8 +70,8 @@ return (
 
           </Card>
         </div>
-        <div className="p-2">
-          <Card style={{ width: '25rem',height:'32rem' }}>
+        <div className="p-2 card-total">
+          <Card style={{ width: '25rem',height:'32rem' }} className='card'>
             <Card.Img variant="top" src={image2} className='card-image' />
             <Card.Body>
               <Card.Title>الدكتور : على هلال </Card.Title>
@@ -83,8 +83,8 @@ return (
 
           </Card>
         </div>
-        <div className="p-2">
-          <Card style={{ width: '25rem',height:'32rem' }}>
+        <div className="p-2 card-total">
+          <Card style={{ width: '25rem',height:'32rem' }} className='card'>
             <Card.Img variant="top" src={image2} className='card-image' />
             <Card.Body>
               <Card.Title>الدكتور : احمد انور </Card.Title>

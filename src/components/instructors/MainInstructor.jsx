@@ -24,7 +24,7 @@ const MainInstructor = () => {
         }
       };
   return (
-    <div className="container text-center p-3 instructor-section">
+    <div className="container text-center instructor-section ">
        <Carousel 
         responsive={responsive} 
         swipeable={true} 
