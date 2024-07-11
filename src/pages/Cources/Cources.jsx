@@ -1,14 +1,17 @@
-import React from 'react'
+import Footer from '../../components/HomePage/Footer/Footer';
 import NavBar from '../../components/HomePage/NavBar/NavBar';
-import Back from '../../components/Back/Back';
 import CourcesComponent from '../../components/Cources/Cources';
+import TitleCourse from '../../components/Cources/TitleCourse';
+import CardCources from '../../components/Cources/CardCources';
 
 const Cources = () => {
   return (
     <div>
       <NavBar/>
-      <Back title='مبادرة واعى'/>
       <CourcesComponent/>
+      <TitleCourse/>
+      <CardCources/>
+      <Footer/>
     </div>
   )
 }

@@ -6,6 +6,7 @@ import About from "./pages/About/About";
 import Instructors from "./pages/Instructors/Instructors";
 import Services from "./pages/Services/Services";
 import Cources from './pages/Cources/Cources'
+import Books from "./pages/BookStore/Books";
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,8 @@ function App() {
           <Route path="/instructors" element={<Instructors />} />
           <Route path="/services" element={<Services />} />
           <Route path="/Cources" element={<Cources />} />
+          <Route path="/books" element={<Books />} />
+
 
         </Routes>
       </Router>

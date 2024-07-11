@@ -37,7 +37,7 @@ const Card_services = () => {
                   <Button variant="outline-primary"  onClick={handleShow} className="button-card custom-background">
                   تفاصيل 
                    </Button>
-                    <Button variant="primary" style={{ backgroundColor: '#07a79d', border: 'none' }} className="ml-2">طلب إستشارة </Button>
+                    <button variant="primary" style={{ backgroundColor: '#07a79d', border: 'none' }} className="ml-2 btn-service">طلب إستشارة </button>
                   </div>
                 </div>
               </Card.Body>

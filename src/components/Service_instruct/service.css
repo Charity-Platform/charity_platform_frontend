@@ -21,7 +21,12 @@
 .text-muted{
     padding-top: 20px;
 }
-
+.btn-service{
+    padding: 10px 25px;
+    border-radius: 10px;
+    color: #fff;
+   
+}
 .button-card{
     border-color: black;
     color: #07a79d;

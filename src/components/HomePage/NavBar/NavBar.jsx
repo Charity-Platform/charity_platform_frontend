@@ -22,7 +22,7 @@ const NavBar = () => {
               <Nav.Link as={NavLink} to="/services">الاستشارات</Nav.Link>
               <Nav.Link as={NavLink} to="/instructors">المستشارين</Nav.Link>
               <Nav.Link as={NavLink} to="/Cources">مبادرة واعى</Nav.Link>
-              <Nav.Link as={NavLink} to="#">المكتبة الخيرية</Nav.Link>
+              <Nav.Link as={NavLink} to="/books">المكتبة الخيرية</Nav.Link>
               <Nav.Link as={NavLink} to="#">تواصل معنا</Nav.Link>
             </Nav>
           </Navbar.Collapse>
