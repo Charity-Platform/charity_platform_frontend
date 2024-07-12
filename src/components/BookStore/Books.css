@@ -1,0 +1,123 @@
+/* Books.css */
+
+.hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(../../assets/book.jpg);
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 80vh;
+    padding: 0 20px;
+    color: #fff;
+  }
+  
+  .hero-content {
+    text-align: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+  }
+  
+  .hero-title {
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .hero-tagline {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #07a79d;
+  }
+  
+  .hero-tagline:nth-child(2) {
+    margin-top: 10px;
+  }
+  
+  .hero-books {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  
+  .hero-books .book {
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .book img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+  }
+  
+  .book-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .book-author {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* src/ListBook.css */
+
+
+
+.card {
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  /* App.css or your custom CSS file */
+  .card-books{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    background: linear-gradient(to top, #fff,#dde5ed, #07a79d  );
+
+}
+.text-center{
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 40px;
+    font-size: 40px;
+    font-weight: 600;
+}
+.book-img {
+    width: 100%;
+    height: 200%; /* Set a fixed height for consistency */
+    object-fit: cover; 
+    border-top-left-radius: 10px; /* Rounded corners for top left */
+    border-top-right-radius: 10px; /* Rounded corners for top right */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+.btn-book{
+    background-color: #07a79d;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+}
+.text-muted{
+    font-size: 15px;
+    margin-left:30px ;
+}
