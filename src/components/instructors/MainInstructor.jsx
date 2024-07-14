@@ -38,8 +38,11 @@ const MainInstructor = () => {
             <Card.Img variant="top" src={image2} className='card-image'/>
             <Card.Body>
               <Card.Title>الدكتور : محمد عبد العاطى </Card.Title>
+              <Card.Text className='job-description'>
+              <h5 className='job-description-text'> أخصائى تدريب رواد أعمال </h5>   
+             </Card.Text>
               <Card.Text className='location'>
-             <h5 className='text-location'>المملكة العربية السعودية<i className="fa-solid fa-location-dot fa-bounce location-icon"  style={{color: "#07a79d"}}></i>    </h5>   
+              <h5 className='text-location'>المملكة العربية السعودية<i className="fa-solid fa-location-dot fa-bounce location-icon"  style={{color: "#07a79d"}}></i>    </h5>   
              </Card.Text>
             </Card.Body>          
             <button  className="btn-card"> استشرنى </button>
@@ -51,6 +54,9 @@ const MainInstructor = () => {
             <Card.Img variant="top" src={image2}  className='card-image'/>
             <Card.Body>
               <Card.Title>الدكتور : محمد صالح </Card.Title>
+              <Card.Text className='job-description'>
+              <h5 className='job-description-text'> أخصائى تدريب رواد أعمال </h5>   
+             </Card.Text>
               <Card.Text className='location'>
              <h5 className='text-location'>المملكة العربية السعودية<i className="fa-solid fa-location-dot fa-bounce location-icon"  style={{color: "#07a79d"}}></i>    </h5>   
              </Card.Text>
@@ -64,6 +70,9 @@ const MainInstructor = () => {
             <Card.Img variant="top" src={image2} className='card-image' />
             <Card.Body>
               <Card.Title>الدكتور : على هلال </Card.Title>
+              <Card.Text className='job-description'>
+              <h5 className='job-description-text'>اخصائى تخطيط جمعيات  خيرية  </h5>   
+             </Card.Text>
               <Card.Text className='location'>
              <h5 className='text-location'>المملكة العربية السعودية<i className="fa-solid fa-location-dot fa-bounce location-icon"  style={{color: "#07a79d"}}></i>    </h5>   
              </Card.Text>
@@ -77,6 +86,9 @@ const MainInstructor = () => {
             <Card.Img variant="top" src={image2} className='card-image' />
             <Card.Body>
               <Card.Title>الدكتور : احمد انور </Card.Title>
+              <Card.Text className='job-description'>
+              <h5 className='job-description-text'>  إستشارى علاقات عامة  </h5>   
+             </Card.Text>
               <Card.Text className='location'>
              <h5 className='text-location'>المملكة العربية السعودية<i className="fa-solid fa-location-dot fa-bounce location-icon"  style={{color: "#07a79d"}}></i>    </h5>   
              </Card.Text>           

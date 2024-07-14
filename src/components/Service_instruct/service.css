@@ -9,7 +9,7 @@
 }
 
 .button-card{
-    margin-top: 90px;
+    margin-top: 40px;
     align-items: center;
 
 }
@@ -19,7 +19,8 @@
     
 }
 .text-muted{
-    padding-top: 20px;
+    padding-top: 18px;
+    font-size: 18px;
 }
 .btn-service{
     padding: 10px 25px;
