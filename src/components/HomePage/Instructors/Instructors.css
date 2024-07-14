@@ -27,6 +27,13 @@
    margin: 20px auto; 
   
   }
+  .job-description{
+    margin: 20px;
+    
+}
+.job-description-text{
+    font-size: 16px;
+}
   .btn-card{
     background-color: #eee;
     color: #000;
