@@ -9,8 +9,12 @@ const Hero = () => {
         </h1>
 
         <div className="hero-tag">
-          <p className="hero-tagline">كتب مجانية </p>
-          <p className="hero-tagline">كتب مدفوعة  </p>
+          <p className="hero-tagline"> ادارة</p>
+          <p className="hero-tagline"> تسويق </p>
+          <p className="hero-tagline"> تنمية موارد  </p>
+          <p className="hero-tagline"> جودة </p>
+          <p className="hero-tagline"> حوكمة </p>
+
         </div>
       </div>
       <div className="hero-books"></div>

@@ -9,9 +9,11 @@ const convertToArabic = (pathSegment) => {
     case 'about':
       return 'من نحن ';
     case 'services':
-        return 'الاستشارات '
+        return 'الاستشارات ';
     case 'instructors':
-       return 'المستشارين '
+       return 'المستشارين ';
+         case 'contact':
+       return 'تواصل معنا  ';
     // Add more cases as needed for different path segments
     default:
       return pathSegment;

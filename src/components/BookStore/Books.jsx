@@ -8,7 +8,7 @@ import FilterBooks from './FilterBooks';
 
 const BookApp = () => {
   const [books, setBooks] = useState(booksData);
-  const categories = ['مجانى', 'إشتراك']; // Sample categories
+  const categories = ['حوكمة', 'جودة','تنمية موارد','تسويق','ادارة']; // Sample categories
 
   const handleCategorySelect = (selectedCategory) => {
     if (selectedCategory === '') {
@@ -21,7 +21,7 @@ const BookApp = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4 text-center">مكتبة الكتب  </h1>
+      <h1 className="text-center mb-4 text-center-book">مكتبة الكتب  </h1>
       <FilterBooks categories={categories} onSelectCategory={handleCategorySelect} />
       <BookList books={books} />
     </div>

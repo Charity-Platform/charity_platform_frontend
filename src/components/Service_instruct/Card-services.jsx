@@ -21,7 +21,7 @@ const Card_services = () => {
   ];
 
   return (
-    <div className='card-total'>
+    <div className='card-total' dir='rtl'>
    <Container>
       <Row xs={1} md={2} lg={3} xl={4} className="g-4">
         {cardData.map((card) => (
@@ -29,7 +29,7 @@ const Card_services = () => {
             <Card style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }} className='card-service'>
               {/* <Card.Img variant="top" src={card.imageUrl} className='image-card' /> */}
               <Card.Body>
-                <Card.Title className="mb-0">{card.title}</Card.Title>
+                <Card.Title className="mb-0" >{card.title}</Card.Title>
                 <Card.Text className="text-muted mb-2">{card.description}</Card.Text>
                 <div className="d-flex justify-content-between align-items-center">
                  

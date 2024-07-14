@@ -1,14 +1,16 @@
 import React from 'react'
 import NavBar from '../../components/HomePage/NavBar/NavBar'
-import ContactHero from '../../components/Contact/ContactHero'
 import ContactForm from '../../components/Contact/ContactForm'
+import Footer from '../../components/HomePage/Footer/Footer'
+import Back from '../../components/Back/Back'
 
 const Contact = () => {
   return (
     <div>
       <NavBar/>
-      <ContactHero/>
+      <Back title="تواصل معنا "/>
       <ContactForm/>
+      <Footer/>
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { Card, Col, Row } from 'react-bootstrap'; // Import Bootstrap components
 
 const BookList = ({ books }) => {
   return (
-    <Row xs={1} md={2} lg={4} className="g-4 mb-5">
+    <Row xs={1} md={2} lg={4} className="g-4 mb-5 text-center">
       {books.map((book) => (
         <Col key={book.id}>
           <Card className="h-1 shadow-sm card-books">
