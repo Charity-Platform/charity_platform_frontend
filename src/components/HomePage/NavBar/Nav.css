@@ -15,6 +15,10 @@
 }
 .icon-user i{
   font-size: 22px;
+  color: #07a79d;
+}
+.icon-user i:hover{
+    color: black;
 }
 .toggle{
     width: 120px;

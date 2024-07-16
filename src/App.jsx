@@ -8,6 +8,7 @@ import Services from "./pages/Services/Services";
 import Cources from './pages/Cources/Cources'
 import Books from "./pages/BookStore/Books";
 import Contact from "./pages/Contact/Contact";
+import Login from "./components/LoginAndRegister/Login";
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,8 @@ function App() {
           <Route path="/Cources" element={<Cources />} />
           <Route path="/books" element={<Books />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login/>} />
+
 
 
 

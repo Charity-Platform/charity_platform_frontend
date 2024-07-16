@@ -1,0 +1,14 @@
+.button-signup button{
+    background-color: #07a79d;
+    color: #fff;
+    margin: 5px;
+    padding:5px;
+    padding-left: 5px;
+}
+.button-signup .icone{
+    margin-left: 5px;
+}
+.hashtag{
+    text-decoration: none;
+    
+}

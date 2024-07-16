@@ -2,8 +2,9 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/logo.png'
+import Login from '../../LoginAndRegister/Login';
 import './Nav.css';
 
 const NavBar = () => {
@@ -27,7 +28,9 @@ const NavBar = () => {
             </Nav>
           </Navbar.Collapse>
           <div className='icon-user'>
+            <Link to="/login">
             <i className="fa-solid fa-user"> حسابى</i>
+            </Link>           
           </div>
         </Container>
       </Navbar>
