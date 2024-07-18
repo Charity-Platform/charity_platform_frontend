@@ -9,6 +9,8 @@ import Cources from './pages/Cources/Cources'
 import Books from "./pages/BookStore/Books";
 import Contact from "./pages/Contact/Contact";
 import Login from "./components/LoginAndRegister/Login";
+import Blog from "./pages/Blogs/Blog";
+import FormBlog from "./components/Blogs/FormBlog";
 function App() {
   return (
     <div className="App">
@@ -22,6 +24,10 @@ function App() {
           <Route path="/books" element={<Books />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/blog" element={<Blog/>} />
+          <Route path="/FormBlog" element={<FormBlog/>} />
+
+
 
 
 

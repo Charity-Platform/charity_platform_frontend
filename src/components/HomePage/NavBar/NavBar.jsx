@@ -24,6 +24,7 @@ const NavBar = () => {
               <Nav.Link as={NavLink} to="/instructors">المستشارين</Nav.Link>
               <Nav.Link as={NavLink} to="/Cources">مبادرة واعى</Nav.Link>
               <Nav.Link as={NavLink} to="/books">المكتبة الخيرية</Nav.Link>
+              <Nav.Link as={NavLink} to="/blog"> مدونة الخير </Nav.Link>
               <Nav.Link as={NavLink} to="/contact">تواصل معنا</Nav.Link>
             </Nav>
           </Navbar.Collapse>
