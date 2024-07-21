@@ -2,7 +2,7 @@ import React from 'react';
 import './Blog.css';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import FormBlog from '../../components/Blogs/FormBlog'
+
 const Blog = () => {
   return (
     <div className="blog">

@@ -1,0 +1,158 @@
+.sidebar {
+    background-color: #f8f9fa;
+    height: 100vh;
+    
+  }
+  .card{
+    width: 60%;
+  }
+  .card-body{
+  align-items: center;
+
+}
+.btn-publisher{
+  background-color: #07a79d;
+  color: #fff;
+  font-size: 18px;
+  padding: 5px 40px;
+}
+.img-fluid{
+    width:100%;
+    direction: rtl;
+    
+  }
+  .btn-group{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    padding: 5px;
+  }
+  .btn-comunity{
+    display: flex;
+    padding: 10px;
+    margin-left: 10px;
+    border: none;
+    font-size: 18px;
+
+  }
+ 
+  .post-list {
+    padding: 20px;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .sidebar {
+  background-color: #f8f9fa; /* Light gray background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for better visibility */
+}
+
+.btn-comunity {
+  width: 100%; /* Ensure buttons take full width of container */
+  display: flex;
+  justify-content: flex-start; /* Align icons and text to the start */
+  align-items: center;
+  padding: 10px 40px; /* Padding for better touch area */
+  font-size: 1.2rem; /* Increase font size for better readability */
+ background-color: #07a79d;
+ color: #fff;
+}
+.btn-title{
+  color: #fff;
+  text-decoration: none;
+}
+.btn-comunity:hover{
+ background-color: #908f8f;
+ color: #fff;
+}
+
+
+.btn-comunity i {
+  margin-right: 5px; /* Space between icon and text */
+ font-size: 20px;
+}
+
+.btn-group-vertical > .btn {
+  border-radius: 5px; /* Slightly round the button corners */
+  margin-bottom: 10px; /* Space between buttons */
+}
+
+.btn-group-vertical > .btn:last-child {
+  margin-bottom: 0; /* Remove margin for the last button */
+}
+
+
+/* sidebar style  */
+.friend-image {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 50%; /* Make the image circular */
+  margin-right: 10px; 
+
+}
+
+.list-group-item {
+  cursor: pointer; /* Make list items appear clickable */
+}
+.liftSidbar{
+background-color: #07a79d;
+}
+.list-group-item:hover {
+  background-color: #f8f9fa; /* Change background color on hover */
+}
+
+
+.btn-sidebar{
+  padding: 5px 15px;
+  text-align: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  background-color: #fff;
+  font-size: 20px;
+}
+
+/* card style */
+
+.card-title{
+  background-color: #eee;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+.card-text{
+  direction: rtl;
+}
+  
+  @media (max-width:567px){ 
+     .right-sidbar{
+     order:1;
+     height: 30vh;
+     margin-bottom: 30px;
+     
+    }
+    .card{
+      width: 100%;
+      order: 2;
+    }
+  
+    .left-sidbar{
+      order: 2;
+      height: 20vh;
+      margin-bottom: 15vh;
+    }
+    .btn-comunity {
+      width: 100%; /* Ensure buttons take full width of container */
+      display: flex;
+      justify-content: flex-start; /* Align icons and text to the start */
+      align-items: center;
+      padding: 10px 100px; /* Padding for better touch area */
+   
+    }
+   
+  }
