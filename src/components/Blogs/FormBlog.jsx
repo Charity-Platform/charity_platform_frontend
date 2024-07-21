@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, ProgressBar, Card } from 'react-bootstrap';
-
+import './Blog.css';
+import { Link } from 'react-router-dom';
 
 const FormBlog = () => {
     const [step, setStep] = useState(1);
@@ -35,9 +36,7 @@ const FormBlog = () => {
       switch (step) {
         case 1:
           return (
-
-          
-            <Form> 
+            <Form className='FormBlog '> 
               <Form.Group controlId="formName">
                 <Form.Label>الأسم </Form.Label>
                 <Form.Control
@@ -99,10 +98,14 @@ const FormBlog = () => {
               <Button variant="secondary" onClick={prevStep}>
                 السابق 
               </Button>
+              <Link to='/comunity'>
               <Button variant="primary" type="submit" className="ml-2">
                 إرسال الطلب 
               </Button>
-            </Form>
+              </Link>
+              
+            </Form>  
+       
           );
         default:
           return null;
@@ -119,7 +122,7 @@ const FormBlog = () => {
           {renderStep()}
         </Card>
       </Container>
-       
+   
     );
    
   };

@@ -11,6 +11,8 @@ import Contact from "./pages/Contact/Contact";
 import Login from "./components/LoginAndRegister/Login";
 import Blog from "./pages/Blogs/Blog";
 import FormBlog from "./components/Blogs/FormBlog";
+import Comunity from "./pages/Comunity/Comunity";
+
 function App() {
   return (
     <div className="App">
@@ -26,6 +28,8 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/blog" element={<Blog/>} />
           <Route path="/FormBlog" element={<FormBlog/>} />
+          <Route path="/comunity" element={<Comunity/>} />
+
 
 
 
