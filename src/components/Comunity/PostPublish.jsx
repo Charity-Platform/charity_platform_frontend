@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import './Comunity.css';
 const PostPublish = ({ addPost }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -12,6 +12,7 @@ const PostPublish = ({ addPost }) => {
         addPost({ title, content ,image});
         setTitle('');
         setContent('');
+       
       }
     };
     const handleImageChange = (e) => {
@@ -19,7 +20,7 @@ const PostPublish = ({ addPost }) => {
       };
   
     return (
-      <div className="card mb-3">
+      <div className="card mb-3 card-comunity">
         <div className="card-body">
           <form onSubmit={handleSubmit}>
             <div className="mb-3">

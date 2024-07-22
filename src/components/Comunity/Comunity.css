@@ -3,11 +3,12 @@
     height: 100vh;
     
   }
-  .card{
+  .card-comunity{
     width: 60%;
   }
   .card-body{
   align-items: center;
+
 
 }
 .btn-publisher{
@@ -42,7 +43,7 @@
     padding: 20px;
   }
   
-  .card {
+  .card-comunity {
     margin-bottom: 20px;
   }
 
@@ -119,13 +120,13 @@ background-color: #07a79d;
 
 /* card style */
 
-.card-title{
+.card-comunity-title{
   background-color: #eee;
   padding: 5px;
   border-radius: 5px;
   text-align: center;
 }
-.card-text{
+.card-comunity-text{
   direction: rtl;
 }
   

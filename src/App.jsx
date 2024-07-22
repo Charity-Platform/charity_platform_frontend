@@ -12,6 +12,7 @@ import Login from "./components/LoginAndRegister/Login";
 import Blog from "./pages/Blogs/Blog";
 import FormBlog from "./components/Blogs/FormBlog";
 import Comunity from "./pages/Comunity/Comunity";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
           <Route path="/blog" element={<Blog/>} />
           <Route path="/FormBlog" element={<FormBlog/>} />
           <Route path="/comunity" element={<Comunity/>} />
+          <Route path="/profile" element={<Profile/>} />
+
 
 
 
