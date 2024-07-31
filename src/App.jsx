@@ -13,10 +13,15 @@ import Blog from "./pages/Blogs/Blog";
 import FormBlog from "./components/Blogs/FormBlog";
 import Comunity from "./pages/Comunity/Comunity";
 import Profile from "./components/Profile/Profile";
+import DashBoard from "./pages/dashboard/DashBoard";
+import AllUser from './components/dashboard/AllUser'
+import Instructordash from './components/dashboard/InstractorDash'
+import BlogsDash from './components/dashboard/BlogsDash'
 
 function App() {
   return (
     <div className="App">
+     
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -31,16 +36,16 @@ function App() {
           <Route path="/FormBlog" element={<FormBlog/>} />
           <Route path="/comunity" element={<Comunity/>} />
           <Route path="/profile" element={<Profile/>} />
+          <Route path="/dashboard" element={<DashBoard/>} />
+          <Route path="/instructordash" element={<Instructordash/>} />
+          <Route path="/allUser" element={<AllUser/>} />
+          <Route path="/blogsDash" element={<BlogsDash/>} />
 
 
-
-
-
-
-
-
+  
         </Routes>
       </Router>
+    
     </div>
   );
 }
