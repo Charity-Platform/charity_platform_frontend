@@ -152,3 +152,14 @@ footer h4 a {
   text-decoration: none;
   color: #07a79d;
 }
+
+@media(max-width:768px){
+  .content-profile-page {
+    width: 100%;
+  }
+  .profile-user-page .img-user-profile .profile-bgHome {
+    border-bottom: .2em solid #f5f5f5;
+    width: 100%;
+    height: 16em;
+    }
+}

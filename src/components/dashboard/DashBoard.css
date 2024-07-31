@@ -1,0 +1,12 @@
+/* right page design  */
+.img-thumbnail{
+    border-radius: 50%;
+    width: 80%;
+    height: 80px;
+    background-position: center;
+    background-size: cover;
+}
+.text-dashboard-title{
+    display: flex;
+    margin: 10px;
+}
