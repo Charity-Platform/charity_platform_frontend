@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.css";
 import axios from "axios";
 import Loading from "./Loading";
-
+import { useNavigate } from 'react-router-dom';
 // function for login
 const Login = () => {
   const [activeTab, setActiveTab] = useState("signin");
@@ -23,10 +23,22 @@ const Login = () => {
   const [phone, setphone] = useState("");
   const [password, setpassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // لإعادة توجيه المستخدم
+  const [activationCode, setActivationCode] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+
 
   const handleSignup = async (event) => {
     event.preventDefault();
+    
+    if (!email || !password || !name || !phone) {
+      alert("يرجى إدخال كل من البيانات لتسجيل حساب   .");
+      return;
+    }
     setIsLoading(true);
+    setErrorMessage("");
     try {
       const response = await axios.post(
         "https://charity-platform-backend.onrender.com/api/auth/signup",
@@ -51,11 +63,10 @@ const Login = () => {
           if (errorData.phone) message += `خطأ في الهاتف: ${errorData.phone}\n`;
           if (errorData.password)
             message += `خطأ في كلمة المرور: ${errorData.password}\n`;
-          alert(message || "حدث خطا حاول التأكد من البيانات ");
+          setErrorMessage(message || "حدث خطأ حاول التأكد من البيانات.");
         } else {
-          alert("حدث خطا حاول التأكد من البيانات ");
-          setIsLoading(false);
-        }
+        setErrorMessage("حدث خطأ حاول التأكد من البيانات.");
+      }
       }
     } finally {
       setIsLoading(false); // إيقاف التحميل
@@ -63,26 +74,24 @@ const Login = () => {
   };
 
   // activate email code
-  const [activationCode, setActivationCode] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+ 
  
 
   const handleActivation = async (event) => {
     event.preventDefault();
     setErrorMessage("");
 
-    if (!email || !activationCode) {
-      setErrorMessage("يرجى إدخال كل من البريد الإلكتروني ورمز التفعيل.");
+    if (!activationCode) {
+      setErrorMessage("يرجى إدخال رمز التفعيل.");
       return;
     }
-
+    setIsLoading(true);
     try {
       const response = await axios.post(
         "https://charity-platform-backend.onrender.com/api/auth/verify-email",
         {
-          email: email, // تأكد من إرسال البريد الإلكتروني الصحيح
-          code: activationCode, // تأكد من إرسال الكود الصحيح
+          
+          emailVerifyCode: activationCode, 
         }
       );
     
@@ -91,7 +100,7 @@ const Login = () => {
 
       if (response.status === 200) {
         setIsVerified(true);
-        window.location.href = "/login"; // التحويل بعد نجاح التحقق فقط
+        window.location.href = '/login';               // التحويل بعد نجاح التحقق فقط
       } else {
         setErrorMessage("الرمز غير صحيح. حاول مرة أخرى.");
       }
@@ -101,7 +110,9 @@ const Login = () => {
         error.response ? error.response.data : error.message
       );
       setErrorMessage("حدث خطأ في عملية التحقق. حاول مرة أخرى.");
-     }
+     }finally {
+      setIsLoading(false);
+    }
   };
 
 
@@ -129,32 +140,106 @@ const Login = () => {
   
   }
 
+//verifypass resend code verification 
+
+// const verifypassresendcode =async (event)=>{
+//   event.preventDefault();
+
+//   try{
+//    const response = await axios.post('https://charity-platform-backend.onrender.com/api/auth/verify-reset-code',{
+//     resetCode : activationCode
+//    });
+//      // تحقق مما إذا كانت عملية إعادة الإرسال ناجحة
+//      if (response.status === 200) {
+//       console.log(response.data)
+//       setIsVerified(true);
+//       navigate("/services");
+//      } else {
+//        alert('لم يتم إرسال الكود. حاول مرة أخرى.');
+//      }
+
+//   }catch(error){
+//     alert('حاول ارسال الكود مره اخرى ' , error.response ? error.response.data : error.message);
+//   }
+ 
+ 
+ 
+//  }
 
   // login handel 
 
   const handelLogin =async (event)=>{
    event.preventDefault();
-   setIsLoading(true);
+
+    if (!email || !password) {
+      alert("يرجى إدخال كل من البريد الإلكتروني والباسورد  .");
+      return;
+    }
+    setIsLoading(true);
+    setErrorMessage("");
+
    try {
+   
      const response = await axios.post(
-       "https://charity-platform-backend.onrender.com//api/auth/login",
+       "https://charity-platform-backend.onrender.com/api/auth/login",
        {
-         email: email,
-         password: password,
+        email: email,
+        password: password,
        }
      );
+    
      if (response.status === 200) {
-      
-      window.location.href = "/services"; // التحويل بعد نجاح التحقق فقط
+       // تخزين اسم المستخدم في localStorage
+       localStorage.setItem("username", response.data.name);
+       navigate("/services"); // التحويل بعد نجاح التحقق فقط
     } else {
       setErrorMessage("توجد مشكله تأكد من ان لديك حساب فى المنصة ");
+      
     }
   } catch(error){
-    alert('مشكله ف البريد الالكترونى او الباسورد تأكد من تسجيل حساب ' ,error);
-
+    setErrorMessage('مشكله ف البريد الالكترونى او الباسورد تأكد من تسجيل حساب ' ,error);
+    
+  }finally {
+    setIsLoading(false);
   }
 }
-  return (
+  
+//handel forgetpassword
+const forgitpassword = async (event)=>{
+    event.preventDefault();
+    setIsLoading(true);
+    setErrorMessage("");
+
+    if (!email) {
+      setErrorMessage("يرجى إدخال كل من البريد الإلكتروني لإرسال ورمز التفعيل.");
+      setIsLoading(false);
+      return;
+    }
+  try{
+    const response = await axios.post("https://charity-platform-backend.onrender.com/api/auth/forgot-password",{
+     email : email
+    });
+    console.log(response.data);
+    
+
+    if (response.status === 200) {
+      setShowVerification(true); 
+    
+    } else {
+      setErrorMessage("تأكد من البريد الخاص بك و حاول مرة أخرى.");
+    }
+  }catch(error){
+    setErrorMessage('من فضلك اعد المحاولة مره اخرى ' ,error);
+      
+
+  }finally {
+    setIsLoading(false);
+  }
+}
+
+
+
+return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       {isLoading ? (
         <Loading /> // عرض مؤشر التحميل أثناء انتظار الاستجابة
@@ -354,7 +439,7 @@ const Login = () => {
 
                 {activeTab === "forgotpassword" && (
                   <div className="tab-pane fade show active">
-                    <form onSubmit="">
+                    <form onSubmit={forgitpassword}>
                       <div className="mb-3">
                         <div className="input-group">
                           <div className="input-group-prepend">
@@ -366,8 +451,8 @@ const Login = () => {
                             type="email"
                             className="form-control"
                             placeholder="أدخل بريدك الإلكتروني"
-                            value={emailactiv}
-                            onChange={(e) => setEmailactiv(e.target.value)}
+                            value={email}
+                            onChange={(e) => setemail(e.target.value)}
                             required
                           />
                         </div>
@@ -376,12 +461,19 @@ const Login = () => {
                         <button
                           className="btn btn-primary btn-block mb-2"
                           type="submit"
+                          // تعطيل الزر أثناء التحميل
                         >
-                          <FaMousePointer className="mr-2 icone" /> إرسال رمز
-                          التحقق
-                        </button>
-                      </div>
-                    </form>
+                         {isLoading ? 'جاري الإرسال...' : (
+            <>
+              <FaMousePointer className="mr-2 icone"  /> إرسال رمز التحقق
+            </>
+          )}
+        </button>
+        {errorMessage && (
+          <p style={{ color: "red" }}>{errorMessage}</p>
+        )}
+      </div>
+    </form>
                   </div>
                 )}
               </div>
