@@ -27,3 +27,76 @@
     color: #000;
     transition: 0.4s;
   }
+/* the style of active pass  */
+.activation-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: #f0f2f5; /* Light background for the page */
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.activation-container {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  margin: 5px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.activation-container h2,
+.activation-container h4 {
+  color: #333;
+  font-weight: bold;
+}
+
+.activation-container h4 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+}
+
+.form-control {
+  height: calc(2.5rem + 2px);
+  border: 1px solid #ced4da;
+  padding: 0.375rem 0.75rem;
+}
+
+.btn-primary {
+  background-color: #00bfa6;
+  border-color: #00bfa6;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #00a895;
+  border-color: #009b87;
+}
+
+.resend-code {
+  margin-top: 10px;
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.resend-code:hover {
+  color: #0056b3;
+}
+
+
+/* rechange passsword  */
+.update-password-page{
+ background-color: #fff;
+ padding: 60px;
+ border-radius: 10px;
+ box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}

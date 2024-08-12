@@ -5,10 +5,13 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import './Nav.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const [username, setUsername] = useState('');
-
+  const navigate = useNavigate(); 
+  
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
     if (storedUsername) {
@@ -19,7 +22,7 @@ const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("username");
     setUsername('');
-    window.location.href = "/"; // إعادة توجيه المستخدم بعد تسجيل الخروج
+    navigate("/") // إعادة توجيه المستخدم بعد تسجيل الخروج
   };
 
   return (

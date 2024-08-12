@@ -11,8 +11,11 @@ import "./login.css";
 import axios from "axios";
 import Loading from "./Loading";
 import { useNavigate } from 'react-router-dom';
+
+
+
 // function for login
-const Login = () => {
+function Login (){
   const [activeTab, setActiveTab] = useState("signin");
 
   // state for sign up
@@ -118,7 +121,7 @@ const Login = () => {
 
   //resend verification code 
 
-  const handelresendcode =async (event)=>{
+   const handelresendcode =async (event) =>{
    event.preventDefault();
 
    try{
@@ -140,31 +143,6 @@ const Login = () => {
   
   }
 
-//verifypass resend code verification 
-
-// const verifypassresendcode =async (event)=>{
-//   event.preventDefault();
-
-//   try{
-//    const response = await axios.post('https://charity-platform-backend.onrender.com/api/auth/verify-reset-code',{
-//     resetCode : activationCode
-//    });
-//      // تحقق مما إذا كانت عملية إعادة الإرسال ناجحة
-//      if (response.status === 200) {
-//       console.log(response.data)
-//       setIsVerified(true);
-//       navigate("/services");
-//      } else {
-//        alert('لم يتم إرسال الكود. حاول مرة أخرى.');
-//      }
-
-//   }catch(error){
-//     alert('حاول ارسال الكود مره اخرى ' , error.response ? error.response.data : error.message);
-//   }
- 
- 
- 
-//  }
 
   // login handel 
 
@@ -191,7 +169,8 @@ const Login = () => {
      if (response.status === 200) {
        // تخزين اسم المستخدم في localStorage
        localStorage.setItem("username", response.data.name);
-       navigate("/services"); // التحويل بعد نجاح التحقق فقط
+      
+       navigate("/"); // التحويل بعد نجاح التحقق فقط
     } else {
       setErrorMessage("توجد مشكله تأكد من ان لديك حساب فى المنصة ");
       
@@ -223,8 +202,8 @@ const forgitpassword = async (event)=>{
     
 
     if (response.status === 200) {
-      setShowVerification(true); 
-    
+      // setShowVerification(true); 
+      navigate("/activePass", { state: { email: email } });
     } else {
       setErrorMessage("تأكد من البريد الخاص بك و حاول مرة أخرى.");
     }
