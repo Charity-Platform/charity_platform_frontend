@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaEnvelope,
   FaPhone,
@@ -11,6 +11,7 @@ import "./login.css";
 import axios from "axios";
 import Loading from "./Loading";
 import { useNavigate } from 'react-router-dom';
+import { User } from "../../Context/Context";
 
 
 
@@ -31,7 +32,8 @@ function Login (){
   const [isVerified, setIsVerified] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-
+  const UserNow = useContext(User);
+console.log(UserNow);
 
   const handleSignup = async (event) => {
     event.preventDefault();
@@ -165,11 +167,14 @@ function Login (){
         password: password,
        }
      );
-    
+   console.log(response);
      if (response.status === 200) {
+
+      const token =response.data.token ;
+      console.log(token);
        // تخزين اسم المستخدم في localStorage
-       localStorage.setItem("username", response.data.name);
-      
+       //localStorage.setItem("username", response.data.name);
+       UserNow.setauth({token});
        navigate("/"); // التحويل بعد نجاح التحقق فقط
     } else {
       setErrorMessage("توجد مشكله تأكد من ان لديك حساب فى المنصة ");

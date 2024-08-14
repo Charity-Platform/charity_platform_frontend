@@ -49,6 +49,7 @@ const Rechangepass = () => {
           {
             password: newPassword,
             passwordConfirm: confirmPassword,
+            resetCode: token, // Use this if the token is actually a reset code
           },
           {
             headers: {
@@ -56,6 +57,7 @@ const Rechangepass = () => {
             },
           }
         );
+        
         if (response.status === 200) {
           alert("تم تغيير كلمة المرور بنجاح."); // Optional success message
           navigate("/login");

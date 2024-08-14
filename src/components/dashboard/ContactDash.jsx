@@ -1,25 +1,44 @@
-import React from 'react'
 import RightSide from './RightSide'
 import { Container, Row, Col, Card, Button, Modal } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import './DashBoard.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
+
 const ContactDash = () => {
 
 
    // Static data for demonstration
-   const [contacts, setContacts] = useState([
-    { id: 1, name: 'Ahmed Ali', message: 'Hello, I need assistance with my account.' },
-    { id: 2, name: 'Sara Mohamed', message: 'Can you help with my recent order?' },
-    { id: 3, name: 'ali helal', message: 'I have a question about your services.' },
-    { id: 4, name: 'zahra Ali', message: 'Hello, I need assistance with my account.' },
-    { id: 5, name: 'amal Mohamed', message: 'Can you help with my recent order?' },
-    { id:6, name: 'ahmed anwer', message: 'I have a question about your services.' }
-  ]);
-
+   const [contacts, setContacts] = useState([]);
   const [showDeleteAllModal, setShowDeleteAllModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedContact, setSelectedContact] = useState(null);
+  const location = useLocation();
+
+  // Extract the token from the query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token"); // get the token value
+  console.log("Token:", token);
+
+  if (!token) {
+    console.log("Token is missing. Please provide a valid token.");
+    // Optionally, redirect the user to a login page
+  }
+  
+ // Fetch contacts from the API when the component mounts
+ useEffect(() => {
+  axios.get('https://charity-platform-backend.onrender.com/api/contact-us').then(response =>{
+    setContacts(response.data);
+    console.log(response.data);
+  }) .catch(error => {
+    if (error.response && error.response.status === 401) {
+      console.log("Unauthorized access. Please check your credentials.");
+      // Optionally, redirect the user to a login page
+    } else {
+      console.error("There was an error fetching the contacts!", error);
+    }
+  });
+ }, [])
 
   const handleViewDetails = (contact) => {
     setSelectedContact(contact);

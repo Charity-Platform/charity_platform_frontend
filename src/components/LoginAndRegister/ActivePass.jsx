@@ -1,10 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaLock, FaMousePointer } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import "./login.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useLocation } from 'react-router-dom';
+import { User } from '../../Context/Context';
 
 const ActivePass = () => {
 
@@ -16,7 +17,7 @@ const ActivePass = () => {
     const navigate = useNavigate(); // لإعادة توجيه المستخدم
     const location = useLocation();
     const email = location.state?.email;
-   
+   const {auth} =useContext(User);
    
 
     const handleActivationpass = async (event) => {
@@ -35,16 +36,21 @@ const ActivePass = () => {
             {
               
               resetCode: activationCode, 
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${auth?.token}`,
+                },
             }
           );
         
             
-          console.log(response.data);
+          console.log('Token received:', response.data.token);
     
           if (response.status === 200) {
             console.log("done code activation for password");
             setIsVerified(true);
-            navigate(`/rechangepass?token=${activationCode}`); // التحويل بعد نجاح التحقق فقط
+            navigate(`/rechangepass?token=${auth?.token}`); // التحويل بعد نجاح التحقق فقط
                           
           } else {
             setErrorMessage("الرمز غير صحيح. حاول مرة أخرى.");
