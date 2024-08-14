@@ -1,8 +1,8 @@
 
 import { Link } from 'react-router-dom'
 import './DashBoard.css';
-import { FaBriefcase, FaHome, FaUsers } from 'react-icons/fa';
-
+import { FaBriefcase, FaHome, FaUsers  } from 'react-icons/fa';
+import { IoIosContacts } from "react-icons/io";
 
 const RightSide = () => {
   return (
@@ -34,7 +34,11 @@ const RightSide = () => {
         <FaUsers className='me-2' /> المستشارين
       </Link>
       </button>
-     
+      <button className="btn-comunity btn  d-flex align-items-center">
+      <Link to='/ContactDash' className='btn-title'>
+        <IoIosContacts  className='me-2' /> تواصل معنا
+      </Link>
+      </button>
     </div>
   </div>
   )

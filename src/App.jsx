@@ -19,6 +19,7 @@ import Instructordash from './components/dashboard/InstractorDash'
 import BlogsDash from './components/dashboard/BlogsDash'
 import ActivePass from "./components/LoginAndRegister/ActivePass";
 import Rechangepass from "./components/LoginAndRegister/Rechangepass";
+import ContactDash from "./components/dashboard/ContactDash";
 
 function App() {
   return (
@@ -44,6 +45,8 @@ function App() {
           <Route path="/blogsDash" element={<BlogsDash/>} />
           <Route path="/activePass" element={<ActivePass/>} />
           <Route path="/rechangepass" element={<Rechangepass/>} />
+          <Route path="/ContactDash" element={<ContactDash/>} />
+
 
 
 
