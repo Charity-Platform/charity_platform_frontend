@@ -16,8 +16,8 @@ const ActivePass = () => {
     const navigate = useNavigate(); // لإعادة توجيه المستخدم
     const location = useLocation();
     const email = location.state?.email;
-
-
+   
+   
 
     const handleActivationpass = async (event) => {
         event.preventDefault();
@@ -29,20 +29,22 @@ const ActivePass = () => {
         }
         setIsLoading(true);
         try {
+          
           const response = await axios.post(
             "https://charity-platform-backend.onrender.com/api/auth/verify-reset-code",
             {
               
-                resetCode: activationCode, 
+              resetCode: activationCode, 
             }
           );
         
-            setIsLoading(true);
+            
           console.log(response.data);
     
           if (response.status === 200) {
+            console.log("done code activation for password");
             setIsVerified(true);
-            navigate("/rechangepass");  // التحويل بعد نجاح التحقق فقط
+            navigate(`/rechangepass?token=${activationCode}`); // التحويل بعد نجاح التحقق فقط
                           
           } else {
             setErrorMessage("الرمز غير صحيح. حاول مرة أخرى.");
