@@ -1,69 +1,113 @@
+/* Nav.css */
 
- .logo .img{
+/* General styles */
+.logo .img {
     width: 110px;
     margin-left: 25px;
     padding: 0;
- }
- .Nav{
-    font-size: 18px;
-    font-weight: 500;
-}
-.icon-user{
-    margin-right: 20px;
-    width: 80px;
-   color: #07a79d;
-}
-.icon-user i{
-  font-size: 22px;
-  color: #07a79d;
-}
-.icon-user i:hover{
-    color: black;
-}
-.toggle{
-    width: 120px;
-    padding: 5px 20px;
-   
-}
-
-
-/* Nav.css */
-.dropdown .dropdown-toggle{
-    background-color: #07a79d;
-}
-.dropdown-menu {
-    background-color: #f8f9fa; /* Light gray background for testing */
   }
   
-
-@media (max-width: 576px) {
-    .logo .img{
-        width: 100px;
-        height: auto;
+  .Nav {
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .icon-user {
+    margin-right: 20px;
+    width: 80px;
+    color: #07a79d;
+    display: flex;
+    align-items: center;
+  
+  }
+  
+  .icon-user i {
+    font-size: 22px;
+    color: #07a79d;
+  }
+  
+  .icon-user i:hover {
+    color: black;
+  }
+  
+  .toggle {
+    width: 120px;
+    padding: 5px 20px;
+  }
+  .icon-user .avatar {
+    color: #07a79d; /* Adjust to a color that stands out */
+    font-size: 22px; /* Modify as needed for better visibility */
+    display: flex;
+    align-items: center;
+    margin: 15px;
+    background-color: #000;
+    border-radius: 50%;
+  
+  }
+  
+  .icon-user .avatar:hover {
+    background-color: #07a79d; /* Optional: Change color on hover for better interaction feedback */
+  }
+  .logout-btn{
+    border: none;
+    background-color: #07a79d;
+    border-radius: 10px;
+    color: #fff;
+    margin: 5px;
+    padding: 5px 15px ;
+  }
+  /* User icon and buttons display logic */
+  @media (max-width: 768px) {
+    /* Adjust button display for mobile screens */
+    .icon-user .avatar {
+      display: block !important; /* Ensure the avatar is visible when logged in */
+      margin: 5px;
+      width: 40px;
+      height: 40px;
+    }
+    .icon-user .logout-btn {
+      display: block !important; /* Ensure the logout button is visible when logged in */
+    }
+  
+    /* Default display of login buttons on small screens */
+    .icon-user .login-buttons {
+      display: flex;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .logo .img {
+      width: 100px;
+      height: auto;
     }
   
     .toggle {
-        width: 80px;
+      width: 80px;
+      padding: 5px;
+    }
+  
+    .icon-user {
+      width: 95px;
+    }
+  
+    .icon-user i {
+      margin-right: 5px;
+      font-size: 21px;
+      color: #07a79d;
+    }
+  
+    .Nav {
+      font-size: 20px;
+      font-weight: 500;
+    }
+  
+    .dropdown .dropdown-toggle {
+      margin-left: 30px;
+      padding: 5px;
+      border-radius: 30px;
+    }
+    .logout-btn{
         padding: 5px ;
-    }
-    .icon-user{
-       width:80px;
-      
-    }
-    .icon-user i{
-        margin-right: 5px;
-       font-size: 21px;
-       color: #07a79d;
-       
-    }
-    .Nav{
-        font-size: 20px;
-        font-weight: 500;
-    }
-    .dropdown .dropdown-toggle{
-       margin-left: 30px;
-       padding: 5px;
-       border-radius: 30px;
-
-    }
-}
+      }
+  }
+  

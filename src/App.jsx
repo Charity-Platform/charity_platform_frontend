@@ -20,6 +20,9 @@ import BlogsDash from './components/dashboard/BlogsDash'
 import ActivePass from "./components/LoginAndRegister/ActivePass";
 import Rechangepass from "./components/LoginAndRegister/Rechangepass";
 import ContactDash from "./components/dashboard/ContactDash";
+import RequireAuth from "./components/LoginAndRegister/RequireAuth";
+import Questions from './components/dashboard/questions'
+import AllQuestions from "./components/dashboard/AllQuestions";
 
 function App() {
   return (
@@ -31,11 +34,13 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/instructors" element={<Instructors />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+       <Route element={<RequireAuth/>}>
           <Route path="/Cources" element={<Cources />} />
           <Route path="/books" element={<Books />} />
-          <Route path="/contact" element={<Contact />} />
+           <Route path="/blog" element={<Blog/>} />
+      </Route>
           <Route path="/login" element={<Login/>} />
-          <Route path="/blog" element={<Blog/>} />
           <Route path="/FormBlog" element={<FormBlog/>} />
           <Route path="/comunity" element={<Comunity/>} />
           <Route path="/profile" element={<Profile/>} />
@@ -46,6 +51,10 @@ function App() {
           <Route path="/activePass" element={<ActivePass/>} />
           <Route path="/rechangepass" element={<Rechangepass/>} />
           <Route path="/ContactDash" element={<ContactDash/>} />
+          <Route path="/questions" element={<Questions/>} />
+          <Route path="/allquestions" element={<AllQuestions/>} />
+
+
 
 
 
