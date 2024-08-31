@@ -1,19 +1,17 @@
 /* right page design  */
 .img-thumbnail{
-    border-radius: 50%;
-    width: 80%;
-    height: 80px;
+    border-radius: 60%;
     background-position: center;
     background-size: cover;
 }
 .text-dashboard-title{
     display: flex;
-    margin: 10px;
+    margin:10px;
 }
 
 /* design for contact us  */
 .form-page {
-    margin-top: 20px;
+    margin-top: 30px;
   }
   
   .btn-contact {
@@ -28,3 +26,133 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
   
+
+  /* design all user  */
+/* DashBoard.css *//* DashBoard.css */
+.page-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40; /* Dark gray color for text */
+}
+
+.container-fluid {
+  padding: 20px;
+}
+
+.main-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+}
+
+.card-header {
+  background-color: #07a79d; /* Bootstrap primary color */
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 1px solid #dee2e6; /* Light border for header */
+}
+
+.user-table {
+  margin-top: 1rem;
+}
+
+.user-table thead th {
+  background-color: #07a79d; /* Light gray background for table header */
+  color: #fff; /* Darker text color for contrast */
+}
+
+.user-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* Alternating row colors for readability */
+}
+
+.user-table tbody tr:hover {
+  background-color: #e2e6ea; /* Highlight row on hover */
+}
+
+/* Style for RightSide component */
+.right-side {
+  position: -webkit-sticky; /* For Safari */
+  position: sticky;
+  top: 20px; /* Adjust as needed */
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-left: 1px solid #dee2e6; /* Light border for separation */
+  height: calc(100vh - 20px); /* Adjust based on your needs */
+}
+
+
+/* instructor design */
+/* DashBoard.css */
+.container-fluid {
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.card {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+/* home dashbord design  */
+
+/* HomeDash.css */
+.dashboard {
+  background-color: #f8f9fa;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+.small-box {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.small-box .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.small-box .d-flex {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.small-box .icon {
+  font-size: 3rem;
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid #dee2e6;
+  font-size: 1.5rem;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+}
+
+.btn-light {
+  background-color: #ffffff;
+  color: #343a40;
+}

@@ -1,158 +1,121 @@
-import React, { useEffect, useState } from 'react'
-import { FaLock, FaMousePointer } from 'react-icons/fa';
-import { useLocation, useNavigate } from 'react-router-dom';
-import './login.css';
+import React, { useState } from 'react';
 import axios from 'axios';
+import { FaLock, FaMousePointer } from 'react-icons/fa';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import "./login.css";
 
 
-const Rechangepass = () => {
+const RechangePass = () => {
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setErrorMessage('');
+    setSuccessMessage('');
 
-    // Extract the token from the query parameters
-    const queryParams = new URLSearchParams(location.search);
-    const token = queryParams.get("token"); // get the token value
-    //   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    if (!password || !passwordConfirm) {
+      setErrorMessage('يرجى إدخال كلمة المرور وتأكيدها.');
+      return;
+    }
 
-    useEffect(() => {
-      console.log("Token received:", token);
-    }, [token]);
+    if (password !== passwordConfirm) {
+      setErrorMessage('كلمتا المرور غير متطابقتين.');
+      return;
+    }
 
-    const changepass = async (event) => {
-      event.preventDefault();
-      setIsLoading(true);
+    setIsLoading(true);
 
-      if (!newPassword || !confirmPassword) {
-        setErrorMessage("يرجى إدخال كلمتي المرور.");
-        return;
+    try {
+    if(Cookies.get("token")){
+      
+      const response = await axios.put(
+        'https://charity-platform-backend.onrender.com/api/auth/reset-password',
+        { password, passwordConfirm }
+        ,
+            { headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${Cookies.get("token")}`,
+            }
+           }
+      );
+    }
+
+
+      if (response.status === 200) {
+        setSuccessMessage('تم تغيير كلمة المرور بنجاح.');
+      
+        navigate('/login'); // Redirect to login page after successful password change
+      } else {
+        setErrorMessage('حدث خطأ أثناء تغيير كلمة المرور. حاول مرة أخرى.');
       }
-
-      if (newPassword !== confirmPassword) {
-        setErrorMessage("كلمات المرور غير متطابقة.");
-        return;
-      }
-
-      if (!token) {
-        setErrorMessage("رمز التحقق غير موجود في الرابط.");
-        setIsLoading(false);
-        return;
-      }
-
-      try {
-        const response = await axios.put(
-          "https://charity-platform-backend.onrender.com/api/auth/reset-password",
-          {
-            password: newPassword,
-            passwordConfirm: confirmPassword,
-            resetCode: token, // Use this if the token is actually a reset code
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Include the token in the headers
-            },
-          }
-        );
-        
-        if (response.status === 200) {
-          alert("تم تغيير كلمة المرور بنجاح."); // Optional success message
-          navigate("/login");
-        } else {
-          setErrorMessage("لم يتم تغيير كلمة المرور. حاول مرة أخرى.");
-        }
-      } catch (error) {
-        console.error(
-          "Error during password change:",
-          error.response ? error.response.data : error.message
-        );
-
-        // Handle JWT expiration or other issues
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message === "jwt expired"
-        ) {
-          setErrorMessage("رمز التحقق منتهي الصلاحية. يرجى طلب رمز جديد.");
-        } else if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message ===
-            "You are not logged in. Please log in to access this route"
-        ) {
-          setErrorMessage("يجب عليك تسجيل الدخول أولاً.");
-        } else {
-          setErrorMessage(
-            error.response && error.response.data && error.response.data.message
-              ? error.response.data.message
-              : "حدث خطأ أثناء تغيير كلمة المرور. حاول مرة أخرى."
-          );
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    } catch (error) {
+      console.error('Error changing password:', error.response ? error.response.data : error.message);
+      setErrorMessage('حدث خطأ في عملية تغيير كلمة المرور. حاول مرة أخرى.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="activation-page">
-    <div className="update-password-page">
-    <div className="update-password-container">
-        <h2 className="text-center mb-4">تحديث كلمة المرور</h2>
-        <form onSubmit={changepass}>
-            <div className="mb-3">
-                <div className="input-group">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">
-                            <FaLock />
-                        </span>
-                    </div>
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="أدخل كلمة المرور الجديدة"
-                        value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
-                        required
-                    />
-                </div>
+      <div className="activation-container">
+        <h2 className="text-center mb-4">تغيير كلمة المرور</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <FaLock />
+                </span>
+              </div>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="أدخل كلمة المرور الجديدة"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
             </div>
-            <div className="mb-3">
-                <div className="input-group">
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">
-                            <FaLock />
-                        </span>
-                    </div>
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="تأكيد كلمة المرور"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                </div>
+          </div>
+          <div className="mb-3">
+            <div className="input-group">
+              <div className="input-group-prepend">
+                <span className="input-group-text">
+                  <FaLock />
+                </span>
+              </div>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="تأكيد كلمة المرور الجديدة"
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+                required
+              />
             </div>
-            <div className="text-center button-update">
-                <button
-                    className="btn btn-primary btn-block mb-2"
-                    type="submit"
-                    disabled={isLoading}
-                >
-                    <FaMousePointer className="mr-2 icone" /> تحديث
-                </button>
-                {errorMessage && (
-                    <p style={{ color: "red" }}>{errorMessage}</p>
-                )}
-            </div>
+          </div>
+          <div className="text-center button-signup">
+            <button className="btn btn-primary btn-block mb-2" type="submit" disabled={isLoading}>
+              <FaMousePointer className="mr-2 icone" /> تغيير كلمة المرور
+            </button>
+            {errorMessage && (
+              <p style={{ color: 'red' }}>{errorMessage}</p>
+            )}
+            {successMessage && (
+              <p style={{ color: 'green' }}>{successMessage}</p>
+            )}
+          </div>
         </form>
+      </div>
     </div>
-</div>
-</div>
-  )
+  );
 }
 
-export default Rechangepass
+export default RechangePass;

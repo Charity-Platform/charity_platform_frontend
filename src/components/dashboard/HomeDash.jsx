@@ -1,71 +1,81 @@
-import React from 'react'
+import React from 'react';
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaInfoCircle } from 'react-icons/fa';
+import './DashBoard.css';
 
 const HomeDash = () => {
   return (
-    <div className="dashboard p-3">
-      <h2>Dashboard</h2>
-      <div className="row">
-        <div className="col-lg-3 col-6">
-          <div className="small-box bg-info">
-            <div className="inner">
-              <h3>150</h3>
-              <p>New Orders</p>
-            </div>
-            <div className="icon">
-              <FaInfoCircle />
-            </div>
-            <a href="#" className="small-box-footer">
-              More info <i className="fas fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <div className="col-lg-3 col-6">
-          <div className="small-box bg-success">
-            <div className="inner">
-              <h3>53%</h3>
-              <p>Bounce Rate</p>
-            </div>
-            <div className="icon">
-              <FaInfoCircle />
-            </div>
-            <a href="#" className="small-box-footer">
-              More info <i className="fas fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <div className="col-lg-3 col-6">
-          <div className="small-box bg-warning">
-            <div className="inner">
-              <h3>44</h3>
-              <p>User Registrations</p>
-            </div>
-            <div className="icon">
-              <FaInfoCircle />
-            </div>
-            <a href="#" className="small-box-footer">
-              More info <i className="fas fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-        <div className="col-lg-3 col-6">
-          <div className="small-box bg-danger">
-            <div className="inner">
-              <h3>65</h3>
-              <p>Unique Visitors</p>
-            </div>
-            <div className="icon">
-              <FaInfoCircle />
-            </div>
-            <a href="#" className="small-box-footer">
-              More info <i className="fas fa-arrow-circle-right"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-      {/* Add more components here like charts and tables */}
-    </div>
-  )
+    <Container fluid className="dashboard p-4">
+      <h2 className="mb-4">Dashboard</h2>
+      <Row>
+        <Col lg={3} sm={6} className="mb-4">
+          <Card className="small-box bg-info text-white">
+            <Card.Body>
+              <div className="d-flex align-items-center">
+                <div className="mr-3">
+                  <h3>150</h3>
+                  <p>New Orders</p>
+                </div>
+                <FaInfoCircle size={50} />
+              </div>
+              <Button variant="light" className="mt-3">
+                More info <i className="fas fa-arrow-circle-right"></i>
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col lg={3} sm={6} className="mb-4">
+          <Card className="small-box bg-success text-white">
+            <Card.Body>
+              <div className="d-flex align-items-center">
+                <div className="mr-3">
+                  <h3>53%</h3>
+                  <p>Bounce Rate</p>
+                </div>
+                <FaInfoCircle size={50} />
+              </div>
+              <Button variant="light" className="mt-3">
+                More info <i className="fas fa-arrow-circle-right"></i>
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col lg={3} sm={6} className="mb-4">
+          <Card className="small-box bg-warning text-dark">
+            <Card.Body>
+              <div className="d-flex align-items-center">
+                <div className="mr-3">
+                  <h3>44</h3>
+                  <p>User Registrations</p>
+                </div>
+                <FaInfoCircle size={50} />
+              </div>
+              <Button variant="dark" className="mt-3">
+                More info <i className="fas fa-arrow-circle-right"></i>
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col lg={3} sm={6} className="mb-4">
+          <Card className="small-box bg-danger text-white">
+            <Card.Body>
+              <div className="d-flex align-items-center">
+                <div className="mr-3">
+                  <h3>65</h3>
+                  <p>Unique Visitors</p>
+                </div>
+                <FaInfoCircle size={50} />
+              </div>
+              <Button variant="light" className="mt-3">
+                More info <i className="fas fa-arrow-circle-right"></i>
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      {/* Add more components like charts and tables here */}
+    </Container>
+  );
 }
 
-export default HomeDash
+export default HomeDash;
