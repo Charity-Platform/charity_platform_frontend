@@ -135,7 +135,7 @@ const AllQuestions = () => {
             </Col>
           ))
         ) : (
-          <p className="text-center">لا توجد أسئلة متاحة للعرض</p>
+          <p className="text-center">جارى التحميل ...... </p>
         )}
       </Row>
 

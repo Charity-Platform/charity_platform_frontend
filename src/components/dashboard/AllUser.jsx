@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; // Import axios for API calls
+import axios from 'axios';
 import './DashBoard.css';
 
 const AllUser = () => {
@@ -19,7 +19,6 @@ const AllUser = () => {
           withCredentials: true,
         });
         console.log(response.data); // Log response to check structure
-        // Access the correct property in the response to set the users array
         setUsers(Array.isArray(response.data.document) ? response.data.document : []); // Ensure users is an array
       } catch (err) {
         console.error("Error fetching users:", err);
@@ -32,11 +31,46 @@ const AllUser = () => {
     fetchUsers();
   }, []); // Empty dependency array means this useEffect runs once when the component mounts
 
+  // Update role to admin
+  const handleUpdateRole = async (user) => {
+    if (!user || !user._id) {
+      alert('User information is missing.');
+      return;
+    }
+    try {
+      // Ensure the URL matches your backend setup; check if "/api" prefix is needed
+      const response = await axios.get(
+        `${import.meta.env.VITE_MAIN_URL}users/update-role/${user._id}`, // Verify this URL
+        { role },
+        { 
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+         }
+      );
+  
+      if (response.status === 200) {
+        alert('Role updated to admin successfully!');
+        // Update the user state to reflect the change
+        setUsers((prevUsers) =>
+          prevUsers.map((u) =>
+            u._id === user._id ? { ...u, role: 'admin' } : u
+          )
+        );
+      } else {
+        alert('Failed to update role. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error updating role:', error.response ? error.response.data : error.message);
+      alert(`Failed to update role. ${error.response?.data?.message || 'Please try again.'}`);
+    }
+  };
+  
+
   return (
-    <Container fluid dir='rtl'>
+    <Container fluid dir="rtl">
       <Row className="mb-4">
-        <h1 className='text-center'> كل المستخدمين </h1>
-        <Col md={3} className="d-flex justify-content-between align-items-center" dir='rtl'>
+        <h1 className="text-center">كل المستخدمين</h1>
+        <Col md={3} className="d-flex justify-content-between align-items-center" dir="rtl">
           <Link to="/dashboard">
             <Button variant="primary">الصفحة الرئيسية</Button>
           </Link>
@@ -52,9 +86,9 @@ const AllUser = () => {
             <Card.Header className="card-header">قائمة المستخدمين</Card.Header>
             <Card.Body>
               {loading ? (
-                <p>جاري التحميل...</p> // Show loading text while fetching data
+                <p>جاري التحميل...</p>
               ) : error ? (
-                <p>{error}</p> // Show error message if there's an error
+                <p>{error}</p>
               ) : (
                 <Table striped bordered hover responsive className="user-table">
                   <thead>
@@ -64,6 +98,7 @@ const AllUser = () => {
                       <th>البريد الإلكتروني</th>
                       <th>الهاتف</th>
                       <th>الدور</th>
+                      <th>تحديث الدور</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -74,12 +109,23 @@ const AllUser = () => {
                           <td>{user.name}</td>
                           <td>{user.email}</td>
                           <td>{user.phone || 'غير متوفر'}</td> {/* Show phone number or a fallback */}
-                          <td>{user.role}</td>
+                          <td style={{ color: user.role === 'admin' ? 'green' : 'black' }}>
+                            {user.role}
+                          </td>
+                          <td>
+                            <Button
+                              variant={user.role === 'admin' ? 'success' : 'primary'}
+                              onClick={() => handleUpdateRole(user)}
+                              disabled={user.role === 'admin'}
+                            >
+                              {user.role === 'admin' ? 'أدمن' : 'ترقية إلى أدمن'}
+                            </Button>
+                          </td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="5">No users available.</td>
+                        <td colSpan="6">No users available.</td>
                       </tr>
                     )}
                   </tbody>
@@ -91,6 +137,6 @@ const AllUser = () => {
       </Row>
     </Container>
   );
-}
+};
 
 export default AllUser;

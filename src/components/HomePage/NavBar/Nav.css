@@ -48,14 +48,39 @@
   .icon-user .avatar:hover {
     background-color: #07a79d; /* Optional: Change color on hover for better interaction feedback */
   }
-  .logout-btn{
-    border: none;
-    background-color: #07a79d;
-    border-radius: 10px;
-    color: #fff;
-    margin: 5px;
-    padding: 5px 15px ;
-  }
+/* General Button Styles */
+.login-buttons {
+  display: flex;
+  flex-wrap: wrap; /* Allows buttons to stack on smaller screens */
+  gap: 5px; /* Adds spacing between buttons */
+}
+
+.login-buttons button,
+.login-buttons .btn {
+  flex: 1; /* Ensures buttons share available space equally */
+  min-width: 120px; /* Minimum width for buttons */
+  padding: 10px 15px; /* Padding for better touch target */
+  font-size: 14px; /* Adjust font size for smaller screens */
+  border-radius: 5px; /* Adds rounded corners */
+}
+
+.login-buttons .btn-primary {
+  background-color: #07a79d;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.login-buttons .btn-primary:hover {
+  background-color: #065f57; /* Darker shade on hover */
+}
+.logout-btn{
+  background-color: #07a79d;
+  border: none;
+  color: #fff;
+  padding: 5px 8px;
+  border-radius: 10px;
+}
   /* User icon and buttons display logic */
   @media (max-width: 768px) {
     /* Adjust button display for mobile screens */
@@ -72,6 +97,16 @@
     /* Default display of login buttons on small screens */
     .icon-user .login-buttons {
       display: flex;
+    }
+    .login-buttons {
+      justify-content: center; /* Center buttons on smaller screens */
+    }
+  
+    .login-buttons button,
+    .login-buttons .btn {
+      padding: 8px 12px;
+      font-size: 13px; /* Slightly smaller font size */
+      min-width: 100px; /* Minimum width to fit smaller screens */
     }
   }
   
@@ -106,8 +141,10 @@
       padding: 5px;
       border-radius: 30px;
     }
-    .logout-btn{
-        padding: 5px ;
-      }
+    .login-buttons button,
+    .login-buttons .btn {
+      flex: 1 0 48%; /* Each button takes about half of the row */
+      margin: 5px 0; /* Add vertical spacing between buttons */
+    }
   }
   

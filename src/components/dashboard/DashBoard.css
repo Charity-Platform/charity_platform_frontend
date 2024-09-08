@@ -156,3 +156,11 @@ h2 {
   background-color: #ffffff;
   color: #343a40;
 }
+.btn-outside{
+  background-color: red;
+  color: #fff;
+  font-size: 25px;
+}
+.btn-website{
+  background-color: rgb(56, 80, 220);
+}

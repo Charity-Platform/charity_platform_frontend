@@ -1,7 +1,7 @@
 import './Profile.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaUserEdit } from 'react-icons/fa'; // For update icons
+import { FaUserEdit } from 'react-icons/fa';
 import Footer from '../../components/HomePage/Footer/Footer';
 import NavBar from '../../components/HomePage/NavBar/NavBar';
 
@@ -12,14 +12,11 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState({ name: '', phone: '' });
   const [passwordInfo, setPasswordInfo] = useState({ currentPassword: '', newPassword: '' });
 
-  // Fetch user data from API
+  // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_MAIN_URL}users/me`,
-          { withCredentials: true }
-        );
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}users/me`, { withCredentials: true });
         setUserData(response.data);
         setUserInfo({ name: response.data.name, phone: response.data.phone });
       } catch (error) {
@@ -30,30 +27,30 @@ const Profile = () => {
     fetchUserData();
   }, []);
 
-  // Handlers for opening and closing modals
+  // Handle modal visibility
   const handleOpenUpdateInfo = () => setShowUpdateInfoModal(true);
   const handleCloseUpdateInfo = () => setShowUpdateInfoModal(false);
   const handleOpenChangePassword = () => setShowChangePasswordModal(true);
   const handleCloseChangePassword = () => setShowChangePasswordModal(false);
 
-  // Handle input changes for updating user information
+  // Handle input changes
   const handleUserInfoChange = (e) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
   };
 
-  // Handle input changes for updating password
   const handlePasswordInfoChange = (e) => {
     const { name, value } = e.target;
-    setPasswordInfo({ ...passwordInfo, [name]: value });
+    setPasswordInfo(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
 
-  // Function to update user information
+  // Update user information
   const handleUpdateInfo = async () => {
     try {
-      await axios.put(`${import.meta.env.VITE_MAIN_URL}users/updateMe`, userInfo, {
-        withCredentials: true,
-      });
+      await axios.put(`${import.meta.env.VITE_MAIN_URL}users/updateMe`, userInfo, { withCredentials: true });
       alert('تم تحديث المعلومات بنجاح');
       setUserData({ ...userData, ...userInfo });
       handleCloseUpdateInfo();
@@ -62,10 +59,16 @@ const Profile = () => {
     }
   };
 
-  // Function to update user password
+  // Change password
   const handleChangePassword = async () => {
+    console.log('Password Info:', passwordInfo); // Debug log
+    if (!passwordInfo.currentPassword || !passwordInfo.newPassword) {
+      alert('Please fill in all required fields.');
+      return;
+    }
+    
     try {
-      await axios.put(
+      const response = await axios.put(
         `${import.meta.env.VITE_MAIN_URL}users/update-password`,
         passwordInfo,
         { withCredentials: true }
@@ -73,42 +76,43 @@ const Profile = () => {
       alert('Password updated successfully!');
       handleCloseChangePassword();
     } catch (error) {
-      console.error('Error updating password:', error.response || error.message);
+      console.error('Error updating password:', error.response ? error.response.data : error.message);
       alert(`Failed to update password. ${error.response?.data?.message || 'Please try again.'}`);
     }
   };
+  
 
   if (!userData) {
-    return <div className='text-center'>Loading...</div>;
+    return <div className='profile-text-center'>Loading...</div>;
   }
 
   return (
     <>
       <NavBar />
-      <div className="content-profile-page">
-        <div className="profile-user-page card-profile">
-          <div className="img-user-profile">
+      <div className="profile-content-page">
+        <div className="profile-user-card">
+          <div className="profile-img-container">
             <img
-              className="profile-bgHome"
+              className="profile-bg-image"
               src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg"
               alt="Background"
             />
           </div>
-          <div className="user-profile-data">
+          <div className="profile-user-data">
             <h1>{userData.name || 'No Name Available'} : الأسم</h1>
             <p>{userData.email || 'No Email Available'} : البريد الإلكترونى</p>
             <p>{userData.phone || 'No Phone Available'} : رقم الهاتف</p>
             <p>{userData.role || 'No Role Assigned'} : الوظيفة</p>
           </div>
-          <div className="profile-actions">
-            <button onClick={handleOpenUpdateInfo} className="btn btn-primary">
+          <div className="profile-action-buttons">
+            <button onClick={handleOpenUpdateInfo} className="profile-btn-primary">
               <FaUserEdit /> Update Information
             </button>
-            <button onClick={handleOpenChangePassword} className="btn btn-secondary">
+            <button onClick={handleOpenChangePassword} className="profile-btn-secondary">
               Update Password
             </button>
           </div>
-          <ul className="data-user">
+          <ul className="profile-user-data-list">
             <li>
               <strong>Joined:</strong> {userData.createdAt ? new Date(userData.createdAt).toLocaleDateString() : 'Unknown'}
             </li>
@@ -121,8 +125,8 @@ const Profile = () => {
 
       {/* Update Information Modal */}
       {showUpdateInfoModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="profile-modal">
+          <div className="profile-modal-content">
             <h2>Update Information</h2>
             <input
               type="text"
@@ -138,16 +142,16 @@ const Profile = () => {
               onChange={handleUserInfoChange}
               placeholder="Enter new phone number"
             />
-            <button onClick={handleUpdateInfo} className="btn btn-success">Save Changes</button>
-            <button onClick={handleCloseUpdateInfo} className="btn btn-danger">Close</button>
+            <button onClick={handleUpdateInfo} className="profile-btn-save">Save Changes</button>
+            <button onClick={handleCloseUpdateInfo} className="profile-btn-close">Close</button>
           </div>
         </div>
       )}
 
       {/* Change Password Modal */}
       {showChangePasswordModal && (
-        <div className="modal">
-          <div className="modal-content">
+        <div className="profile-modal">
+          <div className="profile-modal-content">
             <h2>Change Password</h2>
             <input
               type="password"
@@ -163,8 +167,8 @@ const Profile = () => {
               onChange={handlePasswordInfoChange}
               placeholder="Enter new password"
             />
-            <button onClick={handleChangePassword} className="btn btn-success">Update Password</button>
-            <button onClick={handleCloseChangePassword} className="btn btn-danger">Close</button>
+            <button onClick={handleChangePassword} className="profile-btn-save">Update Password</button>
+            <button onClick={handleCloseChangePassword} className="profile-btn-close">Close</button>
           </div>
         </div>
       )}

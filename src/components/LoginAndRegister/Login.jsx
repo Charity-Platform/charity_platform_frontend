@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.css";
 import axios from "axios";
 import Loading from "./Loading";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useLocation } from 'react-router-dom';
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/AuthContext";
 
@@ -21,7 +21,8 @@ function Login() {
 
   const navigate = useNavigate();
   const { login } = useAuth(); // Use login function from Auth context
-
+  const location =useLocation();
+  const redirectPath =location.state?.path || "/" 
   // Handle Signup
   const handleSignup = async (event) => {
     event.preventDefault();
@@ -114,7 +115,7 @@ function Login() {
     setErrorMessage("");
     try {
       await login(email, password); // Use login from context
-      navigate('/dashBoard'); // Navigate after successful login
+      navigate(redirectPath,{replace:true}); // Navigate after successful login
     } catch (error) {
       console.error("Login Error:", error);
     } finally {

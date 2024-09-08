@@ -23,6 +23,7 @@ import ContactDash from "./components/dashboard/ContactDash";
 import RequireAuth from "./components/LoginAndRegister/RequireAuth";
 import Questions from './components/dashboard/questions'
 import AllQuestions from "./components/dashboard/AllQuestions";
+import SignupInstructor from "./components/Monitors/SignupInstructor";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/ContactDash" element={<ContactDash/>} />
           <Route path="/questions" element={<Questions/>} />
           <Route path="/allquestions" element={<AllQuestions/>} />
+          <Route path="/instractor" element={<SignupInstructor/>} />
 
 
 

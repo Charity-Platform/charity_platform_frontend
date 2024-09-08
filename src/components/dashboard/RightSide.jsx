@@ -1,11 +1,39 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './DashBoard.css';
-import { FaBriefcase, FaHome, FaUsers  } from 'react-icons/fa';
+import { FaHome, FaUsers  } from 'react-icons/fa';
 import { IoIosContacts } from "react-icons/io";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { CiLogout } from "react-icons/ci";
+import { TbWorldWww } from "react-icons/tb";
+import { useAuth } from '../../Context/AuthContext';
+import axios from 'axios';
 
 const RightSide = () => {
+  const { setRole, setuser, setLoggedin } = useAuth();
+  const navigate = useNavigate();
+
+  const handelLogout = async () => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_MAIN_URL}auth/logout`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      );
+      setuser(undefined);
+      setLoggedin(false);
+      setRole(undefined);
+      navigate('/');
+    } catch (error) {
+      console.log(error.response);
+      console.log('Logout failed. Please try again.', error);
+    }
+  };
+
   return (
     <div className="sidebar p-3">
     <h4>Admin Page</h4>
@@ -14,6 +42,14 @@ const RightSide = () => {
           <img src="https://t3.ftcdn.net/jpg/02/94/62/14/360_F_294621430_9dwIpCeY1LqefWCcU23pP9i11BgzOS0N.jpg" className="img-thumbnail" alt="User" />
           <h5 className='text-dashboard-title'>MR : Ali Helal</h5>
         </div>
+        <button className="btn-outside  d-flex align-items-center mb-1" aria-label="Logout" onClick={handelLogout}>
+      <CiLogout/>
+      </button>
+      <button className="btn-website btn  d-flex align-items-center mb-1">
+      <Link to='/' className='btn-title'>
+         <TbWorldWww className='me-2' /> الذهاب للموقع
+        </Link>
+      </button>
       <button className="btn-comunity btn  d-flex align-items-center mb-1">
         <Link to='/dashboard' className='btn-title'>
          <FaHome className='me-2' /> الرئيسية
@@ -61,6 +97,7 @@ const RightSide = () => {
         الأسئلة 
       </Link>
       </button>
+   
     </div>
     
   </div>
