@@ -12,6 +12,7 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState({ name: '', phone: '' });
   const [passwordInfo, setPasswordInfo] = useState({ currentPassword: '', newPassword: '' });
 
+
   // Fetch user data
   useEffect(() => {
     const fetchUserData = async () => {
@@ -70,7 +71,7 @@ const Profile = () => {
     try {
       const response = await axios.put(
         `${import.meta.env.VITE_MAIN_URL}users/update-password`,
-        passwordInfo,
+        { password: passwordInfo.newPassword },
         { withCredentials: true }
       );
       alert('Password updated successfully!');

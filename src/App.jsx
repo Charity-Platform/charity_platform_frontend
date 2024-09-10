@@ -24,6 +24,8 @@ import RequireAuth from "./components/LoginAndRegister/RequireAuth";
 import Questions from './components/dashboard/questions'
 import AllQuestions from "./components/dashboard/AllQuestions";
 import SignupInstructor from "./components/Monitors/SignupInstructor";
+import Nonactivemonitor from "./components/Monitors/Nonactivemonitor";
+import Activemonitor from "./components/Monitors/Activemonitor";
 
 function App() {
   return (
@@ -55,6 +57,10 @@ function App() {
           <Route path="/questions" element={<Questions/>} />
           <Route path="/allquestions" element={<AllQuestions/>} />
           <Route path="/instractor" element={<SignupInstructor/>} />
+          <Route path="/noneactive" element={<Nonactivemonitor/>} />
+          <Route path="/activemonitor" element={<Activemonitor/>} />
+
+
 
 
 

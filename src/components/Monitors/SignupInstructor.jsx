@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Ensure the correct path for your axios instance
+import axios from 'axios';
 import { Form, Button, Row, Col, Card, Container, InputGroup } from 'react-bootstrap';
-//import './SignupInstructor.css';  Add your custom styles
 
 const SignupInstructor = () => {
   const navigate = useNavigate();
@@ -20,7 +19,8 @@ const SignupInstructor = () => {
     links: '',
     description: '',
     field: '',
-    hourePrice: ''
+    hourePrice: '',
+    password: '' // Add password to formData
   });
 
   const [errors, setErrors] = useState({});
@@ -34,7 +34,7 @@ const SignupInstructor = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Basic validation
     const newErrors = {};
     if (!formData.name) newErrors.name = 'Name is required';
@@ -42,29 +42,35 @@ const SignupInstructor = () => {
     if (!formData.phone) newErrors.phone = 'Phone number is required';
     if (!formData.birthdate) newErrors.birthdate = 'Birthdate is required';
     if (!formData.field) newErrors.field = 'Field is required';
-
+    if (!formData.password) newErrors.password = 'Password is required';
+  
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-
+  
     try {
+      // Convert comma-separated links into an array
+      const linksArray = formData.links.split(',').map(link => link.trim()).filter(link => link);
+  
       await axios.post(`${import.meta.env.VITE_MAIN_URL}auth/signup-mentor`, {
         ...formData,
+        links: linksArray, // Send links as an array
         active: true,
         accepted: true,
-      },{
+      }, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
-      }
-    );
-      alert("شكرا لإنضمامك معنا سوف يتم عرض طلبك للإنضمام لنا ")
+      });
+  
+      alert("شكرا لإنضمامك معنا سوف يتم عرض طلبك للإنضمام لنا ");
       navigate('/'); // Redirect to a success page
     } catch (error) {
-      console.error('Signup failed:', error.response);
+      console.error('Signup failed:', error.response?.data || error.message);
       setErrors({ submit: 'Signup failed. Please try again.' });
     }
   };
+  
 
   return (
     <Container className="signup-instructor">
@@ -175,6 +181,35 @@ const SignupInstructor = () => {
                 </InputGroup>
               </Col>
             </Row>
+            <Row>
+              <Col md={6}>
+                <Form.Label>LinkedIn</Form.Label>
+                <InputGroup>
+                  <InputGroup.Text>https://</InputGroup.Text>
+                  <Form.Control
+                    type="url"
+                    name="linkedin"
+                    value={formData.linkedin}
+                    onChange={handleChange}
+                    placeholder="linkedin.com/in/username"
+                  />
+                </InputGroup>
+              </Col>
+
+              <Col md={6}>
+                <Form.Label>Instagram</Form.Label>
+                <InputGroup>
+                  <InputGroup.Text>https://</InputGroup.Text>
+                  <Form.Control
+                    type="url"
+                    name="instagram"
+                    value={formData.instagram}
+                    onChange={handleChange}
+                    placeholder="instagram.com/username"
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
           </Form.Group>
 
           <Form.Group controlId="formLinks" className="mb-3">
@@ -239,6 +274,19 @@ const SignupInstructor = () => {
               onChange={handleChange}
               placeholder="Enter your hourly rate"
             />
+          </Form.Group>
+
+          <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              isInvalid={!!errors.password}
+              placeholder="Enter your password"
+            />
+            <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
           </Form.Group>
 
           {errors.submit && <p className="text-danger">{errors.submit}</p>}

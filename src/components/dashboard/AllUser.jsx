@@ -32,38 +32,46 @@ const AllUser = () => {
   }, []); // Empty dependency array means this useEffect runs once when the component mounts
 
   // Update role to admin
-  const handleUpdateRole = async (user) => {
-    if (!user || !user._id) {
-      alert('User information is missing.');
-      return;
-    }
-    try {
-      // Ensure the URL matches your backend setup; check if "/api" prefix is needed
-      const response = await axios.get(
-        `${import.meta.env.VITE_MAIN_URL}users/update-role/${user._id}`, // Verify this URL
-        { role },
-        { 
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-         }
-      );
-  
-      if (response.status === 200) {
-        alert('Role updated to admin successfully!');
-        // Update the user state to reflect the change
-        setUsers((prevUsers) =>
-          prevUsers.map((u) =>
-            u._id === user._id ? { ...u, role: 'admin' } : u
-          )
-        );
-      } else {
-        alert('Failed to update role. Please try again.');
+// Function to update the user's role to admin
+// Function to update the user's role to admin
+const handleUpdateRole = async (user) => {
+  if (!user || !user._id) {
+    alert('User information is missing.');
+    return;
+  }
+
+  try {
+    // Correctly format the URL based on backend expectations
+    const response = await axios.patch(
+      `${import.meta.env.VITE_MAIN_URL}users/update-role/${user._id}`, // Corrected route as per your backend
+      { role: 'admin' }, // Role is passed in the request body as JSON
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true, // Send credentials with the request
       }
-    } catch (error) {
-      console.error('Error updating role:', error.response ? error.response.data : error.message);
-      alert(`Failed to update role. ${error.response?.data?.message || 'Please try again.'}`);
+    );
+
+    if (response.status === 200) {
+      alert('Role updated to admin successfully!');
+      // Update the user state to reflect the change
+      setUsers((prevUsers) =>
+        prevUsers.map((u) =>
+          u._id === user._id ? { ...u, role: 'admin' } : u
+        )
+      );
+    } else {
+      alert('Failed to update role. Please try again.');
     }
-  };
+  } catch (error) {
+    console.error(
+      'Error updating role:',
+      error.response ? error.response.data : error.message
+    );
+    alert(`Failed to update role. ${error.response?.data?.message || 'Please try again.'}`);
+  }
+};
+
+
   
 
   return (

@@ -68,9 +68,15 @@ const RightSide = () => {
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
-      <Link to='/instructordash' className='btn-title'>
+      <Link to='/noneactive' className='btn-title'>
         {/* <FaUsers className='me-2' /> */}
-         المستشارين
+         مستشارين لم يتم قبولهم
+      </Link>
+      </button>
+      <button className="btn-comunity btn  d-flex align-items-center">
+      <Link to='/activemonitor' className='btn-title'>
+        {/* <FaUsers className='me-2' /> */}
+        المستشارين المقبولين
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
