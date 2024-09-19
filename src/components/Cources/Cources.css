@@ -106,7 +106,28 @@
 
   }
  
+/* videos design  */
+.video-list-item {
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+}
 
+.video-list-item:hover {
+  background-color: #f8f9fa;
+  border-color: #007bff;
+  font-weight: bold;
+}
+
+.active-video {
+  background-color: #d4edda; /* Light green background to indicate the active video */
+  font-weight: bold;
+  border-color: #28a745; /* Green border for the active video */
+}
+
+.video-list-item svg {
+  color: #28a745; /* Set the play icon color */
+}
 
 
 

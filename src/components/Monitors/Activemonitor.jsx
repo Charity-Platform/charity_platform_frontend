@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, Container, Card, Row, Col, Modal } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './Mentor.css';
 
 const Activemonitor = () => {
   const [mentors, setMentors] = useState([]);
@@ -64,8 +65,12 @@ const Activemonitor = () => {
       <Row>
         {mentors.length > 0 ? (
           mentors.map(mentor => (
-            <Col xs={6} key={mentor._id} className="mb-4">
+            <Col xs={4} key={mentor._id} className="mb-4">
               <Card>
+                    {/* Display mentor image */}
+                    {mentor.image && (
+                  <Card.Img variant="top" src={mentor.image} alt={mentor.name} style={{ height: '100px',width:'100px', objectFit: 'cover',borderRadius:'50%' }} />
+                )}
                 <Card.Body>
                   <Card.Title>الاسم: {mentor.name}</Card.Title>
                   <Card.Text>
@@ -98,9 +103,32 @@ const Activemonitor = () => {
               <p><strong>البريد الإلكتروني:</strong> {selectedMentor.email}</p>
               <p><strong>رقم الهاتف:</strong> {selectedMentor.phone}</p>
               <p><strong>التخصص:</strong> {selectedMentor.field}</p>
-              <p><strong>الوصف:</strong> {selectedMentor.description}</p>
-              <p><strong>معلومات إضافية:</strong> {selectedMentor.additionalInfo}</p>
-             
+              <p><strong> العنوان: </strong> {selectedMentor.address}</p>
+              <p><strong>تاريخ الميلاد:</strong> {new Date(selectedMentor.birthdate).toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              <p><strong>معلومات إضافية:</strong> {selectedMentor.hourePrice}</p>
+              <div className="social-links">
+                <p><strong>روابط وسائل التواصل:</strong></p>
+                {selectedMentor.socialMedia?.facebook && (
+                  <a href={selectedMentor.socialMedia.facebook} target="_blank" rel="noopener noreferrer" > 
+                    Facebook
+                  </a>
+                )}
+                {selectedMentor.socialMedia?.twitter && (
+                  <a href={selectedMentor.socialMedia.twitter} target="_blank" rel="noopener noreferrer">
+                    Twitter
+                  </a>
+                )}
+                {selectedMentor.socialMedia?.linkedin && (
+                  <a href={selectedMentor.socialMedia.linkedin} target="_blank" rel="noopener noreferrer">
+                    LinkedIn
+                  </a>
+                )}
+                {selectedMentor.socialMedia?.instagram && (
+                  <a href={selectedMentor.socialMedia.instagram} target="_blank" rel="noopener noreferrer">
+                    Instagram
+                  </a>
+                )}
+              </div>
 
             </>
           ) : (

@@ -26,6 +26,15 @@ import AllQuestions from "./components/dashboard/AllQuestions";
 import SignupInstructor from "./components/Monitors/SignupInstructor";
 import Nonactivemonitor from "./components/Monitors/Nonactivemonitor";
 import Activemonitor from "./components/Monitors/Activemonitor";
+import CerateCourses from "./components/Courses/CerateCourses";
+import AllCourses from "./components/Courses/AllCourses";
+import VerifyEmail from "./components/Monitors/VerifyEmail";
+import RightSideMentor from "./components/Monitors/MentorDashBoard/RightSideMentor";
+import CreateCourse from "./components/Monitors/MentorDashBoard/CreateCourse";
+import AllMentorCourse from "./components/Monitors/MentorDashBoard/AllMentorCourse";
+import CourseDetails from "./components/Monitors/MentorDashBoard/CourseDetails";
+import CoursesDetails from "./components/Cources/CoursesDetails";
+import CourseVides from "./components/Cources/CourseVides";
 
 function App() {
   return (
@@ -38,11 +47,11 @@ function App() {
           <Route path="/instructors" element={<Instructors />} />
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
-       <Route element={<RequireAuth/>}>
+       {/* <Route element={<RequireAuth/>}> */}
           <Route path="/Cources" element={<Cources />} />
           <Route path="/books" element={<Books />} />
            <Route path="/blog" element={<Blog/>} />
-      </Route>
+      {/* </Route> */}
           <Route path="/login" element={<Login/>} />
           <Route path="/FormBlog" element={<FormBlog/>} />
           <Route path="/comunity" element={<Comunity/>} />
@@ -59,6 +68,22 @@ function App() {
           <Route path="/instractor" element={<SignupInstructor/>} />
           <Route path="/noneactive" element={<Nonactivemonitor/>} />
           <Route path="/activemonitor" element={<Activemonitor/>} />
+          <Route path="/createcourses" element={<CerateCourses/>} />
+          <Route path="/allCourses" element={<AllCourses/>} />
+          <Route path="/verifyemail" element={<VerifyEmail/>} />
+          <Route path="/adminMentor" element={<RightSideMentor/>} />
+          <Route path="/CreateCourse" element={<CreateCourse/>} />
+          <Route path="/all-courses" element={<AllMentorCourse/>} />
+          <Route path="/course/:courseId" element={<CourseDetails />} />
+          <Route path="/CoursesDetails/:id" element={<CoursesDetails/>} />
+          <Route path="/CourseVideos/:id" element={<CourseVides/>} />
+
+
+
+
+       
+
+
 
 
 

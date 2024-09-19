@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaUserEdit } from 'react-icons/fa';
 import Footer from '../../components/HomePage/Footer/Footer';
 import NavBar from '../../components/HomePage/NavBar/NavBar';
+import { Link } from 'react-router-dom'; // Import Link for navigation
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -11,7 +12,6 @@ const Profile = () => {
   const [showChangePasswordModal, setShowChangePasswordModal] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: '', phone: '' });
   const [passwordInfo, setPasswordInfo] = useState({ currentPassword: '', newPassword: '' });
-
 
   // Fetch user data
   useEffect(() => {
@@ -62,14 +62,13 @@ const Profile = () => {
 
   // Change password
   const handleChangePassword = async () => {
-    console.log('Password Info:', passwordInfo); // Debug log
     if (!passwordInfo.currentPassword || !passwordInfo.newPassword) {
       alert('Please fill in all required fields.');
       return;
     }
     
     try {
-      const response = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_MAIN_URL}users/update-password`,
         { password: passwordInfo.newPassword },
         { withCredentials: true }
@@ -81,7 +80,6 @@ const Profile = () => {
       alert(`Failed to update password. ${error.response?.data?.message || 'Please try again.'}`);
     }
   };
-  
 
   if (!userData) {
     return <div className='profile-text-center'>Loading...</div>;
@@ -113,6 +111,14 @@ const Profile = () => {
               Update Password
             </button>
           </div>
+
+          {/* Display Dashboard for Mentor button if the user is a mentor */}
+          {userData.role === 'mentor' && (
+            <Link to="/adminMentor">
+              <button className="profile-btn-secondary m-2">Dashboard</button>
+            </Link>
+          )}
+
           <ul className="profile-user-data-list">
             <li>
               <strong>Joined:</strong> {userData.createdAt ? new Date(userData.createdAt).toLocaleDateString() : 'Unknown'}

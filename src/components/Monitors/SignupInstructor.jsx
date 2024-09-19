@@ -63,8 +63,8 @@ const SignupInstructor = () => {
         withCredentials: true,
       });
   
-      alert("شكرا لإنضمامك معنا سوف يتم عرض طلبك للإنضمام لنا ");
-      navigate('/'); // Redirect to a success page
+     
+      navigate('/verifyemail', { state: { email: formData.email } });
     } catch (error) {
       console.error('Signup failed:', error.response?.data || error.message);
       setErrors({ submit: 'Signup failed. Please try again.' });

@@ -1,0 +1,64 @@
+.social-links a{
+    margin-right: 10px;
+}
+.all-mentor-course-container {
+    padding: 20px;
+  }
+  
+  .course-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 20px; /* Space between cards */
+  }
+  
+  .course-card {
+    width: 100%;
+    max-width: 300px; /* Optional: set max width for responsiveness */
+    overflow: hidden;
+  }
+  
+  .course-card .btn {
+    margin-right: 5px;
+  }
+  
+  .course-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* deatails videos  */
+  .course-details-container {
+    padding: 20px;
+  }
+  
+  .course-details-content {
+    display: flex;
+  }
+  
+  .course-info {
+    padding-right: 20px;
+    flex: 3;
+  }
+  
+  .course-videos {
+    padding-left: 20px;
+    flex: 1;
+  }
+  
+  .video-player iframe {
+    width: 400px;
+    height: 200px;
+  }
+  
+  .video-item {
+    margin-bottom: 20px;
+  }
+  
+  .video-actions {
+    margin-top: 10px;
+  }
+  
+  .video-actions .btn {
+    margin-right: 5px;
+  }
+  

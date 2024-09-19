@@ -86,9 +86,15 @@ const RightSide = () => {
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
-      <Link to='/ContactDash' className='btn-title'>
+      <Link to='/createcourses' className='btn-title'>
         {/* <IoIosContacts  className='me-2' /> */}
-         من نحن 
+          إضافة كورسات 
+      </Link>
+      </button>
+      <button className="btn-comunity btn  d-flex align-items-center">
+      <Link to='/allCourses' className='btn-title'>
+        {/* <IoIosContacts  className='me-2' /> */}
+          عرض كل الدورات 
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
