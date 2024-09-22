@@ -35,6 +35,7 @@ import AllMentorCourse from "./components/Monitors/MentorDashBoard/AllMentorCour
 import CourseDetails from "./components/Monitors/MentorDashBoard/CourseDetails";
 import CoursesDetails from "./components/Cources/CoursesDetails";
 import CourseVides from "./components/Cources/CourseVides";
+import InstructorDetails from "./components/instructors/InstructorDetails";
 
 function App() {
   return (
@@ -77,6 +78,8 @@ function App() {
           <Route path="/course/:courseId" element={<CourseDetails />} />
           <Route path="/CoursesDetails/:id" element={<CoursesDetails/>} />
           <Route path="/CourseVideos/:id" element={<CourseVides/>} />
+          <Route path="/InstructorDetails/:id" element={<InstructorDetails/>} />
+
 
 
 
