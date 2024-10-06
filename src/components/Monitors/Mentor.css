@@ -62,3 +62,56 @@
     margin-right: 5px;
   }
   
+  /* design for all instruction page */
+  /* AllInstructions.css */
+
+.instruction-card {
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  background-color: #eee;
+}
+
+.instruction-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.60);
+}
+
+.instruction-card .btn-custom-delete {
+  width: 100%;
+  border-radius: 30px;
+}
+
+.card-title {
+  color: #007bff;
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+}
+
+.card-text {
+  line-height: 1.5;
+  color: #333;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom-delete {
+  background-color: #ff4d4f;
+  color: #fff;
+  border: none;
+}
+
+.btn-custom-delete:hover {
+  background-color: #e60000;
+}
+.btn-custom-show-service {
+  width: 100%;
+  border-radius: 30px;
+}
+
+.btn-custom-delete {
+  margin-right: 10px;
+}
+/* all book design   */
+

@@ -36,6 +36,12 @@ import CourseDetails from "./components/Monitors/MentorDashBoard/CourseDetails";
 import CoursesDetails from "./components/Cources/CoursesDetails";
 import CourseVides from "./components/Cources/CourseVides";
 import InstructorDetails from "./components/instructors/InstructorDetails";
+import Instructions from "./components/Monitors/MentorDashBoard/Instructions";
+import AllInstructions from "./components/Monitors/MentorDashBoard/AllInstructions";
+import AllTickets from "./components/dashboard/AllTickets";
+import NewCourses from "./components/Monitors/MentorDashBoard/NewCourses";
+import AllBooks from "./components/Monitors/MentorDashBoard/AllBooks";
+import BookDetails from "./components/BookStore/BookDetails";
 
 function App() {
   return (
@@ -72,13 +78,25 @@ function App() {
           <Route path="/createcourses" element={<CerateCourses/>} />
           <Route path="/allCourses" element={<AllCourses/>} />
           <Route path="/verifyemail" element={<VerifyEmail/>} />
-          <Route path="/adminMentor" element={<RightSideMentor/>} />
-          <Route path="/CreateCourse" element={<CreateCourse/>} />
-          <Route path="/all-courses" element={<AllMentorCourse/>} />
+          <Route path="/adminMentor/:mentorId" element={<RightSideMentor/>} />
+          <Route path="/CreateCourse/:mentorId" element={<CreateCourse/>} />
+          <Route path="/all-courses/:mentorId" element={<AllMentorCourse />} />
           <Route path="/course/:courseId" element={<CourseDetails />} />
           <Route path="/CoursesDetails/:id" element={<CoursesDetails/>} />
           <Route path="/CourseVideos/:id" element={<CourseVides/>} />
           <Route path="/InstructorDetails/:id" element={<InstructorDetails/>} />
+          <Route path="/instructions" element={<Instructions/>} />
+          <Route path="/allinstructions/:mentorId" element={<AllInstructions />} />
+          <Route path="/all_tickets" element={<AllTickets/>} />
+          <Route path="/new_courses" element={<NewCourses/>} />
+          <Route path="/all_books/:mentorId" element={<AllBooks/>} />
+          <Route path="/book_details/:bookId" element={<BookDetails/>} />
+
+
+
+
+
+
 
 
 

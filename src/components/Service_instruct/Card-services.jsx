@@ -1,4 +1,4 @@
-import './service.css';
+
 import React, { useState } from "react";
 import Card from 'react-bootstrap/Card';
 import { Container, Row, Col, Modal } from 'react-bootstrap';

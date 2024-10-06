@@ -1,28 +1,32 @@
 // src/App.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Books.css'; // Custom CSS file
-import booksData from './bookData'; // Import booksData
 import BookList from './BookList';
-import FilterBooks from './FilterBooks';
+import axios from 'axios';
 
 const BookApp = () => {
-  const [books, setBooks] = useState(booksData);
-  const categories = ['حوكمة', 'جودة','تنمية موارد','تسويق','ادارة']; // Sample categories
+  const [books, setBooks] = useState([]);
 
-  const handleCategorySelect = (selectedCategory) => {
-    if (selectedCategory === '') {
-      setBooks(booksData); // Reset to all books
-    } else {
-      const filteredBooks = booksData.filter(book => book.category === selectedCategory);
-      setBooks(filteredBooks);
-    }
-  };
+  // Fetch books from API
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}books`, {
+          withCredentials: true,
+        });
+        setBooks(response.data.document); // Assuming the response contains the document array
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      }
+    };
+
+    fetchBooks();
+  }, []);
 
   return (
     <div className="container mt-4">
-      <h1 className="text-center mb-4 text-center-book">مكتبة الكتب  </h1>
-      <FilterBooks categories={categories} onSelectCategory={handleCategorySelect} />
+      <h1 className="text-center mb-4 text-center-book">مكتبة الكتب</h1>
       <BookList books={books} />
     </div>
   );

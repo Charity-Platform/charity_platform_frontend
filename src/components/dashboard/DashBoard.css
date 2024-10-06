@@ -164,3 +164,35 @@ h2 {
 .btn-website{
   background-color: rgb(56, 80, 220);
 }
+/* all tickets design  */
+.all-tickets-container {
+  max-width: 1200px; /* Limit max width */
+  margin: 0 auto; /* Center container */
+  padding: 20px; /* Padding for the container */
+}
+
+.ticket-container {
+  display: flex; /* Use flexbox for inline layout */
+  flex-wrap: wrap; /* Allow wrapping to the next line */
+  justify-content: flex-start; /* Align items to the start */
+  gap: 20px; /* Space between cards */
+}
+
+.ticket-card {
+  width: 300px; /* Fixed width for each card */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  transition: transform 0.2s; /* Transition for hover effect */
+}
+
+.ticket-card:hover {
+  transform: scale(1.02); /* Scale up on hover */
+}
+
+.error-message {
+  margin-top: 20px; /* Margin for error message */
+}
+
+h2 {
+  color: #333; /* Title color */
+}

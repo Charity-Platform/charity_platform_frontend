@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
+import './Cources.css'; // Make sure to have a similar CSS file like the one for books
 
 const CoursesDetails = () => {
   const { id } = useParams(); // Get course ID from URL
@@ -49,42 +50,46 @@ const CoursesDetails = () => {
   }
 
   return (
-    <Container className="py-5">
-      <Row className="g-4">
-        <Col md={8}>
-          <Card className="shadow-lg mb-4" dir='rtl'>
-            <Card.Img variant="top" src={course.image} alt={course.title} />
-            <Card.Body>
-              <Card.Title className="mb-3">{course.title}</Card.Title>
-              <Card.Text>
-                <strong>سعر الكورس :</strong> {course.price} ج.م.
-              </Card.Text>
-              <Card.Text>
-                <strong>الوصف :</strong> {course.description}
-              </Card.Text>
-              <Card.Text>
-                <strong>المجال :</strong> {course.field}
-              </Card.Text>
-              <Button 
-                variant="success" 
-                className="mt-3 w-100" 
-                onClick={handleShowAllVideos}
-              >
-                شراء الكورس
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
+    <Container className="course-details-container my-5">
+      {/* Back to main courses page button */}
+      <div className="text-center mb-3">
+        <Button className="btn-back" onClick={() => navigate('/Cources')}>
+          العودة إلى الصفحة الرئيسية للكورسات
+        </Button>
+      </div>
 
-        <Col md={4}>
+      <Row className="align-items-center">
+        <Col md={6} className="text-center">
+          <img src={course.image} alt={course.title} className="course-detail-image" />
+        </Col>
+        <Col md={6}>
+          <h1 className="course-detail-title">{course.title}</h1>
+          <p className="course-detail-price"><strong>سعر الكورس :</strong> {course.price} ج.م</p>
+          <p className="course-detail-description"><strong>الوصف :</strong> {course.description}</p>
+          <p className="course-detail-field"><strong>المجال :</strong> {course.field}</p>
+
+          {/* Show all videos button */}
+          <Button className="btn-primary mt-3 w-100" onClick={handleShowAllVideos}>
+            مشاهدة جميع الفيديوهات
+          </Button>
+
+          {/* Course Rating */}
+          <div className="course-rating mt-3">
+            <span>التقييم: {course.rating} ★</span>
+          </div>
+        </Col>
+      </Row>
+
+      <Row className="mt-4">
+        <Col>
           {course.courseLink ? (
             <Card className="shadow-lg">
               <Card.Body>
-                <h4 className="mb-4 text-center">فيديو تعريفى عن الكورس </h4>
+                <h4 className="mb-4 text-center">فيديو تعريفى عن الكورس</h4>
                 <div className="embed-responsive embed-responsive-16by9">
                   <iframe
                     width="100%"
-                    height="250"
+                    height="350"
                     src={getYouTubeEmbedUrl(course.courseLink)}
                     title="Course Introduction"
                     frameBorder="0"
@@ -97,7 +102,7 @@ const CoursesDetails = () => {
           ) : (
             <Card className="shadow-lg">
               <Card.Body>
-                <h5 className="text-center text-muted">No video available for this course.</h5>
+                <h5 className="text-center text-muted">لا يوجد فيديو تعريفي لهذا الكورس.</h5>
               </Card.Body>
             </Card>
           )}

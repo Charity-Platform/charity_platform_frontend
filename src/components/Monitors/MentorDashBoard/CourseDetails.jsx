@@ -93,7 +93,7 @@ const CourseDetails = () => {
             <Col md={9} className="course-info">
               <h2>{course.title}</h2>
               <Card>
-                <Card.Img variant="top" src={`${import.meta.env.VITE_MAIN_URL}images/${course.image}`} alt={course.title} />
+                <Card.Img variant="top" src={`${course.image}`} alt={course.title} />
                 <Card.Body>
                   <Card.Title>{course.title}</Card.Title>
                   <Card.Text>{course.description}</Card.Text>

@@ -40,6 +40,7 @@
   .content h1, .content h2 {
     margin: 0.5rem 0;
     text-align: center;
+    color: #eee;
     
   }
   .content h1{
@@ -128,7 +129,9 @@
 .video-list-item svg {
   color: #28a745; /* Set the play icon color */
 }
-
+.course-detail-image{
+  width: 100%;
+}
 
 
 

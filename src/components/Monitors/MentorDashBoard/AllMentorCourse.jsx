@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Card, Modal, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import '../Mentor.css'; // Import the custom CSS file for styling
 
 const AllMentorCourse = () => {
+  const { mentorId } = useParams(); // Get mentorId from URL
   const [courses, setCourses] = useState([]);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateCourseData, setUpdateCourseData] = useState({});
+  const [error, setError] = useState(null); // State to track error
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCourses = async () => {
+      if (!mentorId) {
+        setError('Mentor ID is not provided.');
+        return; // Exit early if mentorId is undefined
+      }
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses/mentor/66e57c979c273fa019b4dca5`, { withCredentials: true });
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses/mentor/${mentorId}`, { withCredentials: true });
         setCourses(response.data.data); // Update to match API response structure
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error('Error fetching courses:', error.response ? error.response.data : error.message);
+        setError('Failed to load courses. Please try again.');
       }
     };
 
     fetchCourses();
-  }, []);
+  }, [mentorId]); // Depend on mentorId
 
   const handleOpenUpdateModal = (course) => {
     setUpdateCourseData(course);
@@ -55,26 +63,34 @@ const AllMentorCourse = () => {
       setCourses(courses.filter(course => course._id !== courseId));
     } catch (error) {
       console.error('Error deleting course:', error);
+      alert('Failed to delete course. Please try again.');
     }
+  };
+
+  const handleShowDetails = (courseId) => {
+    // Navigate to the CoursesDetails page with courseId
+    navigate(`/course/${courseId}`);
   };
 
   return (
     <div className="all-mentor-course-container">
       <h2>Your Courses</h2>
       <div className="course-grid-container">
-        {courses.length > 0 ? (
+        {error ? (
+          <p>{error}</p> // Display error message if an error occurred
+        ) : courses.length > 0 ? (
           courses.map((course) => (
             <Card key={course._id} className="course-card">
-              <Card.Img variant="top" src={`${import.meta.env.VITE_MAIN_URL}images/${course.image}`} alt={course.title} />
+              <Card.Img variant="top" src={course.image} alt={course.title} className="course-image" />
               <Card.Body>
                 <Card.Title>{course.title}</Card.Title>
                 <Card.Text>{course.description}</Card.Text>
                 <Card.Subtitle className="mb-2 text-muted">Price: ${course.price}</Card.Subtitle>
                 <Card.Text><strong>Field:</strong> {course.field}</Card.Text>
                 <Card.Text><strong>Course Link:</strong> <a href={course.courseLink} target="_blank" rel="noopener noreferrer">Watch Course</a></Card.Text>
-                <Button variant="info" onClick={() => navigate(`/course/${course._id}`)}>إضافة فيديو</Button>
+                <Button variant="info" onClick={() => handleShowDetails(course._id)}>Add Videos</Button>
                 <Button variant="primary" onClick={() => handleOpenUpdateModal(course)}>تعديل</Button>
-                <Button variant="danger" onClick={() => handleDeleteCourse(course._id)}>حذف </Button>
+                <Button variant="danger" onClick={() => handleDeleteCourse(course._id)}>حذف</Button>
               </Card.Body>
             </Card>
           ))
@@ -104,7 +120,7 @@ const AllMentorCourse = () => {
               <Form.Group controlId="formCourseDescription">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
-                  as="textarea"
+                  type="text"
                   name="description"
                   value={updateCourseData.description || ''}
                   onChange={handleUpdateChange}
@@ -131,16 +147,6 @@ const AllMentorCourse = () => {
                   placeholder="Enter course field"
                 />
               </Form.Group>
-              <Form.Group controlId="formCourseLink">
-                <Form.Label>Course Link</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="courseLink"
-                  value={updateCourseData.courseLink || ''}
-                  onChange={handleUpdateChange}
-                  placeholder="Enter course link"
-                />
-              </Form.Group>
               <Form.Group controlId="formCourseImage">
                 <Form.Label>Image URL</Form.Label>
                 <Form.Control
@@ -151,11 +157,21 @@ const AllMentorCourse = () => {
                   placeholder="Enter image URL"
                 />
               </Form.Group>
+              <Form.Group controlId="formCourseLink">
+                <Form.Label>Course Link</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="courseLink"
+                  value={updateCourseData.courseLink || ''}
+                  onChange={handleUpdateChange}
+                  placeholder="Enter course link"
+                />
+              </Form.Group>
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseUpdateModal}>Close</Button>
-            <Button variant="primary" onClick={handleUpdateCourse}>Save Changes</Button>
+            <Button variant="primary" onClick={handleUpdateCourse}>Update Course</Button>
           </Modal.Footer>
         </Modal>
       )}

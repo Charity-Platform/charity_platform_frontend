@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Card, Container, Form, Dropdown } from 'react-bootstrap';
 import { FaPlusCircle, FaEdit, FaTrash, FaUser, FaList } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const RightSideMentor = () => {
@@ -11,9 +11,15 @@ const RightSideMentor = () => {
   const handleProfileModalOpen = () => setShowProfileModal(true);
   const handleProfileModalClose = () => setShowProfileModal(false);
   const navigate = useNavigate();
+const {mentorId}=useParams();
+
 
   // Navigate to display all courses page
-  const handleViewAllCourses = () => navigate('/all-courses');
+  const handleViewAllCourses = () => navigate(`/all-courses/${mentorId}`);
+const handlemakeinstruction =() => navigate('/instructions');
+const handleshowinstructions = ()=>navigate(`/allinstructions/${mentorId}`);
+const handlnewcourse =()=>navigate(`/new_courses`);
+const handelshowcourses =()=>navigate(`/all_books/${mentorId}`);
 
   return (
     <Container className="mentor-admin">
@@ -57,11 +63,23 @@ const RightSideMentor = () => {
         <Card.Body>
           <Card.Title>Dashboard Overview</Card.Title>
           <Card.Text>Here you can view your courses, manage your profile, and more.</Card.Text>
-          <Button variant="success" className="mb-3" onClick={() => navigate('/CreateCourse')}>
+          <Button variant="success" className="mb-3" onClick={() => navigate(`/CreateCourse/${mentorId}`)}>
             <FaPlusCircle /> إضافة دورة جديدة 
           </Button>
           <Button variant="info" className="mb-3 ms-3" onClick={handleViewAllCourses}>
             <FaList /> عرض جميع الدورات الخاصة بى 
+          </Button>
+          <Button variant="success" className="mb-3 ms-3" onClick={handlemakeinstruction}>
+            <FaPlusCircle /> إضافة استشارة جديدة 
+          </Button>
+          <Button variant="info" className="mb-3 ms-3" onClick={handleshowinstructions}>
+            <FaList /> عرض جميع الإستشارات   
+          </Button>
+          <Button variant="success" className="mb-3 ms-3" onClick={handlnewcourse}>
+            <FaPlusCircle /> إضافة دورة جديدة 
+          </Button>
+          <Button variant="info" className="mb-3 ms-3" onClick={handelshowcourses}>
+            <FaList /> عرض جميع الكتب   
           </Button>
 
           {/* Course Cards */}

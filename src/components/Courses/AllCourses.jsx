@@ -23,6 +23,7 @@ const AllCourses = () => {
         console.error('Error fetching courses:', error.response ? error.response.data : error.message);
         setErrorMessage('Failed to fetch courses.');
       }
+      
     };
 
     fetchCourses();
