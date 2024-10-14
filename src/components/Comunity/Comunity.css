@@ -72,6 +72,27 @@
  color: #fff;
 }
 
+.card-comunity {
+  width: 60%;
+  margin: auto; /* Center the card itself horizontally */
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column; /* Arrange children vertically */
+  align-items: center; /* Center align children horizontally */
+  text-align: center; /* Center align text */
+}
+
+.img-fluid {
+  max-width: 100%; /* Ensure the image does not overflow */
+  height: auto; /* Maintain aspect ratio */
+  margin: 10px 0; /* Optional: Add some space around the image */
+}
+
+.icons {
+  margin-top: 10px; /* Add some space between the image and icons */
+}
 
 .btn-comunity i {
   margin-right: 5px; /* Space between icon and text */
@@ -129,6 +150,30 @@ background-color: #07a79d;
 .card-comunity-text{
   direction: rtl;
 }
+/* Comunity.css */
+.post-list {
+  padding: 20px;
+}
+
+.posts-container {
+  display: grid; /* Use grid for layout */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
+  gap: 20px; /* Space between posts */
+}
+
+.post-card {
+  border: 1px solid #ddd; /* Border around post card */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px; /* Padding inside the card */
+  background: #fff; /* Background color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.post-image {
+  max-width: 100%; /* Responsive image */
+  height: auto; /* Maintain aspect ratio */
+}
+
   
   @media (max-width:567px){ 
      .right-sidbar{

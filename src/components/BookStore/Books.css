@@ -98,7 +98,7 @@
   flex-direction: column;
   align-items: center;
   width: 300px;
-  background: linear-gradient(to top, #fff, #dde5ed, #07a79d);
+  background: linear-gradient(to top, #fff, #cbd0d5);
   height: 100%; /* Ensure cards stretch to fill the column */
 }
 .text-center-book {

@@ -13,7 +13,7 @@ const Blog = () => {
         </h1>
 
         <div className="blog-tag">
-            <Link to='/FormBlog'>
+            <Link to='/comunity'>
             <Button className='button-hero'>إنشاء مدونتك <i className='p-2'>{}</i></Button>
             </Link>
        

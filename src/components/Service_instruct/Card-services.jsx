@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import { Container, Row, Col, Modal, Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { FaCircle } from 'react-icons/fa'; // Importing icon
 import './CardServices.css'; // Custom CSS file
 
 const Card_services = () => {
@@ -38,12 +37,15 @@ const Card_services = () => {
     fetchFields();
   }, []);
 
-  // Fetch instructions by field (with field name)
-  const fetchInstructionsByField = async (fieldName) => {
+  // Fetch all instructions or filtered instructions
+  const fetchInstructions = async (fieldName = '') => {
     setLoadingInstructions(true);
     try {
-      const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}tickets/${fieldName}`);
-      setInstructions(response.data.data || []); // Update instructions state
+      const endpoint = fieldName
+        ? `${import.meta.env.VITE_MAIN_URL}tickets/${fieldName}`
+        : `${import.meta.env.VITE_MAIN_URL}tickets/field`; // Fetch all instructions if no field is selected
+      const response = await axios.get(endpoint);
+      setInstructions(response.data.data || []);
     } catch (error) {
       console.error("Error fetching instructions:", error);
       setInstructions([]); // Clear instructions on error
@@ -56,19 +58,72 @@ const Card_services = () => {
   const handleFieldChange = (event) => {
     const fieldName = event.target.value;
     setSelectedField(fieldName);
-    console.log("Selected field:", fieldName); // Log selected field
     setInstructions([]); // Clear previous instructions
-    fetchInstructionsByField(fieldName); // Fetch instructions for the selected field
+    fetchInstructions(fieldName); // Fetch instructions for the selected field or all
   };
+
+  // Fetch all instructions when the component mounts
+  useEffect(() => {
+    fetchInstructions();
+  }, []);
 
   return (
     <div className='card-total' dir='rtl'>
       <Container>
+        
+        {/* Main Intro Section */}
+        <Card className="mb-4 welcome-card">
+          <Card.Body className="text-center p-4">
+            <h2 className="mb-4">
+              أهلا بك في <span style={{ color: '#07a79d' }}>المرشد الخيري</span>
+            </h2>
+            <p className="lead">
+              نقدم خدمات استشارية متخصصة لمساعدة مؤسستك الخيرية والأهلية على تجاوز تحديات القطاع غير الربحي.
+              فريقنا من الخبراء ملتزم بتقديم نصائح وحلول مخصصة تتناسب مع احتياجاتك وتحديات مؤسستك.
+            </p>
+          </Card.Body>
+        </Card>
+
+        {/* Consulting Fields Section */}
+        <Card className="mb-4 consulting-fields">
+          <Card.Body className="p-4">
+            <h5 className="mb-4" style={{ color: '#07a79d', fontWeight: 'bold' }}>مجالات الاستشارات:</h5>
+            <Row>
+              <Col lg={4}>
+                <ul className="custom-list">
+                  <li>تأسيس وإشهار المؤسسات الخيرية</li>
+                  <li>الإدارة العامة للمؤسسة الخيرية والأهلية</li>
+                  <li>إدارة المشاريع الخيرية</li>
+                  <li>إدارة المشاريع الخيرية (التعليمية)</li>
+                  <li>التخطيط الاستراتيجي</li>
+                </ul>
+              </Col>
+              <Col lg={4}>
+                <ul className="custom-list">
+                  <li>إدارة العمليات</li>
+                  <li>إدارة الجودة وتحسين الأداء</li>
+                  <li>الامتثال والحوكمة</li>
+                  <li>إدارة المخاطر</li>
+                  <li>التسويق للمشاريع الخيرية</li>
+                </ul>
+              </Col>
+              <Col lg={4}>
+                <ul className="custom-list">
+                  <li>تنمية الموارد المالية</li>
+                  <li>التدريب والتطوير</li>
+                  <li>التحليل وإعداد التقارير</li>
+                  <li>العلاقات العامة والتواصل وبناء الشراكات</li>
+                </ul>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+
         {/* Filter Dropdown */}
-        <Form.Group controlId="fieldSelect" className="mb-3">
+        <Form.Group controlId="fieldSelect" className="mb-3 filter-dropdown">
           <Form.Label>اختر مجالًا لتصفية الاستشارات</Form.Label>
           <Form.Control as="select" value={selectedField} onChange={handleFieldChange}>
-            <option value="">اختر مجال</option> {/* Default option */}
+            <option value="">عرض جميع المجالات</option> {/* Default option */}
             {fields.map(field => (
               <option key={field._id} value={field.name}>{field.name}</option>
             ))}
@@ -84,7 +139,6 @@ const Card_services = () => {
               instructions.map((instruction) => (
                 <Col key={instruction._id}>
                   <Card className='card-service' style={{ transition: '0.3s', borderRadius: '8px', overflow: 'hidden' }}>
-                   
                     <Card.Body>
                       <Card.Title className="mb-0">{instruction.title}</Card.Title>
                       <Card.Text className="text-muted mb-2">{instruction.type} - {instruction.startDate}</Card.Text>
