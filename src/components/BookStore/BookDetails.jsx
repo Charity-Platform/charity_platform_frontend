@@ -83,13 +83,13 @@ const BookDetails = () => {
         <Col md={6}>
           <h1 className="book-detail-title">{book.title}</h1>
           <h4 className="book-detail-author">by {book.author}</h4>
-          <p className="book-detail-price">{book.price} ر.س</p>
+          <p className="book-detail-price">{book.price} د.ك</p>
           <p className="book-detail-description">{book.description}</p>
           <Button className="btn-download" onClick={handleDownloadBook}>
             تحميل الكتاب
           </Button>
           <div className="book-rating mt-3">
-            <span>Rating: {book.rating} ★</span>
+            <span>التقييم : {book.rating} ★★★</span>
           </div>
         </Col>
       </Row>

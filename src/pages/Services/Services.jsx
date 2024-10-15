@@ -8,7 +8,7 @@ const Services = () => {
   return (
     <>
       <NavBar />
-      <Back title={'الاستشارات'} /> 
+      <Back title={'الخدمات '} /> 
       <Card_services/>
       <Paralex/>
       <Footer/>

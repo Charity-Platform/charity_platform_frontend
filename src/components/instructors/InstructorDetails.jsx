@@ -80,8 +80,8 @@ const InstructorDetails = () => {
         <Card.Img variant="top" src={mentor.image} alt={mentor.name} className="instructor-image" />
         <Card.Body className="text-center">
           <Card.Title className="instructor-name">{mentor.name}</Card.Title>
-          <Card.Text>Email: {mentor.email}</Card.Text>
-          <Card.Text>Phone: {mentor.phone}</Card.Text>
+          {/* <Card.Text>Email: {mentor.email}</Card.Text>
+          <Card.Text>Phone: {mentor.phone}</Card.Text> */}
           <Card.Text>Field: {mentor.field}</Card.Text>
           <Card.Text>Address: {mentor.address}</Card.Text>
         </Card.Body>

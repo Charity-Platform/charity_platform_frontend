@@ -51,7 +51,7 @@ const NavBar = () => {
                 من نحن
               </Nav.Link>
               <Nav.Link as={NavLink} to="/services">
-                الاستشارات
+                الخدمات
               </Nav.Link>
               <Nav.Link as={NavLink} to="/instructors">
                 المستشارين

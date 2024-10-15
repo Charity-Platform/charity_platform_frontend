@@ -75,11 +75,11 @@ const handeldetails = (id)=>{
               <Card.Body>
                 <Card.Title>الدكتور : {mentor.name}</Card.Title>
                 <Card.Text className='job-description'>
-                  <h5 className='job-description-text'>{mentor.email}</h5>
+                  <h5 className='job-description-text'>{mentor.field}</h5>
                 </Card.Text>
                 <Card.Text className='location'>
                   <h5 className='text-location'>
-                    {mentor.field} <i className="fa-solid fa-location-dot fa-bounce location-icon" style={{color: "#07a79d"}}></i>
+                    {mentor.address} <i className="fa-solid fa-location-dot fa-bounce location-icon" style={{color: "#07a79d"}}></i>
                   </h5>
                 </Card.Text>
               </Card.Body>

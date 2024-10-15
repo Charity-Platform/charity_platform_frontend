@@ -19,7 +19,7 @@ const BookList = ({ books }) => {
             <Card.Body>
               <Card.Title>{book.title}</Card.Title>
               <Card.Text>وصف: {book.description}</Card.Text>
-              <Card.Text>السعر: {book.price} ر.س</Card.Text>
+              <Card.Text>السعر: {book.price} د.ك</Card.Text>
               <Card.Text>
                 <button className='btn-book' onClick={() => handleShowBooks(book._id)}>طلب الكتاب</button>
               </Card.Text>
