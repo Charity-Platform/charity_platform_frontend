@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Modal, Form, Container, Row, Col } from 'react-bootstrap';
-import './Jobs.css'; // Updated CSS file name
+import { Card, Button, Modal, Form, Container, Row, Col, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom'; // for navigation
+import './Jobs.css';
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -8,6 +9,8 @@ const Jobs = () => {
   const [show, setShow] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [filterKeyword, setFilterKeyword] = useState('');
+  
+  const navigate = useNavigate(); // for navigation
 
   // Sample job data (replace with an API call if needed)
   useEffect(() => {
@@ -40,22 +43,66 @@ const Jobs = () => {
     setFilteredJobs(filtered);
   };
 
+  // Handle button click to navigate to different pages
+  const handleNavigate = (page) => {
+    navigate(page);
+  };
+
   return (
     <div className="jobs-container">
-      {/* Background header with overlay */}
-      <div className="jobs-header">
-        <div className="jobs-header-content">
-          <h1 className="text-white">Find Your Dream Job</h1>
-          <Form.Control
-            type="text"
-            placeholder="Search jobs by title, company, or location..."
-            value={filterKeyword}
-            onChange={handleFilter}
-            className="jobs-filter-input"
-          />
-        </div>
-      </div>
+      {/* Header Section with Buttons */}
+      <Container className="jobs-header-buttons">
+        <Row className="justify-content-center mb-3">
+          <Col xs={12} md={8} className="d-flex justify-content-center">
+            <ToggleButtonGroup type="radio" name="options" defaultValue={1} className="mb-2">
+              <ToggleButton 
+                id="tbg-btn-1" 
+                variant="outline-primary" 
+                value={1}
+                onClick={() => handleNavigate('/job-seeker')} // Navigate to Job Seeker page
+                className="mx-2" // Adding margin using Bootstrap class
+              >
+               الوظائف المتاحة
+              </ToggleButton>
+              <ToggleButton 
+                id="tbg-btn-2" 
+                variant="outline-primary" 
+                value={2}
+                onClick={() => handleNavigate('/comunity_platform')} // Navigate to Employer page
+                className="mx-2"
+              >
+                أنا جهة توظيف
+              </ToggleButton>
+              <ToggleButton 
+                id="tbg-btn-3" 
+                variant="outline-primary" 
+                value={3}
+                onClick={() => handleNavigate('/job_form')} // Navigate to Training page
+                className="mx-2"
+              >
+               أنا أبحث عن عمل
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Col>
+        </Row>
+      </Container>
 
+      {/* Filter input */}
+      <Container className="jobs-filter-section">
+        <Row className="justify-content-center mb-4">
+          <Col xs={12} md={8}>
+            <Form.Control
+              type="text"
+              placeholder="ابحث في الوظائف حسب العنوان أو الشركة أو الموقع..."
+              value={filterKeyword}
+              onChange={handleFilter}
+              className="jobs-filter-input"
+            />
+          </Col>
+        </Row>
+      </Container>
+
+      {/* Jobs Listing */}
       <Container>
         <Row>
           {filteredJobs.map((job) => (

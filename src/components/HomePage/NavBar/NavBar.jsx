@@ -64,9 +64,6 @@ const NavBar = () => {
                   <Dropdown.Item as={NavLink} to="/jobs">
                    الوظائف 
                   </Dropdown.Item>
-                  <Dropdown.Item as={NavLink} to="/comunity_platform">
-                    مجتمع المؤسسات 
-                  </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               <Nav.Link as={NavLink} to="/instructors">

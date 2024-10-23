@@ -18,11 +18,11 @@ const RightSide = () => {
         <FaBriefcase className='me-2' /> الوظائف
       </Link>
       </button>
-      <button className="btn-comunity btn  d-flex align-items-center">
+      {/* <button className="btn-comunity btn  d-flex align-items-center">
       <Link to='/comunity_platform' className='btn-title'>
         <FaUsers className='me-2' /> مجتمع المؤسسات 
       </Link>
-      </button>
+      </button> */}
     </div>
   </div>
   );
