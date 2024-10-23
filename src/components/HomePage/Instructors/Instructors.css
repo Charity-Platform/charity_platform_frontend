@@ -88,24 +88,18 @@
     background-color: #07a79d;
     color: #fff;
   }
- @media (max-width: 576px) { 
-    .btn-card{     
-        margin:10px 20px;
-    }
+/* Card spacing on mobile */
+@media (max-width: 576px) {
+  .card-total {
+    margin-bottom: 20px; /* Adds space between the cards */
+  }
   
-  .heading{
-    margin-bottom: 20px;
+  .card {
+    margin: 0 auto 20px auto; /* Space between each card */
+    width: 100%; /* Ensure the card takes full width on mobile */
+  }
 
-    }
-    .instructor-section{
-      padding-top: 30px;
-      padding: 10px;
-      
-      
-    }
-    
-   
-
-  
-
+  .btn-more {
+    margin-top: 30px;
+  }
 }

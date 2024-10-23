@@ -8,13 +8,13 @@ const Blog = () => {
     <div className="blog">
       <div className="Blog-content">
         <h1 className="blog-title">
-        يمكنك مشاركة اهتماماتك على طريقتك
-        {" "}
+        شاركنا خبراتك واهتماماتك وكن جزء من مجتمع واعي الخيري
+           {" "}
         </h1>
 
         <div className="blog-tag">
             <Link to='/comunity'>
-            <Button className='button-hero'>إنشاء مدونتك <i className='p-2'>{}</i></Button>
+            <Button className='button-hero'> إنطلق الآن <i className='p-2'>{}</i></Button>
             </Link>
        
 

@@ -59,13 +59,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white; /* Text color */
+    color: #eee; /* Text color */
     text-align: center;
     z-index: 2; /* Ensure the content is above the video */
   }
   
   .content-overlay h1 {
     font-size: 3rem; /* Adjust font size as needed */
+    color: white; /* Text color */
   }
   
   .content-overlay p {

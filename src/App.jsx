@@ -42,6 +42,8 @@ import AllTickets from "./components/dashboard/AllTickets";
 import NewCourses from "./components/Monitors/MentorDashBoard/NewCourses";
 import AllBooks from "./components/Monitors/MentorDashBoard/AllBooks";
 import BookDetails from "./components/BookStore/BookDetails";
+import Jobs from "./components/Comunity/Jobs";
+import Comunity_platform from "./components/Comunity/Comunity_platform";
 
 function App() {
   return (
@@ -91,6 +93,10 @@ function App() {
           <Route path="/new_courses" element={<NewCourses/>} />
           <Route path="/all_books/:mentorId" element={<AllBooks/>} />
           <Route path="/book_details/:bookId" element={<BookDetails/>} />
+          <Route path="/jobs" element={<Jobs/>} />
+          <Route path="/comunity_platform" element={<Comunity_platform/>} />
+
+
 
 
 

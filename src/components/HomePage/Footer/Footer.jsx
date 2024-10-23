@@ -6,7 +6,7 @@ const Footer = () => {
        <footer class="footer">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0" dir='rtl'>
                     <h5 class="text-uppercase">المرشد الخيرى </h5>
                     <p>
                         نحن شركة مكرسة لتقديم أفضل الخدمات والحلول لعملائنا.

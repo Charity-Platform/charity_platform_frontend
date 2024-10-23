@@ -48,6 +48,23 @@
   .icon-user .avatar:hover {
     background-color: #07a79d; /* Optional: Change color on hover for better interaction feedback */
   }
+  #services-dropdown{
+    list-style: none;
+    text-decoration: none;
+    color: #191919;
+    padding: 2px;
+  }
+  .custom-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px; /* Adjust this value as needed */
+  }
+  
+  .custom-dropdown-toggle::after {
+    margin-left: 8px; /* This adds space between the text and the toggle icon */
+  }
+  
 /* General Button Styles */
 .login-buttons {
   display: flex;

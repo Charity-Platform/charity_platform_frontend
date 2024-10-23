@@ -182,7 +182,7 @@ const CardServices = () => {
                 <Card.Body>
                   <Card.Title className="service-title">{service.title}</Card.Title>
                   <Card.Text>{service.description}</Card.Text>
-                  <ul>
+                  <ul className="list-pointservice">
                     {service.points.map((point, idx) => (
                       <li key={idx}>{point}</li>
                     ))}
@@ -212,7 +212,7 @@ const CardServices = () => {
               instructions.map((instruction) => (
                 <Col key={instruction._id}>
                   <Card className='card-service' style={{ transition: '0.3s', borderRadius: '8px', overflow: 'hidden' }}>
-                    <Card.Body>
+                    <Card.Body className="card-instruction">
                       <Card.Title className="mb-0">{instruction.title}</Card.Title>
                       <Card.Text className="text-muted mb-2">{instruction.type} - {instruction.startDate}</Card.Text>
                       <Card.Text className="text-muted mb-2">

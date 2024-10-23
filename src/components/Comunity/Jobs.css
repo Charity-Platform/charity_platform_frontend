@@ -1,0 +1,38 @@
+/* Header Section */
+.jobs-header {
+    background: url('/job-bg.jpg') center/cover no-repeat;
+    height: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .jobs-header-content {
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .jobs-filter-input {
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  
+  /* Job Cards */
+  .jobs-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .jobs-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Modal Styling */
+  .modal-body {
+    padding: 20px;
+  }
+  

@@ -75,13 +75,22 @@ ul {
   padding: 0;
   line-height: 1.6; /* Improve readability */
 }
-
+.list-pointservice{
+  list-style: square;
+  margin-right: 5px;
+  text-decoration: none;
+}
 /* Background for card services */
 .card-service {
   background-color: #f2f7f7; /* Lighter background for service cards */
   border: none; /* Remove border to focus on shadow */
 }
+.card-instruction{
+  padding: 10px;
+  background: linear-gradient(to top, #fff, #cbd0d5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+}
 /* Modal styles */
 .modal-body {
   padding: 25px; /* More padding inside modal */
@@ -104,12 +113,17 @@ ul {
   .service-card {
     margin-bottom: 25px; /* Increased margin for small screens */
     padding: 15px; /* More compact padding */
+    list-style: none;
   }
 
   .service-title {
     font-size: 1.5rem; /* Adjust title size for mobile */
+   
   }
-
+  .list-pointservice{
+    list-style: square;
+    text-decoration: none;
+  }
   .card-body {
     padding: 20px; /* Reduce padding on mobile for better fit */
   }

@@ -131,11 +131,13 @@ span {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
+    
   }
   
   .goal-column ul {
     list-style-type: disc;
     padding-left: 20px;
+    list-style: none;
   }
   
   .goal-column ul li {

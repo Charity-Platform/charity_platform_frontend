@@ -58,7 +58,7 @@ const CoursesDetails = () => {
         </Button>
       </div>
 
-      <Row className="align-items-center">
+      <Row className="align-items-center" >
         <Col md={6} className="text-center">
           <img src={course.image} alt={course.title} className="course-detail-image" />
         </Col>

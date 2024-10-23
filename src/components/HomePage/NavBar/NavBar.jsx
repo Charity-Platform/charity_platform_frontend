@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa';
 import logo from '../../../assets/logo.png';
@@ -50,9 +51,24 @@ const NavBar = () => {
               <Nav.Link as={NavLink} to="/about">
                 من نحن
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/services">
-                الخدمات
-              </Nav.Link>
+               {/* Dropdown for services */}
+               <Dropdown>
+                <Dropdown.Toggle as={NavLink}  id="services-dropdown" className="custom-dropdown-toggle">
+                  الخدمات
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item as={NavLink} to="/services">
+                    الإستشارات 
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/jobs">
+                   الوظائف 
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/comunity_platform">
+                    مجتمع المؤسسات 
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               <Nav.Link as={NavLink} to="/instructors">
                 المستشارين
               </Nav.Link>
