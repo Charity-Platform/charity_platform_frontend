@@ -12,6 +12,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const NavBar = () => {
+  const [showSubmenu, setShowSubmenu] = useState(false);
+  const handleMouseEnter = () => setShowSubmenu(true);
+  const handleMouseLeave = () => setShowSubmenu(false);
   const navigate = useNavigate();
   const { setRole, setuser, setLoggedin, user } = useAuth();
 
@@ -51,19 +54,76 @@ const NavBar = () => {
               <Nav.Link as={NavLink} to="/about">
                 من نحن
               </Nav.Link>
-               {/* Dropdown for services */}
-               <Dropdown>
-                <Dropdown.Toggle as={NavLink}  id="services-dropdown" className="custom-dropdown-toggle">
+              {/* Dropdown for services */}
+              <Dropdown onToggle={(isOpen) => setShowSubmenu(isOpen)}>
+                
+                <Dropdown.Toggle
+                  as={NavLink}
+                  id="services-dropdown"
+                  className="custom-dropdown-toggle"
+                >
                   الخدمات
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item as={NavLink} to="/services">
-                    الإستشارات 
+                <Dropdown.Item as={NavLink} to="/jobs">
+                    الوظائف
                   </Dropdown.Item>
-                  <Dropdown.Item as={NavLink} to="/jobs">
-                   الوظائف 
+                  <Dropdown.Item
+                    as="div"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    style={{ cursor: "pointer", position: "relative" }}
+                  >
+                    الاستشارات
+                    <span className="ms-2">&#9662;</span>
+                    {showSubmenu && (
+                      <Dropdown.Menu
+                        show
+                        style={{
+                          position: "absolute",
+                          left: "100%",
+                          top: 0,
+                          marginTop: "5px",
+                          borderRadius: "8px",
+                          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+                          backgroundColor: "#fff", // Ensure submenu background is white
+                        }}
+                        onMouseEnter={handleMouseEnter}
+                        onMouseLeave={handleMouseLeave}
+                      >
+                        <Dropdown.Item as={NavLink} to="/services">
+                        تأسيس وبناء الجمعيات الخيرية
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        إدارة المشاريع الخيرية
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        التخطيط الاستراتيجي
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        الامتثال والحوكمة وإدارة المخاطر
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        إدارة الجودة وتحسين الأداء
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        التخطيط المالي والميزانيات
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        تنمية الموارد المالية
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        التدريب والتطوير
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        العلاقات العامة والتواصل وبناء الشراكات
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    )}
                   </Dropdown.Item>
+
+                  
                 </Dropdown.Menu>
               </Dropdown>
               <Nav.Link as={NavLink} to="/instructors">
@@ -99,7 +159,7 @@ const NavBar = () => {
               </>
             ) : (
               <div className="d-flex text-light login-buttons">
-                <Link to={'/login'}>
+                <Link to={"/login"}>
                   <button
                     type="button"
                     className="mx-1 btn btn-primary bg-dark:hover"
@@ -141,7 +201,7 @@ const NavBar = () => {
                 className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
-                style={{ margin: 'initial' }}
+                style={{ margin: "initial" }}
               ></button>
             </div>
             <div className="modal-body">
@@ -156,32 +216,32 @@ const NavBar = () => {
                 data-bs-toggle="modal"
               >
                 <Link
-                  to={'/instractor'}
+                  to={"/instractor"}
                   className="card mx-2"
-                  style={{ width: '18rem' }}
+                  style={{ width: "18rem" }}
                 >
                   <img
                     src={
-                      'https://t3.ftcdn.net/jpg/02/94/21/42/360_F_294214205_ZmptWrtSwORSWadAIHSWqwSa319XlQiB.jpg'
+                      "https://t3.ftcdn.net/jpg/02/94/21/42/360_F_294214205_ZmptWrtSwORSWadAIHSWqwSa319XlQiB.jpg"
                     }
                     className="card-img-top"
-                    alt={'تسجيل الدخول كمستشار'}
+                    alt={"تسجيل الدخول كمستشار"}
                   />
                   <div className="card-body">
                     <p className="card-text">تسجيل كمستشار</p>
                   </div>
                 </Link>
                 <Link
-                  to={'/login'}
+                  to={"/login"}
                   className="card mx-2"
-                  style={{ width: '18rem' }}
+                  style={{ width: "18rem" }}
                 >
                   <img
                     src={
-                      'https://media.istockphoto.com/id/1336832660/photo/male-teenage-student-in-yellow-background-stock-photo.jpg?s=612x612&w=0&k=20&c=24LklaK0hoPbe7bGCSHZPbaWJKV6yH0F1b8lABbOS30='
+                      "https://media.istockphoto.com/id/1336832660/photo/male-teenage-student-in-yellow-background-stock-photo.jpg?s=612x612&w=0&k=20&c=24LklaK0hoPbe7bGCSHZPbaWJKV6yH0F1b8lABbOS30="
                     }
                     className="card-img-top"
-                    alt={'تسجيل الدخول كمستخدم'}
+                    alt={"تسجيل الدخول كمستخدم"}
                   />
                   <div className="card-body">
                     <p className="card-text">تسجيل كمستخدم</p>

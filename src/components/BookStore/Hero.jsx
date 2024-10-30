@@ -9,7 +9,7 @@ const Hero = () => {
         </h1>
 
         <div className="hero-tag">
-          <p className="hero-tagline"> ادارة</p>
+          <p className="hero-tagline"> إدارة</p>
           <p className="hero-tagline"> تسويق </p>
           <p className="hero-tagline"> تنمية موارد  </p>
           <p className="hero-tagline"> جودة </p>

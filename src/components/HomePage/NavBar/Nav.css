@@ -98,6 +98,50 @@
   padding: 5px 8px;
   border-radius: 10px;
 }
+/* toggel in navbar services  */
+.custom-dropdown-toggle {
+  font-weight: bold;
+  color: #333;
+}
+
+.custom-dropdown-toggle:hover {
+  color: #07a79d;
+}
+
+/* Override Bootstrap styles for dropdown menu */
+.dropdown-menu {
+  background-color: #fff; /* Set background color to white */
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Set default background color for dropdown items */
+.dropdown-item {
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #333;
+  transition: background-color 0.3s ease;
+  background-color: transparent; /* Clear any default background */
+}
+
+/* Change background color on hover */
+.dropdown-item:hover {
+  background-color: #07a79d; /* Hover background color */
+  color: #fff; /* Text color on hover */
+}
+.mobile-dropdown-button {
+  display: none; /* Hide by default */
+}
+
+/* Show button only on smaller screens */
+@media (max-width: 767px) {
+  .mobile-dropdown-button {
+    display: block; /* Show on mobile */
+    margin-top: 10px;
+  }
+}
+
   /* User icon and buttons display logic */
   @media (max-width: 768px) {
     /* Adjust button display for mobile screens */

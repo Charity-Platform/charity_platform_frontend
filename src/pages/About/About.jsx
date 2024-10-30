@@ -13,7 +13,7 @@ const About = () => {
     <div className="about-body-container">
         <Aboutbody />
       </div>
-    <TabsCustomAnimation/>
+    {/* <TabsCustomAnimation/> */}
     <Footer/>
    
  

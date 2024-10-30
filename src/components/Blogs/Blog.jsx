@@ -14,7 +14,7 @@ const Blog = () => {
 
         <div className="blog-tag">
             <Link to='/comunity'>
-            <Button className='button-hero'> إنطلق الآن <i className='p-2'>{}</i></Button>
+            <Button className='button-hero'> ابدأ .. الآن<i className='p-2'>{}</i></Button>
             </Link>
        
 

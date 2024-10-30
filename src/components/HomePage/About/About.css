@@ -185,24 +185,34 @@ padding: 20px;
     font-weight: 600;
     font-size: 40px;
 }
-
 @media (max-width: 576px) { 
-    .icon-about .icon{
+    .icon-about .icon {
         background-color: #fff;
-        margin-left: 5px;
+        margin: 10px auto; /* Center cards on small screens */
+        padding: 15px; /* Add padding for better spacing */
+        width: 100%; /* Make each card take full width on mobile */
         border-radius: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
     } 
-    .text-about{
-        font-size: 35px;
-        font-weight: 600;
-        padding: 15px;
-        margin: 30px;
-    }
-    .center-icon h2{
-        font-size: 30px;
-        padding-top: 30px;
-    }
-    
 
+    .text-about {
+        font-size: 28px; /* Smaller font for mobile */
+        font-weight: 600;
+        padding: 10px;
+        margin: 20px 0;
+    }
+
+    .center-icon h2 {
+        font-size: 24px; /* Smaller font size for mobile */
+        padding-top: 20px;
+    }
+
+    /* Adjust text size inside each card for mobile */
+    .icon-about .icon h2 {
+        font-size: 20px;
+    }
+
+    .icon-about .icon p {
+        font-size: 14px;
+    }
 }
