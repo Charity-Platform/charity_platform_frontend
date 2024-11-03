@@ -53,7 +53,11 @@ const CardServices = () => {
       setLoadingInstructions(false);
     }
   };
-
+  function applyService() {
+   
+   // window.location.href = "/apply-service"; 
+  }
+  
   // Handle filter change
   const handleFieldChange = (event) => {
     const fieldName = event.target.value;
@@ -69,6 +73,7 @@ const CardServices = () => {
 
   // Service details
   const services = [
+ 
     {
       title: "تأسيس وبناء الجمعيات الخيرية ",
       // description: "نوفر استشارات من قبل مجموعة من الخبراء المتخصصين في القطاع الخيري، لتقديم نصائح مخصصة واستراتيجيات لمواجهة التحديات وتعظيم الأثر.",
@@ -88,6 +93,15 @@ const CardServices = () => {
         "إعداد خطة المشاريع السنوية للمؤسسة وفقاً لأهدافها وخطتها الاستراتيجية",
         "دعم المؤسسة في تبني أفضل الممارسات في إدارة لمشاريعها الخيرية.",
         
+      ]
+    },
+    {
+      title: " التسويق وبناء الهوية (فريق تسويقي متخصص) في",
+      points: [
+        "	خلق وبناء علامة تجارية للمؤسسة الخيرية ونشر الوعي حول خدماتها",
+        "	تصميم استراتيجيات تسويق الرقمي لزيادة التفاعل والدعم ",
+        "	تحسين تواجد المؤسسة على وسائل التواصل الاجتماعي",
+        "	تصميم حملات تسويقية لجذب التبرعات ",
       ]
     },
     {
@@ -206,8 +220,12 @@ const CardServices = () => {
               </Card>
             </Col>
           ))}
-        </Row>
+          <div class="apply-service-container">
+            <button class="apply-button" onclick={applyService()}>طلب خدمة </button>
+            </div>
 
+        </Row>
+       
         <Form.Group controlId="fieldSelect" className="mb-3 filter-dropdown">
           <Form.Label>اختر مجالًا لتصفية الاستشارات</Form.Label>
           <Form.Control as="select" value={selectedField} onChange={handleFieldChange}>

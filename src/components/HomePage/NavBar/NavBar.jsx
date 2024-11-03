@@ -96,6 +96,9 @@ const NavBar = () => {
                         تأسيس وبناء الجمعيات الخيرية
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
+                        التسويق وبناء الهوية 
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
                         إدارة المشاريع الخيرية
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
@@ -130,13 +133,13 @@ const NavBar = () => {
                 المستشارين
               </Nav.Link>
               <Nav.Link as={NavLink} to="/Cources">
-                مبادرة واعى
+              منصة تطوير
               </Nav.Link>
               <Nav.Link as={NavLink} to="/books">
                 المكتبة الخيرية
               </Nav.Link>
               <Nav.Link as={NavLink} to="/blog">
-                مدونة الخير
+              ملتقى الخير
               </Nav.Link>
               <Nav.Link as={NavLink} to="/contact">
                 تواصل معنا

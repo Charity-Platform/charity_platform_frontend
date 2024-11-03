@@ -1,139 +1,166 @@
 /* Container to hold the cards */
 .card-container {
   display: flex;
-  flex-wrap: wrap; /* Allow cards to wrap into multiple lines */
-  gap: 20px; /* Space between each card */
-  justify-content: space-between; /* Ensure even spacing between cards */
-  margin: 20px 0; /* Margin around the container itself */
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around; /* Center cards more evenly */
+  margin: 20px 0;
 }
 
 /* General styles for service cards */
 .service-card {
-  flex: 1 1 calc(33.333% - 40px); /* Make each card 1/3rd of the container's width with 20px margin */
+  flex: 1 1 calc(33.333% - 40px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #dcdcdc; /* Subtle border */
-  border-radius: 16px; /* Rounded corners */
-  overflow: hidden; /* Prevent content overflow */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  background-color: #ffffff; /* White background */
-  display: flex; /* Enable flex behavior inside the card */
-  flex-direction: column; /* Stack content vertically */
-  min-height: 300px; /* Set a minimum height to keep all cards the same */
-  margin: 20px; /* Margin around individual cards */
-}
-
-/* Ensure card content stretches evenly */
-.service-card .card-body {
-  padding: 20px;
-  flex-grow: 1; /* Ensure the body grows to take available space */
+  border: 1px solid #dcdcdc;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Keep button at the bottom */
+  justify-content: space-between; /* Ensure content spans full height */
+  min-height: 300px;
+  margin: 20px;
 }
+
+/* Card content alignment */
+.service-card .card-body {
+  padding: 20px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; /* Center content horizontally */
+  text-align: center; /* Center text for a balanced look */
+}
+
 /* Card hover effect */
 .service-card:hover {
-  transform: translateY(-8px); /* Stronger lift effect on hover */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); /* Darker, larger shadow on hover */
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
 }
 
 /* Service title styles */
 .service-title {
-  font-size: 2rem; /* Slightly larger title */
-  font-weight: 700; /* Bolder title for emphasis */
-  color: #07a79d; /* Theme color for titles */
-  margin-bottom: 15px; /* Add spacing below the title */
-  text-align: center; /* Centered title for a balanced look */
+  font-size: 2rem;
+  font-weight: 700;
+  color: #07a79d;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 /* Button styles */
 .custom-button {
   transition: background-color 0.3s ease;
-  background-color: #07a79d; /* Primary theme color */
+  background-color: #07a79d;
   color: white;
-  border-radius: 8px; /* Rounded button */
-  padding: 10px 20px; /* Comfortable padding for buttons */
-  font-weight: 600; /* Bold text */
-  border: none; /* No border */
-  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
   margin: 5px;
 }
 
 .custom-button:hover {
-  background-color: #05a78e; /* Darker shade for hover */
+  background-color: #05a78e;
 }
 
-/* Card body styles */
-.card-body {
-  padding: 25px; /* Extra padding for spaciousness */
-  text-align: left; /* Left align text by default */
-}
-
-/* Service description list */
+/* Background and spacing for service description */
 ul {
-  list-style-type: disc; /* Bullet points for lists */
-  margin-left: 20px; /* Indentation for lists */
+  list-style-type: disc;
+  margin-left: 20px;
   padding: 0;
-  line-height: 1.6; /* Improve readability */
+  line-height: 1.6;
 }
-.list-pointservice{
+.list-pointservice {
   list-style: square;
   margin-right: 5px;
   text-decoration: none;
 }
-/* Background for card services */
+
 .card-service {
-  background-color: #f2f7f7; /* Lighter background for service cards */
-  border: none; /* Remove border to focus on shadow */
+  background-color: #f2f7f7;
+  border: none;
 }
-.card-instruction{
+
+.card-instruction {
   padding: 10px;
   background: linear-gradient(to top, #fff, #cbd0d5);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
 }
+
 /* Modal styles */
 .modal-body {
-  padding: 25px; /* More padding inside modal */
-  font-size: 1rem; /* Adjust modal text size */
-  line-height: 1.5; /* Increase line-height for readability */
+  padding: 25px;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .modal-footer {
   display: flex;
-  justify-content: space-between; /* Space between modal buttons */
-  padding: 10px 20px; /* Add padding inside footer */
+  justify-content: space-between;
+  padding: 10px 20px;
 }
-.title-serveses{
+
+.title-serveses {
   text-align: center;
   justify-content: center;
   font-size: 45px;
 }
+.filter-dropdown{
+  padding: 10px;
+  margin: 10px;
+}
+/* Apply Service Button Container */
+.apply-service-container {
+  display: flex;
+  justify-content: center; /* Center the button horizontally */
+  margin-top: 30px;
+}
+
+.apply-service-container .apply-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  background-color: #07a79d;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.apply-service-container .apply-button:hover {
+  background-color: #05a78e;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .service-card {
-    margin-bottom: 25px; /* Increased margin for small screens */
-    padding: 15px; /* More compact padding */
-    list-style: none;
+    margin-bottom: 25px;
+    padding: 15px;
   }
 
   .service-title {
-    font-size: 1.5rem; /* Adjust title size for mobile */
-   
+    font-size: 1.5rem;
   }
-  .list-pointservice{
+
+  .list-pointservice {
     list-style: square;
     text-decoration: none;
   }
+
   .card-body {
-    padding: 20px; /* Reduce padding on mobile for better fit */
+    padding: 20px;
   }
-  
+
   ul {
-    margin-left: 15px; /* Slightly less indentation on mobile */
+    margin-left: 15px;
   }
 
   .custom-button {
-    width: 100%; /* Full-width buttons on mobile */
-    padding: 12px; /* Increase padding for better touch targets */
+    width: 100%;
+    padding: 12px;
   }
 }
