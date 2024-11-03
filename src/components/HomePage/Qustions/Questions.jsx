@@ -19,7 +19,7 @@ const Questions = () => {
     <h2>
       <AccordionButton className='AccordionButton'>
         <Box as='span' flex='1' textAlign='center'p={8}>
-        ما هي منصة المرشد الخيرى؟
+        ما هي منصة استشارة؟
         </Box>
         <AccordionIcon />
       </AccordionButton>

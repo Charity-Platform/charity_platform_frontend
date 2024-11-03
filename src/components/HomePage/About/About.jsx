@@ -9,14 +9,14 @@ const About = () => {
     <div className="about-container">
       <div className="container" dir='rtl'>
         <h1 className="heading w-2 pt-5 text-center text-about">
-          <span> عن </span> المرشد الخيرى
+          <span> عن </span> استشارة
         </h1>
         <div className='about-content row'>
           <div className='col-12 col-md-6 order-2 order-md-1'>
             <img src={imag1} alt='' className='img-fluid' />
           </div>
           <div className='col-12 col-md-6 order-1 order-md-2'>
-            <h1 className='about-h1'>المرشد الخيرى</h1>
+            <h1 className='about-h1'>استشارة</h1>
             <p className='about-p'>
             المنصة الأولي من نوعها في الوطن العربي والمتخصصة في تقديم خدمات متكاملة لمؤسسات العمل الإنساني بهدف تعزيز كفاءتها وفعاليتها والارتقاء بمستوى عملها بتلبية احتياجاتها من استشارات وتدريب وتطوير كوادرها عبر نخبة كبيرة من المستشارين والخبراء في مجال العمل الإنساني.
             </p>

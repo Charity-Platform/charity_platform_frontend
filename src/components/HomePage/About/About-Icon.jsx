@@ -20,7 +20,7 @@ const About_Icon = () => {
   return (
     <div className="container text-center p-4 icon-about">
       <div className='center-icon'>
-        <h2>? <span>لماذا  </span> المرشد الخيرى </h2>
+        <h2>? <span>لماذا  </span> استشارة</h2>
       </div>
       <div className="row p-2">
       <div className="col-lg-3 col-md-4 col-sm-6 col-12  icon">
