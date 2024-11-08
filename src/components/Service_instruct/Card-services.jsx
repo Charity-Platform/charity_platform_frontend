@@ -228,7 +228,7 @@ const CardServices = () => {
        
         <Form.Group controlId="fieldSelect" className="mb-3 filter-dropdown">
           <Form.Label>اختر مجالًا لتصفية الاستشارات</Form.Label>
-          <Form.Control as="select" value={selectedField} onChange={handleFieldChange}>
+          <Form.Control as="select" value={selectedField} onChange={handleFieldChange} className="fillter-option">
             <option value="">عرض جميع المجالات</option> {/* Default option */}
             {fields.map(field => (
               <option key={field._id} value={field.name}>{field.name}</option>

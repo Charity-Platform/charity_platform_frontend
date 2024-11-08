@@ -76,7 +76,7 @@ const handelshowcourses =()=>navigate(`/all_books/${mentorId}`);
             <FaList /> عرض جميع الإستشارات   
           </Button>
           <Button variant="success" className="mb-3 ms-3" onClick={handlnewcourse}>
-            <FaPlusCircle /> إضافة دورة جديدة 
+            <FaPlusCircle /> إضافة كتاب جديد 
           </Button>
           <Button variant="info" className="mb-3 ms-3" onClick={handelshowcourses}>
             <FaList /> عرض جميع الكتب   

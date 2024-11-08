@@ -12,6 +12,8 @@ const CreateCourse = () => {
         field: '',
         courseLink: '',
         image: null,
+        pdf: null,
+        isFree: false,
     });
 
     const [successMessage, setSuccessMessage] = useState('');
@@ -21,12 +23,19 @@ const CreateCourse = () => {
     const { mentorId } = useParams();
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setCourseData({ ...courseData, [name]: value });
+        const { name, value, type, checked } = e.target;
+        setCourseData({
+            ...courseData,
+            [name]: type === 'checkbox' ? checked : value,
+        });
     };
 
     const handleFileChange = (e) => {
-        setCourseData({ ...courseData, image: e.target.files[0] });
+        const { name, files } = e.target;
+        setCourseData({
+            ...courseData,
+            [name]: files[0],
+        });
     };
 
     const handleSubmit = async (e) => {
@@ -38,8 +47,12 @@ const CreateCourse = () => {
         formData.append('description', courseData.description);
         formData.append('field', courseData.field);
         formData.append('courseLink', courseData.courseLink);
+        formData.append('isFree', courseData.isFree);
         if (courseData.image) {
             formData.append('image', courseData.image);
+        }
+        if (courseData.pdf) {
+            formData.append('pdf', courseData.pdf);
         }
 
         setIsLoading(true); // Start loading
@@ -60,6 +73,8 @@ const CreateCourse = () => {
                 field: '',
                 courseLink: '',
                 image: null,
+                pdf: null,
+                isFree: false,
             });
             setErrorMessage('');
         } catch (error) {
@@ -157,6 +172,28 @@ const CreateCourse = () => {
                         name="image"
                         onChange={handleFileChange}
                         accept="image/*"
+                    />
+                </Form.Group>
+
+                {/* Course PDF */}
+                <Form.Group className="mb-3" controlId="formPdf">
+                    <Form.Label>ملف PDF للدورة</Form.Label>
+                    <Form.Control
+                        type="file"
+                        name="pdf"
+                        onChange={handleFileChange}
+                        accept="application/pdf"
+                    />
+                </Form.Group>
+
+                {/* Is Free Checkbox */}
+                <Form.Group className="mb-3" controlId="formIsFree">
+                    <Form.Check
+                        type="checkbox"
+                        label="الدورة مجانية"
+                        name="isFree"
+                        checked={courseData.isFree}
+                        onChange={handleChange}
                     />
                 </Form.Group>
 

@@ -1,31 +1,51 @@
-.social-links a{
-    margin-right: 10px;
-}
 .all-mentor-course-container {
-    padding: 20px;
-  }
-  
+  padding: 20px;
+}
+
+.course-grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns for larger screens */
+  gap: 20px; /* Space between cards */
+}
+
+.course-card {
+  width: 100%;
+  max-width: 300px; /* Optional: set max width for responsiveness */
+  overflow: hidden;
+}
+
+.course-card .btn {
+  margin-right: 5px;
+}
+
+.course-card img {
+  width: 100%;
+  height: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
   .course-grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    gap: 20px; /* Space between cards */
+      grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
   }
-  
-  .course-card {
-    width: 100%;
-    max-width: 300px; /* Optional: set max width for responsiveness */
-    overflow: hidden;
+}
+
+@media (max-width: 992px) {
+  .course-grid-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
   }
-  
-  .course-card .btn {
-    margin-right: 5px;
+}
+
+@media (max-width: 576px) {
+  .course-grid-container {
+      grid-template-columns: 1fr; /* 1 column for mobile screens */
   }
-  
-  .course-card img {
-    width: 100%;
-    height: auto;
-  }
-  
+}
+
+.social-links a {
+  margin-right: 10px;
+}
+
   /* deatails videos  */
   .course-details-container {
     padding: 20px;

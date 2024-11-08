@@ -111,7 +111,9 @@ ul {
 .filter-dropdown{
   padding: 10px;
   margin: 10px;
+  
 }
+
 /* Apply Service Button Container */
 .apply-service-container {
   display: flex;
