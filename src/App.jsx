@@ -45,6 +45,7 @@ import BookDetails from "./components/BookStore/BookDetails";
 import Jobs from "./components/Comunity/Jobs";
 import Comunity_platform from "./components/Comunity/Comunity_platform";
 import JobForm from "./components/Comunity/JobForm";
+import Fullservices from "./components/HomePage/services/Fullservices";
 
 function App() {
   return (
@@ -97,6 +98,8 @@ function App() {
           <Route path="/jobs" element={<Jobs/>} />
           <Route path="/comunity_platform" element={<Comunity_platform/>} />
           <Route path="/job_form" element={<JobForm/>} />
+          <Route path="/full-services" element={<Fullservices/>} />
+
 
 
 
