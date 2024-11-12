@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Card from 'react-bootstrap/Card';
-import { Container, Row, Col, Modal, Form } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import { Container, Row, Col, Modal, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import './CardServices.css'; // Custom CSS file
+import CardInfo from './Card';
 
 const CardServices = () => {
   const [show, setShow] = useState(false);
@@ -12,6 +12,7 @@ const CardServices = () => {
   const [selectedField, setSelectedField] = useState('');
   const [loadingInstructions, setLoadingInstructions] = useState(false);
   const [selectedInstruction, setSelectedInstruction] = useState(null);
+  const [error, setError] = useState(null); // For displaying errors
 
   const handleClose = () => {
     setShow(false);
@@ -30,34 +31,34 @@ const CardServices = () => {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}fields`);
         setFields(response.data.document || []);
       } catch (error) {
+        setError("حدث خطأ في تحميل المجالات.");
         console.error("Error fetching fields:", error);
       }
     };
 
     fetchFields();
+    window.scrollTo(0, 0);
   }, []);
 
-  // Fetch all instructions or filtered instructions
+  // Fetch instructions based on field
   const fetchInstructions = async (fieldName = '') => {
     setLoadingInstructions(true);
+    setError(null); // Reset error state on every new request
     try {
       const endpoint = fieldName
         ? `${import.meta.env.VITE_MAIN_URL}tickets/${fieldName}`
-        : `${import.meta.env.VITE_MAIN_URL}tickets/field`; // Fetch all instructions if no field is selected
+        : `${import.meta.env.VITE_MAIN_URL}tickets/field`; 
       const response = await axios.get(endpoint);
       setInstructions(response.data.data || []);
     } catch (error) {
+      setInstructions([]);
+      setError("حدث خطأ في تحميل الاستشارات.");
       console.error("Error fetching instructions:", error);
-      setInstructions([]); // Clear instructions on error
     } finally {
       setLoadingInstructions(false);
     }
   };
-  function applyService() {
-   
-   // window.location.href = "/apply-service"; 
-  }
-  
+
   // Handle filter change
   const handleFieldChange = (event) => {
     const fieldName = event.target.value;
@@ -66,127 +67,13 @@ const CardServices = () => {
     fetchInstructions(fieldName); // Fetch instructions for the selected field or all
   };
 
-  // Fetch all instructions when the component mounts
   useEffect(() => {
     fetchInstructions();
   }, []);
 
-  // Service details
-  const services = [
- 
-    {
-      title: "تأسيس وبناء الجمعيات الخيرية ",
-      // description: "نوفر استشارات من قبل مجموعة من الخبراء المتخصصين في القطاع الخيري، لتقديم نصائح مخصصة واستراتيجيات لمواجهة التحديات وتعظيم الأثر.",
-      points: [
-        "	إعداد دراسة جدوى المؤسسة وتحليل احتياجات المجتمع لها",
-        "	إعداد المستندات وتسهيل الاجراءات القانونية المطلوبة للتأسيس والاشهار",
-        "	تحديد أهداف ورؤية ورسالة المؤسسة.",
-        "تصميم هيكل تنظيمي فعال يتناسب مع طبيعة المؤسسة",
-        "	إعداد السياسات واللوائح الداخلية للمؤسسة"
-      ]
-    },
-    {
-      title: "إدارة المشاريع الخيرية",
-      // description: "نقدم إرشادات خبراء حول كيفية تأسيس وإدارة المؤسسات الخيرية لضمان عمليات فعالة وشفافة.",
-      points: [
-        "إدارة المشاريع الخيرية",
-        "إعداد خطة المشاريع السنوية للمؤسسة وفقاً لأهدافها وخطتها الاستراتيجية",
-        "دعم المؤسسة في تبني أفضل الممارسات في إدارة لمشاريعها الخيرية.",
-        
-      ]
-    },
-    {
-      title: " التسويق وبناء الهوية (فريق تسويقي متخصص) في",
-      points: [
-        "	خلق وبناء علامة تجارية للمؤسسة الخيرية ونشر الوعي حول خدماتها",
-        "	تصميم استراتيجيات تسويق الرقمي لزيادة التفاعل والدعم ",
-        "	تحسين تواجد المؤسسة على وسائل التواصل الاجتماعي",
-        "	تصميم حملات تسويقية لجذب التبرعات ",
-      ]
-    },
-    {
-      title: "التخطيط الاستراتيجي",
-      // description: "التخطيط العام لمشاريع المؤسسة وفقا لأهدافها الاستراتيجية.",
-      points: [
-        "بناء وتطوير الرؤية والرسالة للمؤسسة",
-        "	تحديد الأهداف الاستراتيجية طويلة وقصيرة الأجل",
-        "وضع الخطة (الاستراتيجية - التشغيلية - التنفيذية) للمؤسسة"
-      ]
-    },
-    {
-      title: "التخطيط المالي والميزانيات",
-      // description: "نساعد في تطوير استراتيجيات تسويقية مبتكرة لتعزيز المشاريع الخيرية وزيادة الوعي والدعم.",
-      points: [
-        "التخطيط المالي والميزانية",
-        "تخصيص الموارد المالية لتحقيق الأهداف",
-        "إعداد ميزانيات تفصيلية تتماشى مع الخطة الاستراتيجية",
-      ]
-    },
-    {
-      title: "إدارة الجودة وتحسين الأداء",
-      // description: "نساعد في تحديد وتطوير الموارد اللازمة لدعم ونمو مشاريعك ومبادراتك الخيرية.",
-      points: [
-        "تقييم شامل لنظم إدارة الجودة الحالية ",
-        "تطوير وتحسين نظم إدارة الجودة وتقييم الأداء للمؤسسة ",
-        "الرقابة والمراجعة والتدقيق الدوري وإعداد تقارير الجودة",
-        "توصيات لتحسين كفاءة العمليات الإدارية والتشغيلية ",
-        "تطوير نظم إدارة الموارد البشرية "
-      ]
-    },
-    {
-      title: "الامتثال والحوكمة وإدارة المخاطر",
-      // description: "ورش عمل تدريبية للعاملين في القطاع الخيري.",
-      points: [
-        "وضع معايير الشفافية والمساءلة لضمان النزاهة ",
-        "توجيه المؤسسة حول أفضل الممارسات في الحوكمة والشفافية ",
-        "تطوير سياسات وإجراءات الحوكمة للمؤسسة ",
-        "تحديد المخاطر وتصميم استراتيجيات للحد منها "
-      ]
-    },
-    {
-      title: "تحديد المخاطر وتصميم استراتيجيات للحد منها ",
-      // description: "إعداد تقارير دورية حول الأداء المالي والإداري.",
-      points: [
-        "خلق وبناء علامة تجارية للمؤسسة الخيرية ونشر الوعي حول خدماتها",
-        "تصميم استراتيجيات تسويق الرقمي لزيادة التفاعل والدعم",
-        "تحسين تواجد المؤسسة على وسائل التواصل الاجتماعي",
-        "تصميم حملات تسويقية لجذب التبرعات"
-      ]
-    },
-    {
-      title: "	تنمية الموارد المالية" ,
-      // description: "بناء شبكات تواصل بين المؤسسات الخيرية.",
-      points: [
-        "تطوير استراتيجيات لجذب التمويل والتبرعات",
-        "تطوير برامج لبناء شراكات مع المانحين"
-      ]
-    },
-    {
-      title: "التدريب والتطوير",
-      // description: "تقييم شامل لنظم إدارة الجودة الحالية.",
-      points: [
-        "تقدير الاحتياج للمؤسسة من البرامج التدريبية",
-        "	تصميم خطة تدريبية لموظفي المؤسسة حسب الحاجة",
-        "	توفير أفضل البرامج التدريبية لتنمية مهارات العاملين في المؤسسة الخيرية",
-      ]
-    },
-    {
-      title: "	العلاقات العامة والتواصل وبناء الشراكات",
-      // description: "تقييم شامل لنظم إدارة الجودة الحالية.",
-      points: [
-        "تطوير خطط إعلامية لتعزيز حضور المؤسسة إعلامياً ",
-        "	تصميم استراتيجية بناء سمعة إيجابية وإدارة الأزمات الإعلامية ",
-        "	تطوير محتوى اعلامي إبداعي وجذاب يعكس رؤية المؤسسة وأهدافها ",
-        "	تطوير استراتيجيات للتفاعل مع الجمهور المستهدف وتعزيز العلاقة معه",
-        " تطوير استراتيجيات للتواصل الفعّال مع الجهات الداعمة والشركاء "
-      ]
-    }
-  ];
-
   return (
     <div className='card-total' dir='rtl'>
       <Container>
-        
         {/* Main Intro Section */}
         <Card className="mb-4 welcome-card">
           <Card.Body className="text-center p-4">
@@ -194,38 +81,19 @@ const CardServices = () => {
               أهلا بك في <span style={{ color: '#07a79d' }}>المرشد الخيري</span>
             </h2>
             <p className="lead">
-            خدمات استشارية متخصصة لمساعدة مؤسستك على تجاوز تحديات القطاع غير الربحي. فريقنا من الخبراء ملتزم بتقديم نصائح وحلول مخصصة تتناسب مع احتياجاتك وتحديات مؤسستك.
+              خدمات استشارية متخصصة لمساعدة مؤسستك على تجاوز تحديات القطاع غير الربحي. فريقنا من الخبراء ملتزم بتقديم نصائح وحلول مخصصة تتناسب مع احتياجاتك وتحديات مؤسستك.
             </p>
-           
           </Card.Body>
-          
         </Card>
-        <h2 className="mb-4 title-serveses">
-              <span style={{ color: '#07a79d' }}> خدماتنا </span>
-            </h2>
-        {/* Services Section */}
-        <Row className="mb-4">
-          {services.map((service, index) => (
-            <Col lg={4} md={6} key={index}>
-              <Card className="mb-4 service-card">
-                <Card.Body>
-                  <Card.Title className="service-title">{service.title}</Card.Title>
-                  {/* <Card.Text>{service.description}</Card.Text> */}
-                  <ul className="list-pointservice">
-                    {service.points.map((point, idx) => (
-                      <li key={idx}>{point}</li>
-                    ))}
-                  </ul>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-          <div class="apply-service-container">
-            <button class="apply-button" onclick={applyService()}>طلب خدمة </button>
-            </div>
 
-        </Row>
-       
+        <h2 className="mb-4 title-serveses">
+          <span style={{ color: '#07a79d' }}> خدماتنا </span>
+        </h2>
+
+        {/* Services Section */}
+        <CardInfo />
+
+        {/* Field Filter */}
         <Form.Group controlId="fieldSelect" className="mb-3 filter-dropdown">
           <Form.Label>اختر مجالًا لتصفية الاستشارات</Form.Label>
           <Form.Control as="select" value={selectedField} onChange={handleFieldChange} className="fillter-option">
@@ -235,6 +103,9 @@ const CardServices = () => {
             ))}
           </Form.Control>
         </Form.Group>
+
+        {/* Error message */}
+        {error && <p className="text-danger">{error}</p>}
 
         {/* Displaying the instruction cards */}
         <Row xs={1} md={2} lg={3} xl={4} className="g-4">
@@ -250,7 +121,7 @@ const CardServices = () => {
                       <Card.Text className="text-muted mb-2">{instruction.type} - {instruction.startDate}</Card.Text>
                       <Card.Text className="text-muted mb-2">
                         مالك الاستشارة: {instruction.owner?.name || 'غير معروف'}
-                         </Card.Text>
+                      </Card.Text>
 
                       <div className="d-flex justify-content-between align-items-center">
                         <Button
@@ -263,7 +134,7 @@ const CardServices = () => {
                         <Button
                           variant="primary"
                           style={{ backgroundColor: '#07a79d', border: 'none' }}
-                          className="btn-service mr-"
+                          className="btn-service"
                         >
                           طلب استشارة
                         </Button>
@@ -291,19 +162,10 @@ const CardServices = () => {
               <p><strong>المدة : </strong> {selectedInstruction.duration} دقيقة</p>
               <p><strong>السعر : </strong> {selectedInstruction.price} دينار</p>
               <p><strong>الحالة : </strong> {selectedInstruction.isActive ? 'نشطة' : 'غير نشطة'}</p>
-              {/* Add more details here if available */}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
-                إغلاق
-              </Button>
-              <Button
-                variant="primary"
-                onClick={handleClose}
-                style={{ backgroundColor: '#07a79d', border: 'none' }}
-              >
-                طلب استشارة
-              </Button>
+              <Button variant="secondary" onClick={handleClose}>إغلاق</Button>
+              <Button variant="primary">طلب استشارة</Button>
             </Modal.Footer>
           </Modal>
         )}

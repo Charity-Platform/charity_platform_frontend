@@ -108,7 +108,7 @@
   }
   
   .new-service-button.details:hover {
-    background-color: #0056b3;
+    background-color: #218838;
   }
   
   .new-service-button.order {
@@ -205,3 +205,48 @@
   .new-service-btn{
     margin-right: 10px;
   }
+  /* New Image Section */
+.new-image-section {
+    background-color: #f4f4f4;
+    padding: 50px 0;
+    text-align: center;
+  }
+  
+  .new-image-section-title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .new-image-section-description {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+  }
+  
+  .new-image-section-btn {
+    font-size: 1rem;
+    padding: 12px 30px;
+    border-radius: 30px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  .new-image-section-btn:hover {
+    background-color: #218838;
+    color: #fff;
+  }
+  
+  .new-image-section-img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .new-image-section-img:hover {
+    transform: scale(1.05);
+  }
+  

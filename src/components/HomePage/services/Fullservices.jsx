@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
-import './FullServices.css'; // New stylesheet for this page
-import video from '../../../assets/blog.mp4'; // Sample video path
-import newImg1 from '../../../assets/code1.jpg';
-import newImg2 from '../../../assets/code2.jpg';
-import newImg3 from '../../../assets/code3.jpg';
-import newImg4 from '../../../assets/code4.jpg';
-import newImg5 from '../../../assets/code5.jpg';
-import video6 from '../../../assets/code6.mp4';
-
-import NavBar from '../NavBar/NavBar';
+import React, { useEffect, useState } from "react";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import "./FullServices.css"; // New stylesheet for this page
+import newImg1 from "../../../assets/code1.jpg";
+import newImg2 from "../../../assets/code2.jpg";
+import newImg3 from "../../../assets/code3.jpg";
+import newImg4 from "../../../assets/code4.jpg";
+import video6 from "../../../assets/code6.mp4";
+import Footer from "../Footer/Footer";
+import NavBar from "../NavBar/NavBar";
 
 const NewFullServices = () => {
   const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState('');
+  const [modalContent, setModalContent] = useState("");
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+}, []);
 
   const handleModalClose = () => setShowModal(false);
   const handleModalShow = (content) => {
@@ -27,24 +29,30 @@ const NewFullServices = () => {
 
       {/* Hero Section */}
       <header className="new-hero-section">
-  <video className="new-hero-video" autoPlay muted loop>
-    <source src={video6} type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-  <div className="new-hero-content text-center text-white">
-    <h1 className="new-hero-title">هدفنا هو نجاحك</h1>
-    <p className="new-hero-subtitle">
-      نحن شريكك لحل التحديات وخلق الفرص الجديدة.
-    </p>
-    <Button variant="primary" className="new-hero-button">
-      اطلب عرض
-    </Button>
-    <Button variant="outline-light" className="new-hero-button">
-      عرض أعمالنا
-    </Button>
-  </div>
-</header>
-
+        <video className="new-hero-video" autoPlay muted loop>
+          <source src={video6} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="new-hero-content text-center text-white">
+          <h1 className="new-hero-title">هدفنا هو نجاحك</h1>
+          <p className="new-hero-subtitle">
+            نحن شريكك لحل التحديات وخلق الفرص الجديدة.
+          </p>
+          <Button variant="primary" className="new-hero-button"
+           onClick={() =>
+            window.open(
+              "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+              "_blank"
+            )
+          }
+          >
+            اطلب خدمة 
+          </Button>
+          <Button variant="outline-light" className="new-hero-button">
+            عرض أعمالنا
+          </Button>
+        </div>
+      </header>
 
       {/* Services Section */}
       <section className="new-services-section">
@@ -74,7 +82,16 @@ const NewFullServices = () => {
                 >
                   تفاصيل
                 </Button>
-                <Button variant="success" className="new-service-btn">
+                <Button
+                  variant="success"
+                  className="new-service-btn"
+                  onClick={() =>
+                    window.open(
+                      "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                      "_blank"
+                    )
+                  }
+                >
                   اطلبها الآن
                 </Button>
               </div>
@@ -103,7 +120,16 @@ const NewFullServices = () => {
                 >
                   تفاصيل
                 </Button>
-                <Button variant="success" className="new-service-btn">
+                <Button
+                  variant="success"
+                  className="new-service-btn"
+                  onClick={() =>
+                    window.open(
+                      "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                      "_blank"
+                    )
+                  }
+                >
                   اطلبها الآن
                 </Button>
               </div>
@@ -113,9 +139,7 @@ const NewFullServices = () => {
             <Col md={4}>
               <div className="new-service-card">
                 <img src={newImg3} alt="UI/UX" className="new-service-img" />
-                <h3 className="new-service-title">
-                  تصميم واجهات المستخدم
-                </h3>
+                <h3 className="new-service-title">تصميم واجهات المستخدم</h3>
                 <p className="new-service-description">
                   إنشاء واجهات جميلة وسهلة الاستخدام.
                 </p>
@@ -130,95 +154,52 @@ const NewFullServices = () => {
                 >
                   تفاصيل
                 </Button>
-                <Button variant="success" className="new-service-btn">
+                <Button
+                  variant="success"
+                  className="new-service-btn"
+                  onClick={() =>
+                    window.open(
+                      "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                      "_blank"
+                    )
+                  }
+                >
                   اطلبها الآن
                 </Button>
               </div>
             </Col>
-
-            {/* Service 4 */}
-            <Col md={4}>
-              <div className="new-service-card">
-                <img
-                  src={newImg4}
-                  alt="E-Commerce"
-                  className="new-service-img"
-                />
-                <h3 className="new-service-title">حلول التجارة الإلكترونية</h3>
-                <p className="new-service-description">
-                  بناء منصات تجارة إلكترونية قوية تلبي احتياجاتك.
-                </p>
-                <Button
-                  variant="info"
-                  onClick={() =>
-                    handleModalShow(
-                      "خدمة التجارة الإلكترونية: نقدم لك حلول مبتكرة لبناء منصات التجارة الإلكترونية التي تسهم في تحسين عمليات البيع عبر الإنترنت."
-                    )
-                  }
-                  className="new-service-btn"
-                >
-                  تفاصيل
-                </Button>
-                <Button variant="success" className="new-service-btn">
-                  اطلبها الآن
-                </Button>
-              </div>
+          </Row>
+        </Container>
+      </section>
+      {/* New Section After Service Cards */}
+      <section className="new-image-section">
+        <Container>
+          <Row className="align-items-center">
+            <Col md={6}>
+              <h2 className="new-image-section-title">
+                اكتشف المزيد عن خدماتنا
+              </h2>
+              <p className="new-image-section-description">
+                نحن هنا لمساعدتك في تحسين أعمالك وتحقيق أهدافك عبر تقنيات
+                مبتكرة.
+              </p>
+              <Button variant="primary" className="new-image-section-btn"
+               onClick={() =>
+                window.open(
+                  "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                  "_blank"
+                )
+              }
+              >
+                اتصل بنا الآن
+              </Button>
             </Col>
-
-            {/* Service 5 */}
-            <Col md={4}>
-              <div className="new-service-card">
-                <img src={newImg5} alt="SEO" className="new-service-img" />
-                <h3 className="new-service-title">
-                  تحسين محركات البحث 
-                </h3>
-                <p className="new-service-description">
-                  تعزيز وجودك عبر الإنترنت باستخدام استراتيجيات  الفعالة.
-                </p>
-                <Button
-                  variant="info"
-                  onClick={() =>
-                    handleModalShow(
-                      "خدمة تحسين محركات البحث: نقدم لك استراتيجيات  التي تساعدك في تحسين تصنيف موقعك وزيادة ظهوره في محركات البحث."
-                    )
-                  }
-                  className="new-service-btn"
-                >
-                  تفاصيل
-                </Button>
-                <Button variant="success" className="new-service-btn">
-                  اطلبها الآن
-                </Button>
-              </div>
-            </Col>
-
-            {/* Service 6 */}
-            <Col md={4}>
-              <div className="new-service-card">
-                <img
-                  src={newImg2}
-                  alt="Cloud Services"
-                  className="new-service-img"
-                />
-                <h3 className="new-service-title">خدمات السحابة</h3>
-                <p className="new-service-description">
-                  تقديم حلول سحابية آمنة وقابلة للتوسع لعملك.
-                </p>
-                <Button
-                  variant="info"
-                  onClick={() =>
-                    handleModalShow(
-                      "خدمة السحابة: نقدم لك حلول سحابية مرنة وآمنة تضمن لك الوصول السهل والآمن للبيانات عبر الإنترنت."
-                    )
-                  }
-                  className="new-service-btn"
-                >
-                  تفاصيل
-                </Button>
-                <Button variant="success" className="new-service-btn">
-                  اطلبها الآن
-                </Button>
-              </div>
+            <Col md={6}>
+              <img
+                src={newImg4} // Change to your desired image path
+                alt="Innovative Solutions"
+                className="new-image-section-img"
+              />
             </Col>
           </Row>
         </Container>
@@ -238,6 +219,7 @@ const NewFullServices = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+      <Footer />
     </div>
   );
 };

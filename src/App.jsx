@@ -99,6 +99,8 @@ function App() {
           <Route path="/comunity_platform" element={<Comunity_platform/>} />
           <Route path="/job_form" element={<JobForm/>} />
           <Route path="/full-services" element={<Fullservices/>} />
+          {/* <Route path="/services" element={<Services/>} /> */}
+
 
 
 
