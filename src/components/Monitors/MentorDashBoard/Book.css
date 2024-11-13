@@ -3,14 +3,14 @@
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 20px;
 }
 
 /* Style each book card */
 .book-card {
   width: 100%;
-  max-width: 300px;
+  max-width: 300px; /* Adjust width based on screen size */
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -19,6 +19,7 @@
   background-color: #fff;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   overflow: hidden;
+  margin-bottom: 20px; /* Add space between cards */
 }
 
 .book-card:hover {
@@ -30,7 +31,7 @@
 .book-image {
   width: 100%;
   height: auto;
-  max-width: 200px; /* Limit the width on larger screens */
+  max-width: 200px;
   max-height: 200px;
   object-fit: cover;
   border-radius: 4px;
@@ -98,8 +99,9 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .book-card {
-    max-width: 100%;
+    max-width: 100%; /* Adjust width on small screens */
     padding: 15px;
+    margin-bottom: 20px; /* Add spacing between cards */
   }
 
   .book-image {

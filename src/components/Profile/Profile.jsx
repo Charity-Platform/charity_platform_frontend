@@ -4,7 +4,7 @@ import axios from "axios";
 import { FaUserEdit } from "react-icons/fa";
 import Footer from "../../components/HomePage/Footer/Footer";
 import NavBar from "../../components/HomePage/NavBar/NavBar";
-import { Link } from "react-router-dom"; // Import Link for navigation
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -135,11 +135,18 @@ const Profile = () => {
             </button>
           </div>
 
-          {/* Display Dashboard for Mentor button if the user is a mentor */}
-          {userData.role === "mentor" && userData._id && (
+          {/* Display appropriate dashboard button based on user role */}
+          {userData.role === "mentor" && (
             <Link to={`/adminMentor/${userData._id}`}>
               <button className="profile-btn-secondary m-2 dashbord-button">
-                Dashboard
+                Mentor Dashboard
+              </button>
+            </Link>
+          )}
+          {userData.role === "admin" && (
+            <Link to="/DashBoard">
+              <button className="profile-btn-secondary m-2 dashbord-button">
+                Admin Dashboard
               </button>
             </Link>
           )}

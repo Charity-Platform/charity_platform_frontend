@@ -25,14 +25,14 @@ const handelshowcourses =()=>navigate(`/all_books/${mentorId}`);
     <Container className="mentor-admin">
       {/* Header with Profile Icon */}
       <div className="d-flex justify-content-between align-items-center my-4">
-        <h1 className="text-center">Mentor Admin Panel</h1>
+        <h1 className="text-center">صفحة التحكم الخاصة بالمستشار </h1>
         <Dropdown>
           <Dropdown.Toggle variant="link" id="profile-dropdown" className="p-0">
             <FaUser size={30} /> {/* User icon for profile */}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={handleProfileModalOpen}>Update Profile</Dropdown.Item>
-            <Dropdown.Item href="/">Logout</Dropdown.Item>
+            {/* <Dropdown.Item onClick={handleProfileModalOpen}>Update Profile</Dropdown.Item> */}
+            <Dropdown.Item href="/">رجوع للموقع</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </div>
@@ -61,8 +61,8 @@ const handelshowcourses =()=>navigate(`/all_books/${mentorId}`);
       {/* Home Page Design */}
       <Card className="mb-4">
         <Card.Body>
-          <Card.Title>Dashboard Overview</Card.Title>
-          <Card.Text>Here you can view your courses, manage your profile, and more.</Card.Text>
+          <Card.Title>كل ادوات التحكم لديكم </Card.Title>
+          <Card.Text>هذه الصفحة مخصصة لاضافة دورةتدريبية او كتب او استشارات فى مجالات عديدة</Card.Text>
           <Button variant="success" className="mb-3" onClick={() => navigate(`/CreateCourse/${mentorId}`)}>
             <FaPlusCircle /> إضافة دورة جديدة 
           </Button>

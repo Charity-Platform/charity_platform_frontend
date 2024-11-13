@@ -48,8 +48,12 @@ const AllInstructions = () => {
       console.error("Error deleting instruction:", error.response || error);
     }
   };
-  
-  
+
+  // Handling viewing service requests (example function)
+  const viewServiceRequests = (instructionId) => {
+    // Function logic for viewing service requests can be added here
+    console.log("Viewing service requests for instruction ID:", instructionId);
+  };
 
   useEffect(() => {
     fetchInstructions();
@@ -57,9 +61,9 @@ const AllInstructions = () => {
 
   return (
     <Container>
-      <h2 className="my-4">All Instructions</h2>
+      <h2 className="my-4 text-center">كل الإستشارات</h2>
       {loading ? (
-        <p>Loading instructions...</p>
+        <p>جاري تحميل الإستشارات...</p>
       ) : (
         <Row>
           {instructions.length > 0 ? (
@@ -71,20 +75,20 @@ const AllInstructions = () => {
                       {instruction.title}
                     </Card.Title>
                     <Card.Text>
-                      <strong>Duration:</strong> {instruction.duration} minutes
+                      <strong>المدة:</strong> {instruction.duration} دقائق
                       <br />
-                      <strong>Start Time:</strong>{" "}
+                      <strong>وقت البدء:</strong>{" "}
                       {new Date(instruction.startDate).toLocaleString()}
                       <br />
-                      <strong>Price:</strong> {instruction.price} EGP
+                      <strong>السعر:</strong> {instruction.price} EGP
                       <br />
-                      <strong>Day:</strong>{" "}
+                      <strong>اليوم:</strong>{" "}
                       {new Date(instruction.day).toLocaleDateString()}
                       <br />
-                      <strong>Type:</strong> {instruction.type}
+                      <strong>النوع:</strong> {instruction.type}
                       <br />
-                      <strong>Status:</strong>{" "}
-                      {instruction.isActive ? "Active" : "Inactive"}
+                      <strong>الحالة:</strong>{" "}
+                      {instruction.isActive ? "نشطة" : "غير نشطة"}
                     </Card.Text>
                     <div className="d-flex justify-content-between">
                       <Button
@@ -97,7 +101,7 @@ const AllInstructions = () => {
                       <Button
                         variant="outline-success"
                         className="btn-custom-show-service"
-                        onClick={() => viewServiceRequests(instruction._id)} // Define this function to handle viewing service requests
+                        onClick={() => viewServiceRequests(instruction._id)}
                       >
                         عرض طالبين الخدمة
                       </Button>
@@ -107,12 +111,11 @@ const AllInstructions = () => {
               </Col>
             ))
           ) : (
-            <p>No instructions found for this mentor.</p>
+            <p>لا توجد إستشارات لهذا المعلم.</p>
           )}
         </Row>
       )}
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick />
-
     </Container>
   );
 };

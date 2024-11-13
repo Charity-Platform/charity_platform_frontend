@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Card, Modal, Form } from 'react-bootstrap';
+import { Button, Card, Modal, Form, Spinner } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import '../Mentor.css'; // Import the custom CSS file for styling
 
 const AllMentorCourse = () => {
@@ -10,6 +11,7 @@ const AllMentorCourse = () => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [updateCourseData, setUpdateCourseData] = useState({});
   const [error, setError] = useState(null); // State to track error
+  const [loading, setLoading] = useState(false); // Track loading state for fetching data
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -18,12 +20,15 @@ const AllMentorCourse = () => {
         setError('Mentor ID is not provided.');
         return; // Exit early if mentorId is undefined
       }
+      setLoading(true); // Set loading state to true
       try {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses/mentor/${mentorId}`, { withCredentials: true });
         setCourses(response.data.data); // Update to match API response structure
+        setLoading(false); // Set loading state to false
       } catch (error) {
         console.error('Error fetching courses:', error.response ? error.response.data : error.message);
         setError('Failed to load courses. Please try again.');
+        setLoading(false); // Set loading state to false
       }
     };
 
@@ -48,12 +53,12 @@ const AllMentorCourse = () => {
   const handleUpdateCourse = async () => {
     try {
       await axios.put(`${import.meta.env.VITE_MAIN_URL}courses/${updateCourseData._id}`, updateCourseData, { withCredentials: true });
-      alert('Course updated successfully!');
+      toast.success('Course updated successfully!');
       setCourses(courses.map(course => (course._id === updateCourseData._id ? updateCourseData : course)));
       handleCloseUpdateModal();
     } catch (error) {
       console.error('Error updating course:', error);
-      alert('Failed to update course. Please try again.');
+      toast.error('Failed to update course. Please try again.');
     }
   };
 
@@ -61,9 +66,10 @@ const AllMentorCourse = () => {
     try {
       await axios.delete(`${import.meta.env.VITE_MAIN_URL}courses/${courseId}`, { withCredentials: true });
       setCourses(courses.filter(course => course._id !== courseId));
+      toast.success('Course deleted successfully!');
     } catch (error) {
       console.error('Error deleting course:', error);
-      alert('Failed to delete course. Please try again.');
+      toast.error('Failed to delete course. Please try again.');
     }
   };
 
@@ -78,6 +84,10 @@ const AllMentorCourse = () => {
       <div className="course-grid-container">
         {error ? (
           <p>{error}</p> // Display error message if an error occurred
+        ) : loading ? (
+          <div className="d-flex justify-content-center">
+            <Spinner animation="border" variant="primary" />
+          </div>
         ) : courses.length > 0 ? (
           courses.map((course) => (
             <Card key={course._id} className="course-card">
@@ -175,6 +185,8 @@ const AllMentorCourse = () => {
           </Modal.Footer>
         </Modal>
       )}
+
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick />
     </div>
   );
 };
