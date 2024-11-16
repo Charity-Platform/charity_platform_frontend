@@ -5,9 +5,9 @@ import axios from 'axios';
 import './DashBoard.css';
 
 const AllUser = () => {
-  const [users, setUsers] = useState([]); // State to store users data
-  const [loading, setLoading] = useState(false); // State for loading state
-  const [error, setError] = useState(null); // State for error handling
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -18,10 +18,10 @@ const AllUser = () => {
           headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
         });
-        console.log(response.data); // Log response to check structure
-        setUsers(Array.isArray(response.data.document) ? response.data.document : []); // Ensure users is an array
+        console.log(response.data); 
+        setUsers(Array.isArray(response.data.document) ? response.data.document : []);
       } catch (err) {
-        console.error("Error fetching users:", err);
+        console.error('Error fetching users:', err);
         setError('Failed to fetch users. Please try again later.');
       } finally {
         setLoading(false);
@@ -29,49 +29,52 @@ const AllUser = () => {
     };
 
     fetchUsers();
-  }, []); // Empty dependency array means this useEffect runs once when the component mounts
+  }, []); 
 
-  // Update role to admin
-// Function to update the user's role to admin
-// Function to update the user's role to admin
-const handleUpdateRole = async (user) => {
-  if (!user || !user._id) {
-    alert('User information is missing.');
-    return;
-  }
 
-  try {
-    // Correctly format the URL based on backend expectations
-    const response = await axios.patch(
-      `${import.meta.env.VITE_MAIN_URL}users/update-role/${user._id}`, // Corrected route as per your backend
-      { role: 'admin' }, // Role is passed in the request body as JSON
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true, // Send credentials with the request
-      }
-    );
-
-    if (response.status === 200) {
-      alert('Role updated to admin successfully!');
-      // Update the user state to reflect the change
-      setUsers((prevUsers) =>
-        prevUsers.map((u) =>
-          u._id === user._id ? { ...u, role: 'admin' } : u
-        )
-      );
-    } else {
-      alert('Failed to update role. Please try again.');
+  const handleUpdateRole = async (user) => {
+    if (!user || !user._id) {
+      alert('User information is missing.');
+      return;
     }
-  } catch (error) {
-    console.error(
-      'Error updating role:',
-      error.response ? error.response.data : error.message
+  
+    // Optimistic UI Update
+    const previousUsers = [...users];
+    setUsers((prevUsers) =>
+      prevUsers.map((u) => (u._id === user._id ? { ...u, role: 'admin' } : u))
     );
-    alert(`Failed to update role. ${error.response?.data?.message || 'Please try again.'}`);
-  }
-};
-
-
+  
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_MAIN_URL}users/update-role/${user._id}`,
+        { role: 'admin' },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        }
+      );
+  
+      if (response.status === 200) {
+        alert('Role updated to admin successfully!');
+      } else {
+        throw new Error('Unexpected response from server');
+      }
+    } catch (error) {
+      console.error(
+        'Error updating role:',
+        error.response?.data || error.message
+      );
+      alert(
+        `Failed to update role. ${
+          error.response?.data?.message || 'Please try again.'
+        }`
+      );
+  
+      // Revert UI changes if the update fails
+      setUsers(previousUsers);
+    }
+  };
+  
   
 
   return (

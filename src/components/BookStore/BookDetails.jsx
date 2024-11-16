@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Row, Col, Spinner } from 'react-bootstrap';
+import { Worker, Viewer } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css'; // Core styles
+import '@react-pdf-viewer/default-layout/lib/styles/index.css'; // Default layout styles
 import axios from 'axios';
 import './Books.css';
 
@@ -21,11 +24,9 @@ const BookDetails = () => {
         console.log('API Response:', response.data); // Log the entire response to inspect it
         setBook(response.data);
 
-              // Fetch the owner's name using the owner's ID from the book details
-              const mentorResponse = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${response.data.owner}`);
-              setOwnerName(mentorResponse.data.name); // Set the owner's name from the mentor response
-             
-      
+        // Fetch the owner's name using the owner's ID from the book details
+        const mentorResponse = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${response.data.owner}`);
+        setOwnerName(mentorResponse.data.name); // Set the owner's name from the mentor response
       } catch (error) {
         if (error.response) {
           console.error('Error data:', error.response.data); // Log error details
@@ -45,14 +46,6 @@ const BookDetails = () => {
 
     fetchBookDetails();
   }, [bookId]);
-
-  const handleDownloadBook = () => {
-    if (book && book.pdf) {
-      window.open(book.pdf, '_blank');
-    } else {
-      alert('Download URL not available. Please check back later.');
-    }
-  };
 
   const handleBackToMainPage = () => {
     navigate('/books');
@@ -90,17 +83,28 @@ const BookDetails = () => {
         </Col>
         <Col md={6}>
           <h1 className="book-detail-title">{book.title}</h1>
-          <h4 className="book-detail-author">by {ownerName || 'Loading...'}</h4> {/* Display owner's name */}
+          <h4 className="book-detail-author">by {ownerName || 'Loading...'}</h4>
           <p className="book-detail-price">{book.price} د.ك</p>
           <p className="book-detail-description">{book.description}</p>
-          <Button className="btn-download" onClick={handleDownloadBook}>
-            تحميل الكتاب
+          <Button className="btn-download">
+            شراء الكتاب
           </Button>
           <div className="book-rating mt-3">
             <span>التقييم : {book.rating} ★★★</span>
           </div>
         </Col>
       </Row>
+
+      <div className="pdf-viewer mt-5">
+        <h2 className="text-center">مراجعة الكتاب </h2>
+        {book.pdf ? (
+          <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`}>
+            <Viewer fileUrl={book.pdf} />
+          </Worker>
+        ) : (
+          <p className="text-center">PDF not available for this book.</p>
+        )}
+      </div>
     </div>
   );
 };

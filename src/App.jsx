@@ -46,7 +46,8 @@ import Jobs from "./components/Comunity/Jobs";
 import Comunity_platform from "./components/Comunity/Comunity_platform";
 import JobForm from "./components/Comunity/JobForm";
 import Fullservices from "./components/HomePage/services/Fullservices";
-
+import AllBooksDash from './components/dashboard/Books/AllBooks'
+import AddBooks from "./components/dashboard/Books/AddBooks";
 function App() {
   return (
     <div className="App">
@@ -99,7 +100,9 @@ function App() {
           <Route path="/comunity_platform" element={<Comunity_platform/>} />
           <Route path="/job_form" element={<JobForm/>} />
           <Route path="/full-services" element={<Fullservices/>} />
-          {/* <Route path="/services" element={<Services/>} /> */}
+          <Route path="/all_books" element={<AllBooksDash/>} />
+          <Route path="/addbook" element={<AddBooks/>} />
+
 
 
 
