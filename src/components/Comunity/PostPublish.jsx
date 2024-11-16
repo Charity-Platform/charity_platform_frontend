@@ -13,9 +13,7 @@ const PostPublish = ({ addPost }) => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
-        if (image) {
-          formData.append('image', image); // Append the image file
-        }
+        formData.append('image', image); // Use the correct image state
 
         // Call addPost with formData
         addPost(formData);

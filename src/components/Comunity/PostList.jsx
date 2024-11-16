@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import PostCard from './PostCard';
 import PostPublisher from './PostPublish';
-import UpdatePostModal from './UpdatePostModal'; // For updating posts
+import UpdatePostModal from './UpdatePostModal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PostList = () => {
   const [posts, setPosts] = useState([]);
@@ -11,6 +13,7 @@ const PostList = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  // Fetch all posts from the server
   const fetchPosts = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}posts`);
@@ -27,50 +30,47 @@ const PostList = () => {
     fetchPosts();
   }, []);
 
+  // Add a new post
   const addPost = async (formData) => {
     try {
-        const response = await axios.post(
-            `${import.meta.env.VITE_MAIN_URL}posts`,
-            formData,
-            { 
-              withCredentials: true,
-              headers: {
-                'Content-Type': 'multipart/form-data' // Important for handling file uploads
-              }
-            }
-        );
-
-        // Log the full response to see its structure
-        console.log('Response from the server:', response);
-
-        // Check if the response contains the expected 'id'
-        if (response.data && response.data.id) {
-            // Add the newly created post to the state
-            const newPost = {
-                id: response.data.id, // This should come from the server
-                title: formData.get('title'),
-                content: formData.get('content'),
-                image: response.data.image || null // If the API returns an image URL
-            };
-            setPosts([newPost, ...posts]);
-            console.log("Post created successfully");
-        } else {
-            // Log the response to understand why 'id' is missing
-            console.error("No ID returned from the server. Full response:", response.data);
+      const response = await axios.post(
+        `${import.meta.env.VITE_MAIN_URL}posts`,
+        formData,
+        { 
+          withCredentials: true,
+          headers: { 'Content-Type': 'multipart/form-data' }
         }
-    } catch (err) {
-        console.error('Error adding post:', err.response ? err.response.data : err.message);
-    }
-};
+      );
 
+      // Check if the response contains the expected 'id'
+      if (response.data && response.data.id) {
+        const newPost = {
+          id: response.data.id,
+          title: formData.get('title'),
+          content: formData.get('content'),
+          image: response.data.image || null
+        };
+
+        // Update posts state to include the new post
+        setPosts((prevPosts) => [newPost, ...prevPosts]);
+
+        // Show success toast notification
+        toast.success("Post published successfully!");
+
+      } else {
+        console.error("No ID returned from the server. Full response:", response.data);
+      }
+    } catch (err) {
+      console.error('Error adding post:', err.response ? err.response.data : err.message);
+      toast.error("Error publishing post!");
+    }
+  };
 
   // Function to handle editing a post
-const handleEdit = (post) => {
-  console.log('Editing post:', post); // Log the post to check if it's the correct one
-  setSelectedPost(post);
-  setShowModal(true); // Make sure the modal is displayed
-};
-
+  const handleEdit = (post) => {
+    setSelectedPost(post);
+    setShowModal(true);
+  };
 
   const handleUpdate = async (updatedPost) => {
     try {
@@ -82,18 +82,17 @@ const handleEdit = (post) => {
       console.error('Error updating post:', err);
     }
   };
-// Function to handle post deletion
-const handleDelete = async (id) => {
-  try {
-    console.log("Deleting post with ID:", id);
-    await axios.delete(`${import.meta.env.VITE_MAIN_URL}posts/${id}`, { withCredentials: true });
-    setPosts(posts.filter(post => post._id !== id)); // Update state based on the correct ID property
-    console.log("Post deleted successfully");
-  } catch (err) {
-    console.error('Error deleting post:', err);
-  }
-};
 
+  // Function to handle post deletion
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`${import.meta.env.VITE_MAIN_URL}posts/${id}`, { withCredentials: true });
+      setPosts(posts.filter(post => post._id !== id)); // Update state based on the correct ID property
+      console.log("Post deleted successfully");
+    } catch (err) {
+      console.error('Error deleting post:', err);
+    }
+  };
 
   return (
     <div className="post-list">
@@ -115,6 +114,7 @@ const handleDelete = async (id) => {
           onClose={() => setShowModal(false)} 
         />
       )}
+      <ToastContainer />
     </div>
   );
 };

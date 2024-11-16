@@ -1,164 +1,215 @@
-/* navbar blog  */
+/* Blog Main Section */
 .blog {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-	background: linear-gradient(-45deg, #07a79d, #ae7e7e, #23a6d5, #07a79d);    background-size: 800% 800%;
-    width: 100%;
-    height: 93vh;
-    padding: 0 20px;
-    color: #fff;
-	animation: gradient 15s ease infinite;
-  }
-  
-  @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(-45deg, #07a79d, #ae7e7e, #23a6d5, #07a79d);
+  background-size: 800% 800%;
+  width: 100%;
+  height: 93vh;
+  padding: 0 20px;
+  color: #fff;
+  animation: gradient 15s ease infinite;
+  position: relative;
 }
 
+/* SVG background icons */
+.blog::before,
+.blog::after {
+  content: '';
+  position: absolute;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.2;
+  z-index: 1;
+}
 
-  .button-blog{
-    background-color: #07a79d;
-    font-size: 20px;
-    font-weight: 500;
-    border: none;
-    margin: 10px;
-    padding: 10px;
-    
+.blog::before {
+  background-image: url('../../assets/svg1.svg');
+  width: 150px;
+  height: 150px;
+  top: 10%;
+  left: 15%;
+  animation: float 6s infinite ease-in-out;
+}
+
+.blog::after {
+  background-image: url('../../assets/svg2.svg');
+  width: 200px;
+  height: 200px;
+  bottom: 15%;
+  right: 10%;
+  animation: float-reverse 8s infinite ease-in-out;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
   }
-  .button-blog:hover{
-    background-color: #23a6d5;
-    color: #fff;
+  50% {
+    transform: translateY(-20px);
   }
-  .Blog-content {
-    text-align: center;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 20px;
-    /* background-color: rgba(0, 0, 0, 0.7); */
-    border-radius: 10px;
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0);
   }
-  /* video page  */
-  .video-blog{
-    position: relative;
-    height: 80vh;
-    overflow: hidden;
-    background-size: contain;
+  50% {
+    transform: translateY(20px);
   }
+}
+/* Icons Container */
+.icons-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0; /* Ensure it's behind the content */
+}
+
+/* Individual Floating Icons */
+.floating-icon {
+  position: absolute;
+  background-image: url('../../assets/svg3.svg'); /* Replace with your SVG */
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.3; /* Adjust for a subtle effect */
+  animation: float-icon 10s infinite ease-in-out;
+}
+
+/* Animation for Floating Effect */
+@keyframes float-icon {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px) rotate(15deg); /* Add slight rotation */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Blog Content */
+.Blog-content {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  z-index: 2;
+  position: relative;
   
-.content-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #eee; /* Text color */
-    text-align: center;
-    z-index: 2; /* Ensure the content is above the video */
-  }
-  
-  .content-overlay h1 {
-    font-size: 3rem; /* Adjust font size as needed */
-    color: white; /* Text color */
-  }
-  
-  .content-overlay p {
-    font-size: 1.5rem; /* Adjust font size as needed */
-  }
-  /* end of video page  */
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
 
+.blog-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
 
+.blog-description {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
 
+/* Button Styling */
 
-  .blog-title {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  .button-hero{
-    background-color: #fff;
-    color: #000;
-    font-size: 20px;
-    font-weight: 600;
-    padding: 10px 20px;
-    text-align: center;
-    border: none;
-  }
-  .button-hero:hover{
-    background-color: #07a79d;
-    color: #fff;
-  }
-
-  .blog-tagline {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #07a79d;
-    margin: 15px;
-  }
-  
-  .blog-tagline:nth-child(2) {
-    margin-top: 10px;
-  }
-  
-  .blog-books {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
-
-  @media(max-width:567px){
-    .content-overlay {
-        position: relative;
-        transform: translate(-50%, -50%);
-        color: white; /* Text color */
-        text-align: center;
-        z-index: 2; /* Ensure the content is above the video */
-      }
-    .content-overlay h1{
-      font-size: 2.5rem;  
-    }
-    .content-overlay p{
-        padding-top: 2rem;
-    }
-    .navbar-blog{
-        display: flex;
-        text-align: center;
-        align-items: center;
-
-    }
-    .button-blog{
-        border: none;
-       
-      }
-      .toggel-blog{
-      left: 50%;
-        margin: 10px;
-      }
-  }
-
-.card {
+.button-blog {
+  background-color: #dc5151;
+  font-size: 1.2rem;
+  font-weight: bold;
   border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  padding: 15px 25px;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
 }
 
-.card-title {
+.button-blog:hover {
+  background-color: #fff;
+  color: #000;
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 2rem;
+  }
+
+  .blog-description {
+    font-size: 1rem;
+  }
+
+  .button-blog {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+}
+
+
+/* Video Section Styling */
+.video-blog {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Video Background */
+#video-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.6); /* Dim the video for better text contrast */
+}
+
+/* Overlay Content */
+.content-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+}
+
+.overlay-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 1rem;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.overlay-description {
   font-size: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
-.progress-bar {
-  height: 10px;
-  border-radius: 5px;
+/* Responsive Design */
+@media (max-width: 768px) {
+  .overlay-title {
+    font-size: 2rem;
+  }
+
+  .overlay-description {
+    font-size: 1rem;
+  }
 }
-
-/* form blog design  */
-
