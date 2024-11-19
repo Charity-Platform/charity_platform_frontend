@@ -40,7 +40,7 @@
   
   .form-control {
     border-radius: 8px;
-    padding: 14px;
+    padding: auto;
   }
   
   button {

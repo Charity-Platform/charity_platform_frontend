@@ -1,0 +1,174 @@
+.english-page {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f9fc;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+.navbar-list li Link{
+   list-style: none;
+  text-decoration: none;
+  color: #333;
+}
+
+.navbar-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+}
+
+.navbar-list li {
+  margin: 0 20px;
+  color: #333;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+
+}
+
+.navbar-list li:hover {
+  color: #ffc107;
+}
+
+/* Banner */
+.banner {
+  background: url('../../assets/55.jpg') no-repeat center center/cover;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.banner-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.banner-btn {
+  background-color: #ffc107;
+  color: #333;
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.banner-btn:hover {
+  background-color: #e0a800;
+}
+
+/* Section Titles */
+.section-title {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 2rem;
+  color: #07a79d;
+  font-weight: 700;
+}
+
+/* Services Section */
+.service-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.service-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.service-content {
+  padding: 20px;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.service-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Why Choose Us Section */
+.why-choose-section {
+  padding: 40px 0;
+  background-color: #fff;
+}
+
+.why-choose-list {
+  list-style: none;
+  padding: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.why-choose-list li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.why-choose-list li::before {
+  content: '✓';
+  margin-right: 10px;
+  color: #07a79d;
+  font-weight: bold;
+}
+
+.video-container {
+  padding: 0 20px;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Call to Action */
+.cta-section {
+  text-align: center;
+  padding: 50px 20px;
+  background: linear-gradient(90deg, #0056b3, #67e4b0);
+  color: white;
+  border-radius: 10px;
+}
+
+.cta-section h3 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.cta-section button {
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  background-color: #ffc107;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-section button:hover {
+  background-color: #e0a800;
+}

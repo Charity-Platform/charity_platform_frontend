@@ -100,7 +100,8 @@
   align-items: center;
   width: 300px;
   background: linear-gradient(to top, #fff, #cbd0d5);
-  height: 100%; /* Ensure cards stretch to fill the column */
+  height: 100%; 
+ 
 }
 
 .text-center-book {
@@ -109,6 +110,7 @@
   padding: 40px;
   font-size: 40px;
   font-weight: 600;
+
 }
 
 .book-img {

@@ -5,6 +5,7 @@
   gap: 20px;
   justify-content: space-around; /* Center cards more evenly */
   margin: 20px 0;
+  
 }
 
 /* General styles for service cards */
@@ -21,6 +22,8 @@
   justify-content: space-between; /* Ensure content spans full height */
   min-height: 300px;
   margin: 20px;
+
+  
 }
 
 /* Card content alignment */
@@ -30,8 +33,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center; /* Center content horizontally */
-  text-align: center; /* Center text for a balanced look */
+  align-items: center; 
+  text-align: center; 
 }
 
 /* Card hover effect */
@@ -47,6 +50,7 @@
   color: #07a79d;
   margin-bottom: 15px;
   text-align: center;
+  
 }
 
 /* Button styles */
@@ -82,6 +86,7 @@ ul {
 .card-service {
   background-color: #f2f7f7;
   border: none;
+  
 }
 
 .card-instruction {

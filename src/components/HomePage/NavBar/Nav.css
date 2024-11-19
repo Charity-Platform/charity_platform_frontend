@@ -107,7 +107,10 @@
 .custom-dropdown-toggle:hover {
   color: #07a79d;
 }
-
+.English-text{
+  color: #fff;
+  text-decoration: none;
+}
 /* Override Bootstrap styles for dropdown menu */
 .dropdown-menu {
   background-color: #fff; /* Set background color to white */

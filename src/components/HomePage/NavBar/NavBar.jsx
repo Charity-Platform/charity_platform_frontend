@@ -10,6 +10,7 @@ import './Nav.css';
 import { useAuth } from '../../../Context/AuthContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Button } from 'react-bootstrap';
 
 const NavBar = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
@@ -144,6 +145,12 @@ const NavBar = () => {
               <Nav.Link as={NavLink} to="/contact">
                 تواصل معنا
               </Nav.Link>
+              <Button
+                  type="button"
+                  className="mx-1 btn btn-primary"
+                >
+                <Link to="/englishPage" className='English-text'>English Page</Link>
+                </Button>
             </Nav>
           </Navbar.Collapse>
           <div className="icon-user">
@@ -181,8 +188,11 @@ const NavBar = () => {
                 </button>
               </div>
             )}
+           
           </div>
+      
         </Container>
+        
       </Navbar>
 
       {/* Modal for Signup Options */}
