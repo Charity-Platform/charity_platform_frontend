@@ -5,40 +5,12 @@
   margin: 0;
   padding: 0;
 }
-.navbar-list li Link{
-   list-style: none;
-  text-decoration: none;
-  color: #333;
-}
-
-.navbar-list {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-}
-
-.navbar-list li {
-  margin: 0 20px;
-  color: #333;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: color 0.3s ease;
-
-
-}
-
-.navbar-list li:hover {
-  color: #ffc107;
-}
-
 /* Banner */
 .banner {
-  background: url('../../assets/55.jpg') no-repeat center center/cover;
+  background: url('../../assets/EnglishBG.jpg') no-repeat center center/cover;
   height: 80vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -50,14 +22,17 @@
   font-weight: 700;
 }
 
+.banner-content p {
+  font-size: 1.2rem;
+  margin: 10px 0 20px;
+}
+
 .banner-btn {
   background-color: #ffc107;
   color: #333;
   font-size: 1.2rem;
   padding: 12px 30px;
   border-radius: 5px;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
 }
 
 .banner-btn:hover {
@@ -111,20 +86,20 @@
 /* Why Choose Us Section */
 .why-choose-section {
   padding: 40px 0;
-  background-color: #fff;
 }
 
 .why-choose-list {
   list-style: none;
   padding: 0;
-  font-size: 1.1rem;
-  color: #333;
+  
 }
 
 .why-choose-list li {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
+  margin-top: 50px;
+  font-size: 20px;
 }
 
 .why-choose-list li::before {
@@ -132,10 +107,6 @@
   margin-right: 10px;
   color: #07a79d;
   font-weight: bold;
-}
-
-.video-container {
-  padding: 0 20px;
 }
 
 .video-container video {
@@ -166,9 +137,72 @@
   color: #333;
   border: none;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
 .cta-section button:hover {
   background-color: #e0a800;
+}
+.header-slider .slider-image {
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+}
+
+.about-us-section {
+  padding: 40px 0;
+}
+
+.benefits-section {
+  padding: 40px 0;
+}
+
+.benefit-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s;
+  margin-bottom: 10px;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+}
+.text-aboutus{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+/* footer design  */
+.contact-footer {
+  background-color: #343a40;
+  color: white;
+  padding: 50px 0;
+}
+
+.footer-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.footer-description {
+  font-size: 1.125rem;
+  margin-bottom: 30px;
+}
+
+.contact-btn {
+  font-size: 1.25rem;
+  padding: 10px 20px;
+  background-color: #07a79d;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.contact-btn:hover {
+  background-color: #0056b3;
 }
