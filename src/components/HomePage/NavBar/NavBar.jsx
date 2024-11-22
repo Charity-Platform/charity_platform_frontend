@@ -123,6 +123,18 @@ const NavBar = () => {
                         <Dropdown.Item as={NavLink} to="/services">
                         العلاقات العامة والتواصل وبناء الشراكات
                         </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        تطوير المواقع الالكترونية 
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        إدارة المشاريع التعليمية
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        مجال الاستشارات القانونية
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        مجال الاستشارات الشرعية 
+                        </Dropdown.Item>
                       </Dropdown.Menu>
                     )}
                   </Dropdown.Item>

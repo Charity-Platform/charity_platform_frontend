@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import './CardServices.css';
-import img1 from '../../assets/1.jpg';
-import img2 from '../../assets/2.jpg';
-import img3 from '../../assets/6.jpeg';
-import img4 from '../../assets/11.jpeg';
-import img5 from '../../assets/10.jpeg';
-import img6 from '../../assets/5.jpeg';
-import img7 from '../../assets/6.jpeg';
-import img8 from '../../assets/8.jpeg'; // Added new images for other services
-import img9 from '../../assets/9.jpeg';
-import img10 from '../../assets/10.jpeg';
-import img11 from '../../assets/11.jpeg';
+import img1 from '../../assets/services/تنمية الموارد .jpg';
+import img2 from '../../assets/services/تسويق وبناء هويه 1.jpg';
+import img3 from '../../assets/services/تسويق وبناء هوية .jpg';
+import img4 from '../../assets/services/تخطيط استراتيجي 2.jpg';
+import img5 from '../../assets/services/تخطيط استراتيجي .jpg';
+import img6 from '../../assets/services/تأسيس وبناء الموسسات الخيرية .jpeg';
+import img7 from '../../assets/services/إدارة المشاريع .jpg';
+import img8 from '../../assets/services/إدارة المخاطر.jpg'; // Added new images for other services
+import img9 from '../../assets/services/إدارة الجودة .jpg';
+import img10 from '../../assets/services/المالي .jpg';
+import img11 from '../../assets/services/العلاقات العامة .jpg';
+import img12 from '../../assets/services/الخدمات البرمجيه.jpg';
+
 
 // بيانات الخدمات
 const servicesData = [
@@ -20,7 +22,7 @@ const servicesData = [
         id: 1,
         title: "تأسيس وبناء الجمعيات الخيرية",
         description: "نوفر استشارات لبناء جمعيات خيرية فعالة.",
-        image: img1,
+        image: img6,
         points: [
             "إعداد دراسة جدوى المؤسسة وتحليل احتياجات المجتمع لها",
             "إعداد المستندات وتسهيل الاجراءات القانونية المطلوبة للتأسيس",
@@ -33,7 +35,7 @@ const servicesData = [
         id: 2,
         title: "إدارة المشاريع الخيرية",
         description: "نقدم استشارات لإدارة المشاريع الخيرية بنجاح.",
-        image: img2,
+        image: img7,
         points: [
             "إدارة المشاريع الخيرية",
             "إعداد خطة المشاريع السنوية للمؤسسة وفقاً لأهدافها وخطتها الاستراتيجية",
@@ -56,7 +58,7 @@ const servicesData = [
         id: 4,
         title: "التخطيط الاستراتيجي",
         description: "نساعد في وضع وتطوير خطط استراتيجية شاملة.",
-        image: img4,
+        image: img5,
         points: [
             "بناء وتطوير الرؤية والرسالة للمؤسسة",
             "تحديد الأهداف الاستراتيجية طويلة وقصيرة الأجل",
@@ -67,7 +69,7 @@ const servicesData = [
         id: 5,
         title: "التخطيط المالي والميزانيات",
         description: "توفير خدمات تخطيط مالي وإعداد ميزانيات دقيقة.",
-        image: img5,
+        image: img2,
         points: [
             "التخطيط المالي والميزانية",
             "تخصيص الموارد المالية لتحقيق الأهداف",
@@ -78,7 +80,7 @@ const servicesData = [
         id: 6,
         title: "إدارة الجودة وتحسين الأداء",
         description: "تقييم وتطوير نظم إدارة الجودة لضمان الأداء الفعال.",
-        image: img6,
+        image: img9,
         points: [
             "تقييم شامل لنظم إدارة الجودة الحالية",
             "تطوير وتحسين نظم إدارة الجودة وتقييم الأداء للمؤسسة",
@@ -91,7 +93,7 @@ const servicesData = [
         id: 7,
         title: "الامتثال والحوكمة وإدارة المخاطر",
         description: "نوفر حلول لتحقيق الامتثال والحوكمة وإدارة المخاطر.",
-        image: img7,
+        image: img8,
         points: [
             "وضع معايير الشفافية والمساءلة لضمان النزاهة",
             "توجيه المؤسسة حول أفضل الممارسات في الحوكمة والشفافية",
@@ -103,7 +105,7 @@ const servicesData = [
         id: 8,
         title: "تحديد المخاطر وتصميم استراتيجيات للحد منها",
         description: "نساعد في تقليل المخاطر وتوفير استراتيجيات فعّالة.",
-        image: img8,
+        image: img4,
         points: [
             "خلق وبناء علامة تجارية للمؤسسة الخيرية ونشر الوعي حول خدماتها",
             "تصميم استراتيجيات تسويق الرقمي لزيادة التفاعل والدعم",
@@ -115,7 +117,7 @@ const servicesData = [
         id: 9,
         title: "تنمية الموارد المالية",
         description: "نوفر استراتيجيات مبتكرة لتنمية الموارد المالية.",
-        image: img9,
+        image: img1,
         points: [
             "تطوير استراتيجيات لجذب التمويل والتبرعات",
             "تطوير برامج لبناء شراكات مع المانحين"
@@ -143,6 +145,20 @@ const servicesData = [
             "تطوير محتوى إعلامي إبداعي يعكس رؤية المؤسسة وأهدافها",
             "تطوير استراتيجيات للتفاعل مع الجمهور المستهدف وتعزيز العلاقة معه",
             "تطوير استراتيجيات للتواصل الفعّال مع الجهات الداعمة والشركاء"
+        ]
+    },
+    {
+        id: 12,
+        title: "الخدمات البرمجية",
+        description: "  اكتشف خدماتنا الاحترافية في تطوير المواقع، برمجة التطبيقات، والتسويق الرقمي.",
+        image: img12,
+        points: [
+            "تصميم مواقع ويب مبتكرة ومتجاوبة مع أحدث التقنيات.",
+            "تطوير تطبيقات مخصصة تلبي احتياجات الأعمال بدقة",
+            "تقديم حلول برمجية متكاملة لتحسين كفاءة العمليات",
+            "إنشاء استراتيجيات تسويق رقمي مبتكرة لتعزيز العلامة التجارية",
+            "تطوير نظم إدارة المحتوى وتكاملها مع المنصات المختلفة",
+            <Link to="/full-services" className="btn btn-primary">طلب الخدمة </Link>
         ]
     }
 ];
@@ -206,7 +222,7 @@ const Card = () => {
                 <Modal.Header closeButton>
                     <Modal.Title>{modalService?.title}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body dir='rtl'>
                     <ul>
                         {modalService?.points.map((point, index) => (
                             <li key={index}>{point}</li>

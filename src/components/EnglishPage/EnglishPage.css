@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
 }
+
 /* Banner */
 .banner {
   background: url('../../assets/EnglishBG.jpg') no-repeat center center/cover;
@@ -91,7 +92,6 @@
 .why-choose-list {
   list-style: none;
   padding: 0;
-  
 }
 
 .why-choose-list li {
@@ -142,6 +142,7 @@
 .cta-section button:hover {
   background-color: #e0a800;
 }
+
 .header-slider .slider-image {
   width: 100%;
   height: 80vh;
@@ -169,7 +170,8 @@
 .benefit-card:hover {
   transform: translateY(-10px);
 }
-.text-aboutus{
+
+.text-aboutus {
   font-size: 20px;
   font-weight: 500;
   line-height: 30px;
@@ -177,7 +179,7 @@
   margin-top: 50px;
 }
 
-/* footer design  */
+/* Footer Design */
 .contact-footer {
   background-color: #343a40;
   color: white;
@@ -205,4 +207,88 @@
 
 .contact-btn:hover {
   background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .banner-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .banner-content p {
+    font-size: 1rem;
+  }
+
+  .banner {
+    height: 70vh;
+  }
+
+  .service-title {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-content h1 {
+    font-size: 2rem;
+  }
+
+  .banner-content p {
+    font-size: 0.9rem;
+  }
+
+  .service-img {
+    height: 150px;
+  }
+
+  .why-choose-list li {
+    font-size: 18px;
+  }
+
+  .text-aboutus {
+    font-size: 18px;
+  }
+
+  .footer-title {
+    font-size: 1.5rem;
+  }
+
+  .footer-description {
+    font-size: 1rem;
+  }
+
+  .banner {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .banner-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .banner-content p {
+    font-size: 0.8rem;
+  }
+
+  .cta-section h3 {
+    font-size: 1.5rem;
+  }
+
+  .cta-section button {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .service-title {
+    font-size: 1rem;
+  }
+
+  .why-choose-list li {
+    font-size: 16px;
+  }
+
+  .footer-title {
+    font-size: 1.25rem;
+  }
 }
