@@ -75,19 +75,19 @@ const SignupInstructor = () => {
   return (
     <Container className="signup-instructor">
       <Card className="p-4 shadow">
-        <h2 className="text-center mb-4">Sign Up as a Mentor</h2>
+        <h2 className="text-center mb-4">تسجيل كمستشار </h2>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={6}>
               <Form.Group controlId="formName" className="mb-3">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>الاسم </Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   isInvalid={!!errors.name}
-                  placeholder="Enter your full name"
+                  placeholder="أدخل اسمك هنا "
                 />
                 <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
               </Form.Group>
@@ -95,14 +95,14 @@ const SignupInstructor = () => {
 
             <Col md={6}>
               <Form.Group controlId="formEmail" className="mb-3">
-                <Form.Label>Email</Form.Label>
+                <Form.Label>البريد الالكترونى </Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   isInvalid={!!errors.email}
-                  placeholder="Enter your email"
+                  placeholder="ادخل البريد الالكترونى "
                 />
                 <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
               </Form.Group>
@@ -112,14 +112,14 @@ const SignupInstructor = () => {
           <Row>
             <Col md={6}>
               <Form.Group controlId="formPhone" className="mb-3">
-                <Form.Label>Phone</Form.Label>
+                <Form.Label>الجوال </Form.Label>
                 <Form.Control
                   type="tel"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   isInvalid={!!errors.phone}
-                  placeholder="Enter your phone number"
+                  placeholder="ادخل رقم جوالك "
                 />
                 <Form.Control.Feedback type="invalid">{errors.phone}</Form.Control.Feedback>
               </Form.Group>
@@ -127,7 +127,7 @@ const SignupInstructor = () => {
 
             <Col md={6}>
               <Form.Group controlId="formBirthdate" className="mb-3">
-                <Form.Label>Birthdate</Form.Label>
+                <Form.Label>تاريخ الميلاد</Form.Label>
                 <Form.Control
                   type="date"
                   name="birthdate"
@@ -141,7 +141,7 @@ const SignupInstructor = () => {
           </Row>
 
           <Form.Group controlId="formAddress" className="mb-3">
-            <Form.Label>Address</Form.Label>
+            <Form.Label>العنوان </Form.Label>
             <Form.Control
               type="text"
               name="address"
@@ -151,7 +151,7 @@ const SignupInstructor = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formSocialMedia" className="mb-3">
+          {/* <Form.Group controlId="formSocialMedia" className="mb-3">
             <Row>
               <Col md={6}>
                 <Form.Label>Facebook</Form.Label>
@@ -210,9 +210,9 @@ const SignupInstructor = () => {
                 </InputGroup>
               </Col>
             </Row>
-          </Form.Group>
+          </Form.Group> */}
 
-          <Form.Group controlId="formLinks" className="mb-3">
+          {/* <Form.Group controlId="formLinks" className="mb-3">
             <Form.Label>Portfolio Links (comma separated)</Form.Label>
             <Form.Control
               type="text"
@@ -221,32 +221,32 @@ const SignupInstructor = () => {
               onChange={handleChange}
               placeholder="https://github.com/username, https://portfolio.com"
             />
-          </Form.Group>
+          </Form.Group> */}
 
           <Row>
             <Col md={6}>
               <Form.Group controlId="formImage" className="mb-3">
-                <Form.Label>Profile Image URL</Form.Label>
+                <Form.Label>ادخل لينك الصورة الخاصة </Form.Label>
                 <Form.Control
                   type="url"
                   name="image"
                   value={formData.image}
                   onChange={handleChange}
-                  placeholder="Enter image URL"
+                  placeholder="لينك الصورة "
                 />
               </Form.Group>
             </Col>
 
             <Col md={6}>
               <Form.Group controlId="formField" className="mb-3">
-                <Form.Label>Field of Expertise</Form.Label>
+                <Form.Label> ادخل مجالك  </Form.Label>
                 <Form.Control
                   type="text"
                   name="field"
                   value={formData.field}
                   onChange={handleChange}
                   isInvalid={!!errors.field}
-                  placeholder="Software Development, Coaching, etc."
+                  placeholder="المجال المتخصص فيه "
                 />
                 <Form.Control.Feedback type="invalid">{errors.field}</Form.Control.Feedback>
               </Form.Group>
@@ -254,45 +254,45 @@ const SignupInstructor = () => {
           </Row>
 
           <Form.Group controlId="formDescription" className="mb-3">
-            <Form.Label>Description</Form.Label>
+            <Form.Label>تفاصيل عن خبراتك فى المجال  </Form.Label>
             <Form.Control
               as="textarea"
               rows={3}
               name="description"
               value={formData.description}
               onChange={handleChange}
-              placeholder="Tell us about your experience and skills"
+              placeholder="اخبرنا عن خبراتك فى المجال المتخصص فيه "
             />
           </Form.Group>
 
           <Form.Group controlId="formHourePrice" className="mb-3">
-            <Form.Label>Hourly Rate ($)</Form.Label>
+            <Form.Label>متوسط ثمن الساعه </Form.Label>
             <Form.Control
               type="number"
               name="hourePrice"
               value={formData.hourePrice}
               onChange={handleChange}
-              placeholder="Enter your hourly rate"
+              placeholder="ادخل ثمن الساعه للاستشارة "
             />
           </Form.Group>
 
           <Form.Group controlId="formPassword" className="mb-3">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>الرقم السرى الخاص بك </Form.Label>
             <Form.Control
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
               isInvalid={!!errors.password}
-              placeholder="Enter your password"
+              placeholder="ادخل الرقم السرى الخاص بك "
             />
             <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
           </Form.Group>
 
           {errors.submit && <p className="text-danger">{errors.submit}</p>}
 
-          <Button variant="primary" type="submit" className="w-100">
-            Sign Up
+          <Button variant="primary" type="submit" className="w-50">
+            تسجيل 
           </Button>
         </Form>
       </Card>

@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import './CardServices.css';
 import img1 from '../../assets/services/تنمية الموارد .jpg';
-import img2 from '../../assets/services/تسويق وبناء هويه 1.jpg';
+import img2 from '../../assets/services/المالي .jpg';
 import img3 from '../../assets/services/تسويق وبناء هوية .jpg';
 import img4 from '../../assets/services/تخطيط استراتيجي 2.jpg';
 import img5 from '../../assets/services/تخطيط استراتيجي .jpg';
@@ -11,9 +11,9 @@ import img6 from '../../assets/services/تأسيس وبناء الموسسات
 import img7 from '../../assets/services/إدارة المشاريع .jpg';
 import img8 from '../../assets/services/إدارة المخاطر.jpg'; // Added new images for other services
 import img9 from '../../assets/services/إدارة الجودة .jpg';
-import img10 from '../../assets/services/المالي .jpg';
+import img10 from '../../assets/services/التدريب والتطوير.jpg';
 import img11 from '../../assets/services/العلاقات العامة .jpg';
-import img12 from '../../assets/services/الخدمات البرمجيه.jpg';
+import img12 from '../../assets/code4.jpg';
 
 
 // بيانات الخدمات

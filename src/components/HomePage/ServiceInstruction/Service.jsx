@@ -3,14 +3,22 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './Services.css';
 import { Link } from 'react-router-dom';
-import img1 from '../../../assets/1.jpg';
-import img2 from '../../../assets/2.jpg';
-import img3 from '../../../assets/6.jpeg';
-import img4 from '../../../assets/11.jpeg';
-import img5 from '../../../assets/10.jpeg';
-import img6 from '../../../assets/5.jpeg';
-import img7 from '../../../assets/6.jpeg';
-import img8 from '../../../assets/7.jpeg';
+import img1 from '../../../assets/services/تأسيس وبناء الموسسات الخيرية .jpeg';
+import img2 from '../../../assets/services/إدارة المشاريع .jpg';
+import img3 from '../../../assets/services/تسويق وبناء هوية .jpg';
+import img4 from '../../../assets/services/تخطيط استراتيجي .jpg';
+import img5 from '../../../assets/services/المالي .jpg';
+import img6 from '../../../assets/services/إدارة الجودة .jpg';
+import img7 from '../../../assets/services/إدارة المخاطر.jpg';
+import img8 from '../../../assets/services/تخطيط استراتيجي 2.jpg';
+import img9 from '../../../assets/services/تنمية الموارد .jpg';
+import img10 from '../../../assets/services/التدريب والتطوير.jpg';
+import img11 from '../../../assets/services/العلاقات العامة .jpg';
+import img12 from '../../../assets/code4.jpg';
+
+
+
+
 
 
 const servicesData = [
@@ -62,25 +70,31 @@ const servicesData = [
        {
         title: "تحديد المخاطر وتصميم استراتيجيات للحد منها",
         description: "نساعد في تقليل المخاطر وتوفير استراتيجيات فعّالة.",
-        image:img1,
+        image:img8,
        
       },
       {
         title: "تنمية الموارد المالية",
         description: "نوفر استراتيجيات مبتكرة لتنمية الموارد المالية.",
-        image: img4,
+        image: img9,
     
       },
       {
         title: "التدريب والتطوير",
         description: "نوفر برامج تدريبية لتعزيز مهارات العاملين.",
-        image: img5,
+        image: img10,
        
       },
       {
         title: "العلاقات العامة والتواصل وبناء الشراكات",
         description: "تطوير استراتيجيات للتواصل وبناء الشراكات الفعّالة.",
-        image:img6,
+        image:img11,
+      
+      },
+      {
+        title: "الخدمات البرمجية",
+        description: "اكتشف خدماتنا الاحترافية في تطوير المواقع، برمجة التطبيقات، والتسويق الرقمي",
+        image:img12,
       
       }
 ];

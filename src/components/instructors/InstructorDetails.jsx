@@ -82,31 +82,31 @@ const InstructorDetails = () => {
           <Card.Title className="instructor-name">{mentor.name}</Card.Title>
           {/* <Card.Text>Email: {mentor.email}</Card.Text>
           <Card.Text>Phone: {mentor.phone}</Card.Text> */}
-          <Card.Text>Field: {mentor.field}</Card.Text>
-          <Card.Text>Address: {mentor.address}</Card.Text>
+          <Card.Text>مجال العمل : {mentor.field}</Card.Text>
+          <Card.Text>الدولة : {mentor.address}</Card.Text>
         </Card.Body>
       </Card>
 
       {/* Instructions Section */}
       <div className="instructions-section">
-        <h3 className="text-center">Instructions for {mentor.name}</h3>
+        <h3 className="text-center">الاستشارات الخاصة بالمستشار :  {mentor.name}</h3>
         {instructions.length > 0 ? (
           instructions.map((instruction) => (
             <Card key={instruction.id} className="instruction-card shadow-sm mb-4">
               <Card.Body>
                 <Card.Title className="instruction-title">{instruction.title}</Card.Title>
-                <Card.Text className="instruction-details">Details: {instruction.description}</Card.Text>
+                <Card.Text className="instruction-details">تفاصيل الاستشارة: {instruction.description}</Card.Text>
                 <Card.Text className="instructor-instruction-time">
-                  <FaClock className="instructor-time-icon" /> Duration: {instruction.duration} hours
+                  <FaClock className="instructor-time-icon" /> مدة الاستشارة : {instruction.duration} دقيقة 
                 </Card.Text>
                 <Card.Text className="instruction-details">Price: ${instruction.price}</Card.Text>
                 <Button variant="success" className="instructor-order-btn">حجز الاستشارة</Button>
-                <Button variant="info" className="ms-2" onClick={() => handleShowDetails(instruction)}>View Details</Button>
+                <Button variant="info" className="ms-2" onClick={() => handleShowDetails(instruction)}>عرض التفاصيل </Button>
               </Card.Body>
             </Card>
           ))
         ) : (
-          <p className="text-center">No instructions available for this mentor.</p>
+          <p className="text-center">لا يوجد استشارات خاصة بالمستشار حاليا .</p>
         )}
       </div>
 
@@ -117,43 +117,43 @@ const InstructorDetails = () => {
         dialogClassName="modal-centered"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Instruction Details</Modal.Title>
+          <Modal.Title>تفاصيل الاستشارة </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedInstruction && (
             <div>
-              <p><strong>Duration:</strong> {selectedInstruction.duration} minutes</p>
-              <p><strong>Start Time:</strong> Invalid Date</p>
-              <p><strong>Price:</strong> {selectedInstruction.price} EGP</p>
-              <p><strong>Day:</strong> {selectedInstruction.day}</p>
-              <p><strong>Type:</strong> {selectedInstruction.type}</p>
+              <p><strong>مدة الاستشارة  :</strong> {selectedInstruction.duration} دقيقة </p>
+              <p><strong>وقت البدء :</strong>يحدد حسب مواعيد المستشار </p>
+              <p><strong>ثمن الاستشارة :</strong> {selectedInstruction.price} دينار</p>
+              <p><strong>يوم :</strong> {selectedInstruction.day}</p>
+              <p><strong>نوع الاستشارة :</strong> {selectedInstruction.type}</p>
             </div>
           )}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Close
+            اغلاق 
           </Button>
         </Modal.Footer>
       </Modal>
 
       {/* Courses Section */}
       <div className="courses-section mt-5">
-        <h3 className="text-center">Courses Offered by {mentor.name}</h3>
+        <h3 className="text-center">جميع الدورات الخاصة بالمستشار  {mentor.name}</h3>
         <div className="courses-container">
           {courses.length > 0 ? (
             courses.map((course) => (
               <Card key={course.id} className="course-card shadow-sm mb-4">
                 <Card.Body>
                   <Card.Title>{course.title}</Card.Title>
-                  <Card.Text>Duration: {course.duration} hours</Card.Text>
-                  <Card.Text>Price: ${course.price}</Card.Text>
-                  <Button variant="primary" onClick={() => handleViewCourseDetails(course._id)}>View Details</Button> {/* Updated button */}
+                  <Card.Text>مدة  الدورة : {course.duration} ساعه </Card.Text>
+                  <Card.Text>ثمن الدورة : ${course.price}</Card.Text>
+                  <Button variant="primary" onClick={() => handleViewCourseDetails(course._id)}>عرض التفاصيل </Button> {/* Updated button */}
                 </Card.Body>
               </Card>
             ))
           ) : (
-            <p className="text-center">No courses available for this mentor.</p>
+            <p className="text-center">لا توجد دورات لهذا المستشار .</p>
           )}
         </div>
       </div>

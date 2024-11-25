@@ -64,7 +64,7 @@ const CoursesDetails = () => {
         </Col>
         <Col md={6}>
           <h1 className="course-detail-title">{course.title}</h1>
-          <p className="course-detail-price"><strong>سعر الكورس :</strong> {course.price} ج.م</p>
+          <p className="course-detail-price"><strong>سعر الكورس :</strong> {course.price} دينار</p>
           <p className="course-detail-description"><strong>الوصف :</strong> {course.description}</p>
           <p className="course-detail-field"><strong>المجال :</strong> {course.field}</p>
 

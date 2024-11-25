@@ -49,6 +49,7 @@ import Fullservices from "./components/HomePage/services/Fullservices";
 import AllBooksDash from './components/dashboard/Books/AllBooks'
 import AddBooks from "./components/dashboard/Books/AddBooks";
 import Englishapge from "./components/EnglishPage/Englishapge";
+import ContactForm from "./components/EnglishPage/ContactForm";
 function App() {
   return (
     <div className="App">
@@ -104,6 +105,8 @@ function App() {
           <Route path="/all_books" element={<AllBooksDash/>} />
           <Route path="/addbook" element={<AddBooks/>} />
           <Route path="/englishPage" element={<Englishapge/>} />
+          <Route path="/ContactEnglish" element={<ContactForm/>} />
+
 
 
 

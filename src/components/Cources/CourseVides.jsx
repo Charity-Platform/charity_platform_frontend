@@ -86,7 +86,7 @@ const CourseVideos = () => {
           )}
         </Col>
         <Col md={4}>
-          <h3>All Videos</h3>
+          <h3>كل الفيديوهات </h3>
           <ListGroup>
             {videos.map(video => (
               <ListGroup.Item 

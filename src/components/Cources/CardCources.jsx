@@ -36,7 +36,7 @@ const CardCources = () => {
   };
   
   if (loading) {
-    return <p>Loading courses...</p>;
+    return <p>جارى تحميل الكورس ....... </p>;
   }
 
   if (error) {
@@ -56,7 +56,7 @@ const CardCources = () => {
                 <Card.Img variant="top" src={course.image} alt={course.title} className='card-img' />
                 <Card.Title>{course.title}</Card.Title>
                 <Card.Text>المجال : {course.field}</Card.Text>
-                <Card.Text>السعر: {course.price} ج.م.</Card.Text>
+                <Card.Text>السعر: {course.price}دينار </Card.Text>
                 <Button 
                   className="btn btn-course" 
                   onClick={() => handleEnrollClick(course._id)} // Ensure this is the correct ID

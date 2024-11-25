@@ -292,3 +292,30 @@
     font-size: 1.25rem;
   }
 }
+/* contact page  */
+.contact-form-container {
+  background-color: #f8f9fa;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.thank-you-container {
+  margin-top: 100px;
+}
+
+.contact-form-container h2 {
+  font-weight: bold;
+  color: #0056b3;
+}
+
+button[type="submit"] {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #003f7f;
+}
