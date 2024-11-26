@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './DashBoard.css';
+import '../DashBoard.css';
 
 const AllUser = () => {
   const [users, setUsers] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Card, Button, Spinner } from 'react-bootstrap';
-import './DashBoard.css'; // Custom CSS for the ticket layout
+import '../DashBoard.css'; // Custom CSS for the ticket layout
 
 const AllTickets = () => {
   const [tickets, setTickets] = useState([]); // State for tickets

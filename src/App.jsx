@@ -14,15 +14,15 @@ import FormBlog from "./components/Blogs/FormBlog";
 import Comunity from "./pages/Comunity/Comunity";
 import Profile from "./components/Profile/Profile";
 import DashBoard from "./pages/dashboard/DashBoard";
-import AllUser from './components/dashboard/AllUser'
+import AllUser from './components/dashboard/AllUsers/AllUser'
 import Instructordash from './components/dashboard/InstractorDash'
 import BlogsDash from './components/dashboard/BlogsDash'
 import ActivePass from "./components/LoginAndRegister/ActivePass";
 import Rechangepass from "./components/LoginAndRegister/Rechangepass";
 import ContactDash from "./components/dashboard/ContactDash";
 import RequireAuth from "./components/LoginAndRegister/RequireAuth";
-import Questions from './components/dashboard/questions'
-import AllQuestions from "./components/dashboard/AllQuestions";
+import Questions from './components/dashboard/AllQuestions/questions'
+import AllQuestions from "./components/dashboard/AllQuestions/AllQuestions";
 import SignupInstructor from "./components/Monitors/SignupInstructor";
 import Nonactivemonitor from "./components/Monitors/Nonactivemonitor";
 import Activemonitor from "./components/Monitors/Activemonitor";
@@ -38,18 +38,20 @@ import CourseVides from "./components/Cources/CourseVides";
 import InstructorDetails from "./components/instructors/InstructorDetails";
 import Instructions from "./components/Monitors/MentorDashBoard/Instructions";
 import AllInstructions from "./components/Monitors/MentorDashBoard/AllInstructions";
-import AllTickets from "./components/dashboard/AllTickets";
+import AllTickets from "./components/dashboard/AllTickets/AllTickets";
 import NewCourses from "./components/Monitors/MentorDashBoard/NewCourses";
 import AllBooks from "./components/Monitors/MentorDashBoard/AllBooks";
 import BookDetails from "./components/BookStore/BookDetails";
-import Jobs from "./components/Comunity/Jobs";
-import Comunity_platform from "./components/Comunity/Comunity_platform";
-import JobForm from "./components/Comunity/JobForm";
+import JobForm from "./components/jobs/JobForm";
 import Fullservices from "./components/HomePage/services/Fullservices";
 import AllBooksDash from './components/dashboard/Books/AllBooks'
 import AddBooks from "./components/dashboard/Books/AddBooks";
 import Englishapge from "./components/EnglishPage/Englishapge";
 import ContactForm from "./components/EnglishPage/ContactForm";
+import Community_Platform from "./components/companyJobs/Comunity_platform";
+import Jobs from "./components/jobs/Jobs";
+import Not_Active from "./components/dashboard/Jobs/Not_Active";
+import ActiveJobs from "./components/dashboard/Jobs/ActiveJobs";
 function App() {
   return (
     <div className="App">
@@ -99,13 +101,16 @@ function App() {
           <Route path="/all_books/:mentorId" element={<AllBooks/>} />
           <Route path="/book_details/:bookId" element={<BookDetails/>} />
           <Route path="/jobs" element={<Jobs/>} />
-          <Route path="/comunity_platform" element={<Comunity_platform/>} />
+          <Route path="/comunity_platform" element={<Community_Platform/>} />
           <Route path="/job_form" element={<JobForm/>} />
           <Route path="/full-services" element={<Fullservices/>} />
           <Route path="/all_books" element={<AllBooksDash/>} />
           <Route path="/addbook" element={<AddBooks/>} />
           <Route path="/englishPage" element={<Englishapge/>} />
           <Route path="/ContactEnglish" element={<ContactForm/>} />
+          <Route path="/notactive_jobs" element={<Not_Active/>} />
+          <Route path="/active_jobs" element={<ActiveJobs/>} />
+
 
 
 
