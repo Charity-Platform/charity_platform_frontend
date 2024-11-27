@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Modal, Form, Container, Row, Col, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; // for navigation
+import { Card, Button, Modal, Container, Row, Col, Form, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Jobs.css';
 
 const Jobs = () => {
@@ -10,26 +11,37 @@ const Jobs = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [filterKeyword, setFilterKeyword] = useState('');
   
-  const navigate = useNavigate(); // for navigation
+  const navigate = useNavigate();
 
-  // Sample job data (replace with an API call if needed)
+  // Fetch all jobs
   useEffect(() => {
-    const sampleJobs = [
-      { id: 1, title: 'Frontend Developer', company: 'Tech Corp', location: 'Remote' },
-      { id: 2, title: 'Backend Developer', company: 'Innovate Solutions', location: 'New York' },
-      { id: 3, title: 'UI/UX Designer', company: 'Creative Minds', location: 'San Francisco' },
-    ];
-    setJobs(sampleJobs);
-    setFilteredJobs(sampleJobs);
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}jobs/active`);
+        setJobs(response.data);
+        setFilteredJobs(response.data);
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      }
+    };
+    fetchJobs();
   }, []);
 
-  // Open modal with selected job
-  const handleShow = (job) => {
-    setSelectedJob(job);
-    setShow(true);
+  // Fetch job by ID
+  const handleShow = async (jobId) => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}jobs/${jobId}`);
+      setSelectedJob(response.data);
+      setShow(true);
+    } catch (error) {
+      console.error('Error fetching job details:', error);
+    }
   };
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setSelectedJob(null);
+  };
 
   // Handle job filtering
   const handleFilter = (e) => {
@@ -37,21 +49,14 @@ const Jobs = () => {
     setFilterKeyword(keyword);
     const filtered = jobs.filter((job) =>
       job.title.toLowerCase().includes(keyword) ||
-      job.company.toLowerCase().includes(keyword) ||
-      job.location.toLowerCase().includes(keyword)
+      job.description.toLowerCase().includes(keyword)
     );
     setFilteredJobs(filtered);
   };
 
-  // Handle button click to navigate to different pages
-  const handleNavigate = (page) => {
-    navigate(page);
-  };
-
   return (
     <div className="jobs-container">
-      {/* Header Section with Buttons */}
-      <Container className="jobs-header-buttons">
+        <Container className="jobs-header-buttons">
         <Row className="justify-content-center mb-3">
           <Col xs={12} md={8} className="d-flex justify-content-center">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1} className="mb-2">
@@ -59,8 +64,8 @@ const Jobs = () => {
                 id="tbg-btn-1" 
                 variant="outline-primary" 
                 value={1}
-                onClick={() => handleNavigate('/job-seeker')} // Navigate to Job Seeker page
-                className="mx-2" // Adding margin using Bootstrap class
+                onClick={() => navigate('/job-seeker')}
+                className="mx-2"
               >
                الوظائف المتاحة
               </ToggleButton>
@@ -68,7 +73,7 @@ const Jobs = () => {
                 id="tbg-btn-2" 
                 variant="outline-primary" 
                 value={2}
-                onClick={() => handleNavigate('/comunity_platform')} // Navigate to Employer page
+                onClick={() => navigate('/comunity_platform')}
                 className="mx-2"
               >
                 أنا جهة توظيف
@@ -77,7 +82,7 @@ const Jobs = () => {
                 id="tbg-btn-3" 
                 variant="outline-primary" 
                 value={3}
-                onClick={() => handleNavigate('/job_form')} // Navigate to Training page
+                onClick={() => navigate('/job_form')}
                 className="mx-2"
               >
                أنا أبحث عن عمل
@@ -86,14 +91,12 @@ const Jobs = () => {
           </Col>
         </Row>
       </Container>
-
-      {/* Filter input */}
       <Container className="jobs-filter-section">
         <Row className="justify-content-center mb-4">
           <Col xs={12} md={8}>
             <Form.Control
               type="text"
-              placeholder="ابحث في الوظائف حسب العنوان أو الشركة أو الموقع..."
+              placeholder="ابحث في الوظائف حسب العنوان أو الوصف..."
               value={filterKeyword}
               onChange={handleFilter}
               className="jobs-filter-input"
@@ -106,14 +109,13 @@ const Jobs = () => {
       <Container>
         <Row>
           {filteredJobs.map((job) => (
-            <Col key={job.id} sm={12} md={6} lg={4}>
+            <Col key={job._id} sm={12} md={6} lg={4}>
               <Card className="jobs-card mb-4">
                 <Card.Body>
                   <Card.Title>{job.title}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">{job.company}</Card.Subtitle>
-                  <Card.Text>{job.location}</Card.Text>
-                  <Button variant="primary" onClick={() => handleShow(job)}>
-                    Apply
+                  <Card.Subtitle className="mb-2 text-muted">Type: {job.type}</Card.Subtitle>
+                  <Button variant="primary" onClick={() => handleShow(job._id)}>
+                    تفاصيل
                   </Button>
                 </Card.Body>
               </Card>
@@ -121,30 +123,30 @@ const Jobs = () => {
           ))}
         </Row>
 
-        {/* Modal for job application */}
+        {/* Modal for job details */}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Apply for {selectedJob?.title}</Modal.Title>
+            <Modal.Title>تفاصيل الوظيفة</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>Full Name</Form.Label>
-                <Form.Control type="text" placeholder="Enter your full name" />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter your email" />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Resume</Form.Label>
-                <Form.Control type="file" />
-              </Form.Group>
-              <Button variant="primary" type="submit">
-                Submit Application
-              </Button>
-            </Form>
+            {selectedJob ? (
+              <div>
+                <h5>{selectedJob.title}</h5>
+                <p><strong>الوصف:</strong> {selectedJob.description}</p>
+                <p><strong>نوع الوظيفة:</strong> {selectedJob.type}</p>
+                <p><strong>رابط الشركة:</strong> <a href={selectedJob.campanyWebsite} target="_blank" rel="noopener noreferrer">{selectedJob.campanyWebsite}</a></p>
+                <p><strong>رقم الشركة:</strong> {selectedJob.companyPhone}</p>
+                <p><strong>تاريخ النشر:</strong> {new Date(selectedJob.createdAt).toLocaleDateString()}</p>
+              </div>
+            ) : (
+              <p>جاري تحميل التفاصيل...</p>
+            )}
           </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              إغلاق
+            </Button>
+          </Modal.Footer>
         </Modal>
       </Container>
     </div>

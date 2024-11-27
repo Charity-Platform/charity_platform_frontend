@@ -110,7 +110,7 @@ const Profile = () => {
           <div className="profile-img-container">
             <img
               className="profile-bg-image"
-              src="https://37.media.tumblr.com/88cbce9265c55a70a753beb0d6ecc2cd/tumblr_n8gxzn78qH1st5lhmo1_1280.jpg"
+              src="https://cdn.pixabay.com/photo/2019/01/29/11/19/career-3962170_1280.jpg"
               alt="Background"
             />
           </div>
