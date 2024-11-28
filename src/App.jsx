@@ -52,6 +52,7 @@ import Community_Platform from "./components/companyJobs/Comunity_platform";
 import Jobs from "./components/jobs/Jobs";
 import Not_Active from "./components/dashboard/Jobs/Not_Active";
 import ActiveJobs from "./components/dashboard/Jobs/ActiveJobs";
+import JobApplicationForm from "./components/jobs/JobApplicationForm";
 function App() {
   return (
     <div className="App">
@@ -110,6 +111,8 @@ function App() {
           <Route path="/ContactEnglish" element={<ContactForm/>} />
           <Route path="/notactive_jobs" element={<Not_Active/>} />
           <Route path="/active_jobs" element={<ActiveJobs/>} />
+          <Route path="/applicationForm/:id" element={<JobApplicationForm/>} />
+
 
 
 
