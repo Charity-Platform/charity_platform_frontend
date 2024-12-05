@@ -222,7 +222,7 @@ const Card = () => {
                 <Modal.Header closeButton>
                     <Modal.Title>{modalService?.title}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body dir='rtl'>
+                <Modal.Body dir='rtl' className='m-3'>
                     <ul>
                         {modalService?.points.map((point, index) => (
                             <li key={index}>{point}</li>
