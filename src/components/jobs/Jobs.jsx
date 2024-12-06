@@ -92,7 +92,7 @@ const Jobs = () => {
                 id="tbg-btn-1"
                 variant="outline-primary"
                 value={1}
-                onClick={() => navigate("/job-seeker")}
+                onClick={() => navigate("")}
                 className="mx-2"
               >
                 الوظائف المتاحة
@@ -182,7 +182,7 @@ const Jobs = () => {
                 <p>
                   <strong>نوع الوظيفة:</strong> {selectedJob.type}
                 </p>
-                <p>
+                {/* <p>
                   <strong>رابط الشركة:</strong>{" "}
                   <a
                     href={selectedJob.campanyWebsite}
@@ -194,7 +194,7 @@ const Jobs = () => {
                 </p>
                 <p>
                   <strong>رقم الشركة:</strong> {selectedJob.companyPhone}
-                </p>
+                </p> */}
                 <p>
                   <strong>تاريخ النشر:</strong>{" "}
                   {new Date(selectedJob.createdAt).toLocaleDateString()}

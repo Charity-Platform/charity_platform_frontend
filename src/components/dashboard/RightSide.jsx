@@ -133,6 +133,18 @@ const RightSide = () => {
        طلبات الوظائف المقبولة 
       </Link>
       </button>
+      <button className="btn-comunity btn  d-flex align-items-center">
+      <Link to='/jobs_founder' className='btn-title'>
+        {/* <IoIosContacts  className='me-2' />  */}
+       طلبات التقديم للوظايف
+      </Link>
+      </button>
+      <button className="btn-comunity btn  d-flex align-items-center">
+      <Link to='/active_jobs' className='btn-title'>
+        {/* <IoIosContacts  className='me-2' />  */}
+
+      </Link>
+      </button>
     </div>
     
   </div>

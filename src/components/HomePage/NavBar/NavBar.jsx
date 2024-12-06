@@ -152,7 +152,7 @@ const NavBar = () => {
                 المكتبة الخيرية
               </Nav.Link>
               <Nav.Link as={NavLink} to="/blog">
-              ملتقى الخير
+              ملتقى التوظيف
               </Nav.Link>
               <Nav.Link as={NavLink} to="/contact">
                 تواصل معنا

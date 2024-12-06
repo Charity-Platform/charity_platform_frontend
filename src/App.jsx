@@ -10,7 +10,6 @@ import Books from "./pages/BookStore/Books";
 import Contact from "./pages/Contact/Contact";
 import Login from "./components/LoginAndRegister/Login";
 import Blog from "./pages/Blogs/Blog";
-import FormBlog from "./components/Blogs/FormBlog";
 import Comunity from "./pages/Comunity/Comunity";
 import Profile from "./components/Profile/Profile";
 import DashBoard from "./pages/dashboard/DashBoard";
@@ -53,6 +52,7 @@ import Jobs from "./components/jobs/Jobs";
 import Not_Active from "./components/dashboard/Jobs/Not_Active";
 import ActiveJobs from "./components/dashboard/Jobs/ActiveJobs";
 import JobApplicationForm from "./components/jobs/JobApplicationForm";
+import JobsApplied from "./components/dashboard/Jobs/JobsApplied";
 function App() {
   return (
     <div className="App">
@@ -70,7 +70,7 @@ function App() {
            <Route path="/blog" element={<Blog/>} />
       {/* </Route> */}
           <Route path="/login" element={<Login/>} />
-          <Route path="/FormBlog" element={<FormBlog/>} />
+         
           <Route path="/comunity" element={<Comunity/>} />
           <Route path="/profile" element={<Profile/>} />
           <Route path="/dashboard" element={<DashBoard/>} />
@@ -112,6 +112,8 @@ function App() {
           <Route path="/notactive_jobs" element={<Not_Active/>} />
           <Route path="/active_jobs" element={<ActiveJobs/>} />
           <Route path="/applicationForm/:id" element={<JobApplicationForm/>} />
+          <Route path="/jobs_founder" element={<JobsApplied/>} />
+
 
 
 

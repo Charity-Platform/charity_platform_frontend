@@ -213,3 +213,110 @@
     font-size: 1rem;
   }
 }
+/* General styles for the section container */
+.jobs-intro {
+  background-color: #f8f9fa;
+}
+
+/* Title */
+.jobs-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #343a40;
+}
+
+/* Description text */
+.jobs-description {
+  font-size: 18px;
+  color: #6c757d;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Institution Section Styles */
+.institution-section, .job-seeker-section {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  margin-bottom: 30px;
+}
+
+/* Hover Effect for Sections */
+.institution-section:hover, .job-seeker-section:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+/* Text in Sections */
+.institution-section h4, .job-seeker-section h4 {
+  color: #007bff;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.institution-section p, .job-seeker-section p {
+  color: #6c757d;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Button styles */
+.btn-success, .btn-info, .btn-danger {
+  border-radius: 30px;
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover Effects for Buttons */
+.hover-btn:hover {
+  filter: brightness(0.9);
+}
+
+/* Buttons for all jobs */
+.jobs-button {
+  background-color: #e53935;
+  border: none;
+}
+
+/* Hover Effect for Job Button */
+.jobs-button:hover {
+  background-color: #c62828;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .jobs-intro {
+    padding: 30px 0;
+  }
+  
+  .jobs-title {
+    font-size: 28px;
+  }
+
+  .jobs-description {
+    font-size: 16px;
+  }
+
+  .institution-section, .job-seeker-section {
+    padding: 25px;
+  }
+
+  .institution-section h4, .job-seeker-section h4 {
+    font-size: 22px;
+  }
+
+  .institution-section p, .job-seeker-section p {
+    font-size: 14px;
+  }
+
+  .btn-success, .btn-info, .btn-danger {
+    font-size: 16px;
+    padding: 10px 25px;
+  }
+}

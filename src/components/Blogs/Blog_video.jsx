@@ -10,8 +10,8 @@ const Blog_video = () => {
         Your browser does not support the video tag.
       </video>
       <div className="content-overlay">
-        <h1 className="overlay-title">مرحبًا بكم في أكبر مجمع للتعارف الوظيفي</h1>
-        <p className="overlay-description">ابنِ مدونتك وانطلق للمشاركة</p>
+        <h1 className="overlay-title">مرحبًا بكم في أكبر مجمع توظيفي</h1>
+        <p className="overlay-description">ابنِ مهاراتك وانطلق للحصول على وظيفتك</p>
       </div>
     </div>
   );
