@@ -29,7 +29,8 @@ const CoursesDetails = () => {
   }, [id]);
 
   const handleShowAllVideos = () => {
-    navigate(`/CourseVideos/${id}`); // Navigate to CourseVideos page with course ID
+    // navigate(`/CourseVideos/${id}`); // Navigate to CourseVideos page with course ID
+    navigate(`/CoursesPyment/${id}`)
   };
 
   const getYouTubeEmbedUrl = (url) => {
@@ -70,7 +71,7 @@ const CoursesDetails = () => {
 
           {/* Show all videos button */}
           <Button className="btn-primary mt-3 w-100" onClick={handleShowAllVideos}>
-            مشاهدة جميع الفيديوهات
+           الاشتراك فى الكورس 
           </Button>
 
           {/* Course Rating */}

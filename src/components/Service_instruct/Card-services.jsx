@@ -4,6 +4,7 @@ import { Container, Row, Col, Modal, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import './CardServices.css'; // Custom CSS file
 import CardInfo from './Card';
+import { useNavigate } from "react-router-dom"; // Correct hook
 
 const CardServices = () => {
   const [show, setShow] = useState(false);
@@ -12,7 +13,8 @@ const CardServices = () => {
   const [selectedField, setSelectedField] = useState('');
   const [loadingInstructions, setLoadingInstructions] = useState(false);
   const [selectedInstruction, setSelectedInstruction] = useState(null);
-  const [error, setError] = useState(null); // For displaying errors
+  const [error, setError] = useState(null); 
+  const navigate =useNavigate();
 
   const handleClose = () => {
     setShow(false);
@@ -135,6 +137,7 @@ const CardServices = () => {
                           variant="primary"
                           style={{ backgroundColor: '#07a79d', border: 'none' }}
                           className="btn-service"
+                          onClick={() => navigate(`/ServicesPayment/${instruction._id}`)}
                         >
                           طلب استشارة
                         </Button>
@@ -165,7 +168,9 @@ const CardServices = () => {
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>إغلاق</Button>
-              <Button variant="primary">طلب استشارة</Button>
+              <Button variant="primary"
+              onClick={() => navigate(`/ServicesPayment/${selectedInstruction._id}`)}
+              >طلب استشارة</Button>
             </Modal.Footer>
           </Modal>
         )}

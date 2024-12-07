@@ -62,14 +62,15 @@ const NavBar = () => {
                   as={NavLink}
                   id="services-dropdown"
                   className="custom-dropdown-toggle"
+                  to="/services"
                 >
                   الخدمات
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                <Dropdown.Item as={NavLink} to="/jobs">
+                {/* <Dropdown.Item as={NavLink} to="/jobs">
                     الوظائف
-                  </Dropdown.Item>
+                  </Dropdown.Item> */}
                   <Dropdown.Item
                     as="div"
                     onMouseEnter={handleMouseEnter}

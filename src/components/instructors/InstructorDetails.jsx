@@ -100,7 +100,9 @@ const InstructorDetails = () => {
                   <FaClock className="instructor-time-icon" /> مدة الاستشارة : {instruction.duration} دقيقة 
                 </Card.Text>
                 <Card.Text className="instruction-details">Price: ${instruction.price}</Card.Text>
-                <Button variant="success" className="instructor-order-btn">حجز الاستشارة</Button>
+                <Button variant="success" className="instructor-order-btn"
+                onClick={() => navigate(`/ServicesPayment/${instruction._id}`)}
+                >حجز الاستشارة</Button>
                 <Button variant="info" className="ms-2" onClick={() => handleShowDetails(instruction)}>عرض التفاصيل </Button>
               </Card.Body>
             </Card>

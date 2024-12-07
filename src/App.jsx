@@ -53,6 +53,12 @@ import Not_Active from "./components/dashboard/Jobs/Not_Active";
 import ActiveJobs from "./components/dashboard/Jobs/ActiveJobs";
 import JobApplicationForm from "./components/jobs/JobApplicationForm";
 import JobsApplied from "./components/dashboard/Jobs/JobsApplied";
+import LoadingForCheck from "./components/pyment/LoadingForCheck";
+import ServicesPayment from "./components/pyment/ServicesPyment";
+import Thanks from "./components/pyment/Thanks";
+import CoursesPyment from "./components/Cources/pymentcourses/CoursesPyment";
+import LoadingForCheckCourses from "./components/Cources/pymentcourses/LoadingForCheckCourses";
+import ThanksCourse from "./components/Cources/pymentcourses/ThanksCourse";
 function App() {
   return (
     <div className="App">
@@ -113,6 +119,18 @@ function App() {
           <Route path="/active_jobs" element={<ActiveJobs/>} />
           <Route path="/applicationForm/:id" element={<JobApplicationForm/>} />
           <Route path="/jobs_founder" element={<JobsApplied/>} />
+          <Route path="/loadingForCheck/auth/payment/consultation" element={<LoadingForCheck/>} />
+          <Route path="/ServicesPayment/:id" element={<ServicesPayment/>} />
+          <Route path="/thank-you" element={<Thanks/>} />
+          <Route path="/CoursesPyment/:id" element={<CoursesPyment/>} />
+          <Route path="/loadingForCheck/auth/payment/course" element={<LoadingForCheckCourses/>} />
+          <Route path="/loadingForCheck/auth/payment/course/thanksForCourse" element={<ThanksCourse/>} />
+
+
+
+
+
+
 
 
 
