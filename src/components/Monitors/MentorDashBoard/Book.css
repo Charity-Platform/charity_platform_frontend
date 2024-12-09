@@ -6,6 +6,12 @@
   justify-content: space-evenly;
   gap: 20px;
 }
+.book-card textarea {
+  width: 100%;
+  height: 100px; /* يمكن تحديد الحجم المناسب */
+  overflow: auto; /* عرض شريط التمرير إذا تجاوز النص */
+  resize: vertical; /* للسماح بتغيير الحجم بشكل عمودي فقط */
+}
 
 /* Style each book card */
 .book-card {

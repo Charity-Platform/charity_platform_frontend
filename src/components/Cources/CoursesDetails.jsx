@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
-import './Cources.css'; // Make sure to have a similar CSS file like the one for books
+import './Cources.css';
 
 const CoursesDetails = () => {
   const { id } = useParams(); // Get course ID from URL
@@ -12,12 +12,19 @@ const CoursesDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchCourseDetails = async () => {
+    const fetchCourses = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses`, {
           withCredentials: true,
         });
-        setCourse(response.data);
+
+        const selectedCourse = response.data.document.find((course) => course._id === id);
+
+        if (selectedCourse) {
+          setCourse(selectedCourse);
+        } else {
+          setError("Course not found");
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -25,12 +32,11 @@ const CoursesDetails = () => {
       }
     };
 
-    fetchCourseDetails();
+    fetchCourses();
   }, [id]);
 
   const handleShowAllVideos = () => {
-    // navigate(`/CourseVideos/${id}`); // Navigate to CourseVideos page with course ID
-    navigate(`/CoursesPyment/${id}`)
+    navigate(`/CoursesPyment/${id}`);
   };
 
   const getYouTubeEmbedUrl = (url) => {
@@ -52,14 +58,13 @@ const CoursesDetails = () => {
 
   return (
     <Container className="course-details-container my-5">
-      {/* Back to main courses page button */}
       <div className="text-center mb-3">
         <Button className="btn-back" onClick={() => navigate('/Cources')}>
           العودة إلى الصفحة الرئيسية للكورسات
         </Button>
       </div>
 
-      <Row className="align-items-center" >
+      <Row className="align-items-center">
         <Col md={6} className="text-center">
           <img src={course.image} alt={course.title} className="course-detail-image" />
         </Col>
@@ -68,15 +73,11 @@ const CoursesDetails = () => {
           <p className="course-detail-price"><strong>سعر الكورس :</strong> {course.price} دينار</p>
           <p className="course-detail-description"><strong>الوصف :</strong> {course.description}</p>
           <p className="course-detail-field"><strong>المجال :</strong> {course.field}</p>
-
-          {/* Show all videos button */}
           <Button className="btn-primary mt-3 w-100" onClick={handleShowAllVideos}>
-           الاشتراك فى الكورس 
+            الاشتراك فى الكورس
           </Button>
-
-          {/* Course Rating */}
           <div className="course-rating mt-3">
-            <span>التقييم: {course.rating} ★</span>
+            <span>التقييم: {course.rating || 'غير متوفر'} ★</span>
           </div>
         </Col>
       </Row>

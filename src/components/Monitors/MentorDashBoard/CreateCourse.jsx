@@ -176,7 +176,7 @@ const CreateCourse = () => {
                 </Form.Group>
 
                 {/* Course PDF */}
-                <Form.Group className="mb-3" controlId="formPdf">
+                {/* <Form.Group className="mb-3" controlId="formPdf">
                     <Form.Label>ملف PDF للدورة</Form.Label>
                     <Form.Control
                         type="file"
@@ -184,7 +184,7 @@ const CreateCourse = () => {
                         onChange={handleFileChange}
                         accept="application/pdf"
                     />
-                </Form.Group>
+                </Form.Group> */}
 
                 {/* Is Free Checkbox */}
                 <Form.Group className="mb-3" controlId="formIsFree">

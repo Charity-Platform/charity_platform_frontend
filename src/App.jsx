@@ -59,6 +59,10 @@ import Thanks from "./components/pyment/Thanks";
 import CoursesPyment from "./components/Cources/pymentcourses/CoursesPyment";
 import LoadingForCheckCourses from "./components/Cources/pymentcourses/LoadingForCheckCourses";
 import ThanksCourse from "./components/Cources/pymentcourses/ThanksCourse";
+import BookPyment from "./components/BookStore/pymentBook/BookPyment";
+import CheckBook from "./components/BookStore/pymentBook/CheckBook";
+import ThanksBook from "./components/BookStore/pymentBook/ThanksBook";
+import BookView from "./components/BookStore/BookView";
 function App() {
   return (
     <div className="App">
@@ -113,6 +117,8 @@ function App() {
           <Route path="/full-services" element={<Fullservices/>} />
           <Route path="/all_books" element={<AllBooksDash/>} />
           <Route path="/addbook" element={<AddBooks/>} />
+          {/* <Route path="/reviewbook" element={<AddBooks/>} /> */}
+
           <Route path="/englishPage" element={<Englishapge/>} />
           <Route path="/ContactEnglish" element={<ContactForm/>} />
           <Route path="/notactive_jobs" element={<Not_Active/>} />
@@ -122,9 +128,17 @@ function App() {
           <Route path="/loadingForCheck/auth/payment/consultation" element={<LoadingForCheck/>} />
           <Route path="/ServicesPayment/:id" element={<ServicesPayment/>} />
           <Route path="/thank-you" element={<Thanks/>} />
-          <Route path="/CoursesPyment/:id" element={<CoursesPyment/>} />
-          <Route path="/loadingForCheck/auth/payment/course" element={<LoadingForCheckCourses/>} />
-          <Route path="/loadingForCheck/auth/payment/course/thanksForCourse" element={<ThanksCourse/>} />
+          <Route path="/CoursesPyment/:id" element={<CoursesPyment />} />
+          <Route path="/loadingForCheck/auth/payment/course/:id" element={<LoadingForCheckCourses />} />
+          <Route path="/thanksForCourse/:id" element={<ThanksCourse />} />
+          <Route path="/bookpyment/:id" element={<BookPyment/>} />
+          <Route path="/loadingForCheck/auth/request/payment/book/:id" element={<CheckBook/>} />
+          <Route path="/ThanksBook" element={<ThanksBook/>} />
+          <Route path="/BookView/:id" element={<BookView/>} />
+
+
+
+
 
 
 

@@ -26,7 +26,7 @@ const BookList = ({ books }) => {
                 {book.title}
               </Card.Title>
               <Card.Text className="text-muted" style={{ fontSize: '0.9rem', minHeight: '60px' }}>
-                وصف: {book.description}
+                {/* وصف: {book.description} */}
               </Card.Text>
               <Card.Text className="price-text">
                 {/* Check if the book price is 0 and show 'مجاني' */}
@@ -39,7 +39,7 @@ const BookList = ({ books }) => {
               <button 
                 className="btn btn-primary w-100 mt-auto" 
                 onClick={() => handleShowBooks(book._id)}>
-                طلب الكتاب
+                تفاصيل الكتاب
               </button>
             </Card.Body>
           </Card>

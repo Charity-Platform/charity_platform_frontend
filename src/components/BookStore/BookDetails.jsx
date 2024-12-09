@@ -10,26 +10,27 @@ import './Books.css';
 const BookDetails = () => {
   const { bookId } = useParams();
   const navigate = useNavigate();
-  const [book, setBook] = useState(null); // Changed initial state to null
+  const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [ownerName, setOwnerName] = useState(''); // State for owner's name
+  const [ownerName, setOwnerName] = useState('');
 
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}books/${bookId}`, {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}books/review/${bookId}`, {
           withCredentials: true,
         });
 
         console.log('API Response:', response.data); // Log the entire response to inspect it
         setBook(response.data);
 
-        // Fetch the owner's name using the owner's ID from the book details
-        const mentorResponse = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${response.data.owner}`);
-        setOwnerName(mentorResponse.data.name); // Set the owner's name from the mentor response
+        // If you want to fetch the owner's name based on the response, use the owner ID if available
+        // Assuming there's no owner in the response, so skipping the mentor fetch for now
+        // const mentorResponse = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${response.data.owner}`);
+        // setOwnerName(mentorResponse.data.name);
       } catch (error) {
         if (error.response) {
-          console.error('Error data:', error.response.data); // Log error details
+          console.error('Error data:', error.response.data);
           console.error('Error status:', error.response.status);
         } else {
           console.error('Error fetching book details:', error.message);
@@ -83,23 +84,20 @@ const BookDetails = () => {
         </Col>
         <Col md={6}>
           <h1 className="book-detail-title">{book.title}</h1>
-          <h4 className="book-detail-author">by {ownerName || 'Loading...'}</h4>
+          {/* <h4 className="book-detail-author">by {ownerName || 'Loading...'}</h4> */}
           <p className="book-detail-price">{book.price} د.ك</p>
           <p className="book-detail-description">{book.description}</p>
-          <Button className="btn-download">
+          <Button className="btn-download" onClick={() => navigate(`/bookpyment/${bookId}`)}>
             شراء الكتاب
           </Button>
-          <div className="book-rating mt-3">
-            <span>التقييم : {book.rating} ★★★</span>
-          </div>
         </Col>
       </Row>
 
       <div className="pdf-viewer mt-5">
-        <h2 className="text-center">مراجعة الكتاب </h2>
-        {book.pdf ? (
+        <h2 className="text-center">مراجعة الكتاب</h2>
+        {book.review ? (
           <Worker workerUrl={`https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.js`}>
-            <Viewer fileUrl={book.pdf} />
+            <Viewer fileUrl={book.review} />
           </Worker>
         ) : (
           <p className="text-center">PDF not available for this book.</p>

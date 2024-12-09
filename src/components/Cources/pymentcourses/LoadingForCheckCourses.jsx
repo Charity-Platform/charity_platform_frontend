@@ -9,53 +9,52 @@ const LoadingForCheckCourses = () => {
   const [loading, setLoading] = useState(true);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Use navigate to redirect
-u
-  const paymentData = searchParams.get('data');
-  console.log("Payment Data: ", paymentData);  
-  const verifyPayment = async () => {
-    if (!paymentData) {
-      setErrorMessage('معرّف الدفع غير متوفر.');
-      setLoading(false);
-      return;
-    }
-  
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_MAIN_URL}courses/checkout/${paymentData}`,
-        {},
-        {
-          headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        }
-      );
-  
-      console.log("API Response:", response.data); // Log entire response for debugging
-  
-      if (response.status === 201) {
-        setSuccess(true);
-        setTimeout(() => navigate(`./thanksForCourse`), 2000);
-      } else {
-        throw new Error('حدث خطأ أثناء التحقق من الدفع.');
-      }
-    } catch (error) {
-      console.error("Error Details:", error); // Log full error details
-      if (error.response) {
-        console.error("Response error data:", error.response.data);
-        setErrorMessage(error.response.data?.message || 'حدث خطأ أثناء التحقق من الدفع.');
-      } else {
-        setErrorMessage('حدث خطأ أثناء التحقق من الدفع.');
-      }
-      setLoading(false);
-    }
-  };
-  
+  const navigate = useNavigate();
+  const paymentData = searchParams.get('data'); // Get payment data from query parameters
 
   useEffect(() => {
-    verifyPayment();  // Call the payment verification function
-  }, [paymentData, navigate]);  // Dependencies ensure it's called when paymentData or navigate changes
+    const verifyPayment = async () => {
+      if (!paymentData) {
+        setErrorMessage('معرّف الدفع غير متوفر.');
+        setLoading(false);
+        return;
+      }
 
-  // Loading state: show waiting animation while the payment verification is happening
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_MAIN_URL}courses/checkout/${paymentData}`,
+          {},
+          {
+            headers: { 'Content-Type': 'application/json' },
+            withCredentials: true,
+          }
+        );
+ console.log(response.data);
+        if (response.status === 200 || response.status === 201) {
+         
+          setSuccess(true);
+          setTimeout(() => {
+            navigate(`/thank-you`); // Redirect after 2 seconds
+          }, 2000);
+        } else {
+          throw new Error('حدث خطأ أثناء التحقق من الدفع.');
+        }
+      } catch (error) {
+        console.error("Error during payment verification:", error); // Log the error for debugging
+        if (error.response) {
+          setErrorMessage(error.response?.data?.message || 'حدث خطأ أثناء التحقق من الدفع.');
+        } else if (error.request) {
+          setErrorMessage('لا يوجد استجابة من الخادم. يرجى المحاولة مرة أخرى.');
+        } else {
+          setErrorMessage('حدث خطأ أثناء التحقق من الدفع.');
+        }
+      }
+      setLoading(false); // Ensure loading state is turned off after verification
+    };
+
+    verifyPayment();
+  }, [paymentData, navigate]);
+
   if (loading) {
     return (
       <Container fluid className="d-flex align-items-center justify-content-center vh-100 bg-light">
@@ -77,15 +76,12 @@ u
     );
   }
 
-  // // Render success or error message once the loading is complete
-  // return (
-  //   <Container className="py-5 text-center">
-  //     <h1 className="mb-4">شكراً على الدفع</h1>
-
-  //     {success && <Alert variant="success">تم استلام الدفع بنجاح. شكراً لك!</Alert>}
-  //     {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-  //   </Container>
-  // );
+  return (
+    <Container className="py-5 text-center">
+      {success && <Alert variant="success">تم استلام الدفع بنجاح. شكراً لك!</Alert>}
+      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+    </Container>
+  );
 };
 
 export default LoadingForCheckCourses;

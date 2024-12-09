@@ -10,6 +10,7 @@ const NewCourses = () => {
     const [price, setPrice] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [pdfFile, setPdfFile] = useState(null);
+    const [reviewFile, setReviewFile] = useState(null);  // New state for review PDF
     const [fields, setFields] = useState([]); // Initialize as an empty array
     const [selectedField, setSelectedField] = useState('');
     const [loading, setLoading] = useState(false); // Loading state
@@ -43,6 +44,7 @@ const NewCourses = () => {
         formData.append('image', imageFile); // Append the image file
         formData.append('pdf', pdfFile); // Append the PDF file
         formData.append('fields', selectedField); // Append the selected field
+        formData.append('review', reviewFile);  // Append the review PDF file
 
         try {
             const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}books`, formData, {
@@ -54,7 +56,7 @@ const NewCourses = () => {
             console.log('New book created:', response.data);
 
             // Show success alert
-            toast.success('Book created successfully!');
+            toast.success('تم إنشاء الكتاب بنجاح!');
 
             // Reset fields
             setTitle('');
@@ -62,103 +64,128 @@ const NewCourses = () => {
             setPrice('');
             setImageFile(null);
             setPdfFile(null);
+            setReviewFile(null); // Reset review file
             setSelectedField('');
         } catch (error) {
             console.error('Error creating new book:', error);
             // Show error alert
-            toast.error('Error creating book, please try again.');
+            toast.error('حدث خطأ أثناء إنشاء الكتاب، يرجى المحاولة مرة أخرى.');
         } finally {
             setLoading(false); // Set loading to false after the request
         }
     };
 
     return (
-        <Container>
-            <h1 className="my-4">Create New Book</h1>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formTitle">
-                    <Form.Label>Title</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter book title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </Form.Group>
+      <Container>
+        <h1 className="my-4">إنشاء كتاب جديد</h1>
+        <Form onSubmit={handleSubmit} dir="rtl">
+          <Form.Group controlId="formTitle">
+            <Form.Label>العنوان</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="أدخل عنوان الكتاب"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-                <Form.Group controlId="formDescription">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
-                        as="textarea"
-                        rows={3}
-                        placeholder="Enter book description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </Form.Group>
+          <Form.Group controlId="formDescription">
+            <Form.Label>الوصف</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              placeholder="أدخل وصف الكتاب"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              style={{
+                width: "100%",
+                maxHeight: "200px",
+                overflowY: "auto",
+                resize: "vertical",
+              }}
+            />
+          </Form.Group>
 
-                <Form.Group controlId="formPrice">
-                    <Form.Label>Price</Form.Label>
-                    <Form.Control
-                        type="number"
-                        placeholder="Enter price"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        required
-                    />
-                </Form.Group>
+          <Form.Group controlId="formPrice">
+            <Form.Label>السعر</Form.Label>
+            <Form.Control
+              type="number"
+              placeholder="أدخل السعر"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-                <Form.Group controlId="formImage">
-                    <Form.Label>Image</Form.Label>
-                    <Form.Control
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => setImageFile(e.target.files[0])}
-                    />
-                </Form.Group>
+          <Form.Group controlId="formImage">
+            <Form.Label>الصورة</Form.Label>
+            <Form.Control
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImageFile(e.target.files[0])}
+            />
+          </Form.Group>
 
-                <Form.Group controlId="formPdf">
-                    <Form.Label>PDF</Form.Label>
-                    <Form.Control
-                        type="file"
-                        accept="application/pdf"
-                        onChange={(e) => setPdfFile(e.target.files[0])}
-                    />
-                </Form.Group>
+          <Form.Group controlId="formPdf">
+            <Form.Label>ملف PDF</Form.Label>
+            <Form.Control
+              type="file"
+              accept="application/pdf"
+              onChange={(e) => setPdfFile(e.target.files[0])}
+            />
+          </Form.Group>
 
-                <Form.Group controlId="formFields">
-                    <Form.Label>Field</Form.Label>
-                    <Form.Control
-                        as="select"
-                        value={selectedField}
-                        onChange={(e) => setSelectedField(e.target.value)}
-                        required
-                    >
-                        <option value="">Select a field</option>
-                        {fields.length > 0 ? (
-                            fields.map((field) => (
-                                <option key={field._id} value={field._id}>{field.name}</option>
-                            ))
-                        ) : (
-                            <option value="" disabled>No fields available</option>
-                        )}
-                    </Form.Control>
-                </Form.Group>
+          <Form.Group controlId="formReview">
+            <Form.Label>مراجعة الكتاب (PDF)</Form.Label>
+            <Form.Control
+              type="file"
+              accept="application/pdf"
+              onChange={(e) => setReviewFile(e.target.files[0])}
+            />
+          </Form.Group>
 
-                <Button variant="primary" type="submit" disabled={loading}>
-                    {loading ? (
-                        <>
-                            <Spinner animation="border" size="sm" /> Creating...
-                        </>
-                    ) : (
-                        'Create Book'
-                    )}
-                </Button>
-            </Form>
-            <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick />
-        </Container>
+          <Form.Group controlId="formFields">
+            <Form.Label>المجال</Form.Label>
+            <Form.Control
+              as="select"
+              value={selectedField}
+              onChange={(e) => setSelectedField(e.target.value)}
+              required
+            >
+              <option value="">اختر المجال</option>
+              {fields.length > 0 ? (
+                fields.map((field) => (
+                  <option key={field._id} value={field._id}>
+                    {field.name}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  لا توجد مجالات متاحة
+                </option>
+              )}
+            </Form.Control>
+          </Form.Group>
+
+          <Button variant="primary" type="submit" disabled={loading}>
+            {loading ? (
+              <>
+                <Spinner animation="border" size="sm" /> جاري الإنشاء...
+              </>
+            ) : (
+              "إنشاء الكتاب"
+            )}
+          </Button>
+        </Form>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          closeOnClick
+        />
+      </Container>
     );
 };
 
