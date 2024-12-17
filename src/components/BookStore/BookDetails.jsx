@@ -12,33 +12,25 @@ const BookDetails = () => {
   const navigate = useNavigate();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [ownerName, setOwnerName] = useState('');
+  
+  // Assume userId is fetched from context or local storage
+  const userId = localStorage.getItem('userId'); // Replace with actual way of fetching user ID
 
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
+        // Fetch book details from the API
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}books/review/${bookId}`, {
           withCredentials: true,
         });
-
-        console.log('API Response:', response.data); // Log the entire response to inspect it
         setBook(response.data);
-
-        // If you want to fetch the owner's name based on the response, use the owner ID if available
-        // Assuming there's no owner in the response, so skipping the mentor fetch for now
-        // const mentorResponse = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${response.data.owner}`);
-        // setOwnerName(mentorResponse.data.name);
       } catch (error) {
-        if (error.response) {
-          console.error('Error data:', error.response.data);
-          console.error('Error status:', error.response.status);
+        console.error('Error fetching book details:', error);
+        if (error.response && error.response.status === 404) {
+          alert('Book not found.');
+          navigate('/books');
         } else {
-          console.error('Error fetching book details:', error.message);
-        }
-
-        if (error.response && error.response.status === 401 && error.response.data.message === 'This user is not subscribed') {
-          alert('You need to subscribe to access this book.');
-          navigate('/subscribe');
+          alert('An error occurred while fetching the book details.');
         }
       } finally {
         setLoading(false);
@@ -46,7 +38,7 @@ const BookDetails = () => {
     };
 
     fetchBookDetails();
-  }, [bookId]);
+  }, [bookId, navigate]);
 
   const handleBackToMainPage = () => {
     navigate('/books');
@@ -66,6 +58,9 @@ const BookDetails = () => {
     return <div>Book not found.</div>;
   }
 
+  // Check if the user is in the paidUsers list
+  const isPaidUser = book.paidUsers && book.paidUsers.includes(userId);
+
   return (
     <div className="book-details-container my-5">
       <div className="text-center mb-3">
@@ -84,12 +79,25 @@ const BookDetails = () => {
         </Col>
         <Col md={6}>
           <h1 className="book-detail-title">{book.title}</h1>
-          {/* <h4 className="book-detail-author">by {ownerName || 'Loading...'}</h4> */}
           <p className="book-detail-price">{book.price} د.ك</p>
           <p className="book-detail-description">{book.description}</p>
-          <Button className="btn-download" onClick={() => navigate(`/bookpyment/${bookId}`)}>
-            شراء الكتاب
-          </Button>
+
+          {/* Render button conditionally based on whether the user has paid */}
+          {isPaidUser ? (
+            <Button
+              className="btn-download"
+              onClick={() => navigate(`/BookView/${bookId}`)}
+            >
+              عرض الكتاب
+            </Button>
+          ) : (
+            <Button
+              className="btn-download"
+              onClick={() => navigate(`/bookpyment/${bookId}`)}
+            >
+              شراء الكتاب
+            </Button>
+          )}
         </Col>
       </Row>
 
@@ -100,7 +108,7 @@ const BookDetails = () => {
             <Viewer fileUrl={book.review} />
           </Worker>
         ) : (
-          <p className="text-center">PDF not available for this book.</p>
+          <p className="text-center">للاسف لا توجد نسخة لمراجعة فى هذا الكتاب </p>
         )}
       </div>
     </div>

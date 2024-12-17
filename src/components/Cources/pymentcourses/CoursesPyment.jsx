@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Button, Alert, Spinner } from 'react-bootstrap';
+import { Container, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -8,7 +8,17 @@ const CoursesPayment = () => {
   const [success, setSuccess] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
   const { id: paymentId } = useParams(); // Extract payment ID from the URL
-  const orderReferenceNumber = `ORDER_${paymentId}_${new Date().getTime()}`; // Define the order reference number here
+
+  // Ensure `paymentId` exists
+  if (!paymentId) {
+    return (
+      <Container className="py-5 text-center">
+        <Alert variant="danger">معرّف الدفع غير متوفر.</Alert>
+      </Container>
+    );
+  }
+
+  const orderReferenceNumber = `ORDER_${paymentId}_${new Date().getTime()}`;
 
   const handlePayment = async () => {
     setLoading(true);
@@ -26,10 +36,9 @@ const CoursesPayment = () => {
           withCredentials: true,
         }
       );
-      console.log(response);
 
       if (response.status === 200 && response.data?.data) {
-        window.open(response.data.data);
+        window.open(response.data.data); // Open the payment link
         setSuccess(true);
       } else {
         throw new Error('Payment failed. Please try again.');
@@ -52,12 +61,9 @@ const CoursesPayment = () => {
       </p>
 
       {success === false && <Alert variant="danger">{errorMessage}</Alert>}
+      {success === true && <Alert variant="success">تم إرسال الدفع بنجاح!</Alert>}
 
-      <Button
-        variant="primary"
-        onClick={handlePayment}
-        disabled={loading}
-      >
+      <Button variant="primary" onClick={handlePayment} disabled={loading}>
         {loading ? 'جاري الدفع...' : 'ادفع الآن'}
       </Button>
     </Container>

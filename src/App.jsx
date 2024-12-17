@@ -133,12 +133,10 @@ function App() {
           <Route path="/thanksForCourse/:id" element={<ThanksCourse />} />
           <Route path="/bookpyment/:id" element={<BookPyment/>} />
           <Route path="/loadingForCheck/auth/request/payment/book/:id" element={<CheckBook/>} />
-          <Route path="/ThanksBook" element={<ThanksBook/>} />
+          <Route path="/thankbook/:id" element={<ThanksBook/>} />
           <Route path="/BookView/:id" element={<BookView/>} />
 
-
-
-
+        
 
 
 

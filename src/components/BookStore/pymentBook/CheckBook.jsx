@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import AnimationGif from '../../../assets/witing.gif'; // Adjust the path based on your project structure.
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useParams } from 'react-router-dom';
 
 const CheckBook = () => {
   const [searchParams] = useSearchParams();
@@ -10,6 +10,8 @@ const CheckBook = () => {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const { id } = useParams();
+console.log('ThankBook ID:', id);
 
   const paymentData = searchParams.get('data');
   console.log("Payment Data: ", paymentData);
@@ -36,10 +38,12 @@ const CheckBook = () => {
 
       console.log(response.status);
       if (response.status === 201) {
+        
         setSuccess(true);
-        setTimeout(() => {
-          navigate('/ThanksBook'); // Redirect after 2 seconds
-        }, 2000);
+        console.log(`Navigating to: /thankbook/${id}`);
+      setTimeout(() => {
+        navigate(`/thankbook/${id}`);
+      }, 2000);
       } else {
         throw new Error('حدث خطأ أثناء التحقق من الدفع.'); // Custom error message
       }

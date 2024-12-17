@@ -47,6 +47,8 @@ export const AuthProvider = ({ children }) => {
         }
       );
       console.log(data);
+
+    localStorage.setItem('userId', data.data._id);
       setuser(data.data);
       setLoggedin(true); 
     } catch (err) {

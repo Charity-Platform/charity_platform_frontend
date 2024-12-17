@@ -1,51 +1,59 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { Button, Row, Col, Spinner, Card } from 'react-bootstrap';
 import axios from 'axios';
-import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import './Cources.css';
 
 const CoursesDetails = () => {
-  const { id } = useParams(); // Get course ID from URL
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [hasPaid, setHasPaid] = useState([]); // Initialize paid users list
+  const userId = localStorage.getItem('userId'); // Get the userId from localStorage
 
+  // Fetch course details
   useEffect(() => {
-    const fetchCourses = async () => {
+    const fetchCourseDetails = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses`, {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses/${id}`, {
           withCredentials: true,
         });
-
-        const selectedCourse = response.data.document.find((course) => course._id === id);
-
-        if (selectedCourse) {
-          setCourse(selectedCourse);
-        } else {
-          setError("Course not found");
-        }
-      } catch (err) {
-        setError(err.message);
+        setCourse(response.data);
+        setHasPaid(response.data.paidUsers || []); // Set the paid users correctly
+      } catch (error) {
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCourses();
+    fetchCourseDetails();
   }, [id]);
 
-  const handleShowAllVideos = () => {
-    navigate(`/CoursesPyment/${id}`);
+  // Check if the current user has paid for the course
+  const isPaidUser = hasPaid.includes(userId);
+
+  const handleSubscribe = () => {
+    navigate(`/CoursesPayment/${id}`); // Navigate to payment page
   };
 
+  // Embed YouTube video URL
   const getYouTubeEmbedUrl = (url) => {
     const videoIdMatch = url.match(/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
     return videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : url;
   };
 
+  // Loading, error handling, and course rendering logic
   if (loading) {
-    return <p>Loading course details...</p>;
+    return (
+      <div className="text-center my-5">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
   }
 
   if (error) {
@@ -53,11 +61,11 @@ const CoursesDetails = () => {
   }
 
   if (!course) {
-    return <p>No course details available.</p>;
+    return <p>Course not found.</p>;
   }
 
   return (
-    <Container className="course-details-container my-5">
+    <div className="course-details-container my-5">
       <div className="text-center mb-3">
         <Button className="btn-back" onClick={() => navigate('/Cources')}>
           العودة إلى الصفحة الرئيسية للكورسات
@@ -73,9 +81,18 @@ const CoursesDetails = () => {
           <p className="course-detail-price"><strong>سعر الكورس :</strong> {course.price} دينار</p>
           <p className="course-detail-description"><strong>الوصف :</strong> {course.description}</p>
           <p className="course-detail-field"><strong>المجال :</strong> {course.field}</p>
-          <Button className="btn-primary mt-3 w-100" onClick={handleShowAllVideos}>
-            الاشتراك فى الكورس
-          </Button>
+
+          {/* Conditional button rendering */}
+          {isPaidUser ? (
+            <Button className="btn-success mt-3 w-100" onClick={() => navigate(`/CourseVideos/${id}`)}>
+              عرض جميع الفيديوهات
+            </Button>
+          ) : (
+            <Button className="btn-primary mt-3 w-100" onClick={handleSubscribe}>
+              اشترك في هذا الكورس
+            </Button>
+          )}
+
           <div className="course-rating mt-3">
             <span>التقييم: {course.rating || 'غير متوفر'} ★</span>
           </div>
@@ -110,7 +127,7 @@ const CoursesDetails = () => {
           )}
         </Col>
       </Row>
-    </Container>
+    </div>
   );
 };
 

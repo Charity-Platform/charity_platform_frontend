@@ -42,7 +42,7 @@ const Blog = () => {
         انضم إلى منصتنا اليوم لتصفح أفضل الوظائف المتاحة وابدأ في بناء مستقبلك المهني معنا.
         </p>
         <div className="blog-tag">
-          <Link to="/comunity">
+          <Link to="">
             <Button className="button-blog" style={{backgroundColor:'#dc5151'}}>
             استعرض الوظائف المتاحة <i className="p-2"></i>
             </Button>
