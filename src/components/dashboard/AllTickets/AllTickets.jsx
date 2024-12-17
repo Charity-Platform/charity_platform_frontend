@@ -13,7 +13,7 @@ const AllTickets = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const apiUrl = `${import.meta.env.VITE_MAIN_URL}tickets/my-tickets`; // Adjust URL as necessary
+        const apiUrl = `${import.meta.env.VITE_MAIN_URL}tickets/field`; // Adjust URL as necessary
         const response = await axios.get(apiUrl, { withCredentials: true });
 
         if (response.data && response.data.data) {

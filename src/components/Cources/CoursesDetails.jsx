@@ -5,23 +5,27 @@ import axios from 'axios';
 import './Cources.css';
 
 const CoursesDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Course ID from the route params
   const navigate = useNavigate();
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [hasPaid, setHasPaid] = useState([]); // Initialize paid users list
+
   const userId = localStorage.getItem('userId'); // Get the userId from localStorage
 
-  // Fetch course details
   useEffect(() => {
     const fetchCourseDetails = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses`, {
           withCredentials: true,
         });
-        setCourse(response.data);
-        setHasPaid(response.data.paidUsers || []); // Set the paid users correctly
+        const allCourses = response.data.document;
+        const singleCourse = allCourses.find((c) => c._id === id); // Find course with the specified ID
+
+        if (!singleCourse) {
+          throw new Error('Course not found');
+        }
+        setCourse(singleCourse);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -33,19 +37,22 @@ const CoursesDetails = () => {
   }, [id]);
 
   // Check if the current user has paid for the course
-  const isPaidUser = hasPaid.includes(userId);
+  const isPaidUser = course?.paidUsers?.includes(userId);
 
   const handleSubscribe = () => {
-    navigate(`/CoursesPayment/${id}`); // Navigate to payment page
+    navigate(`/CoursesPyment/${id}`); // Navigate to the payment page
   };
 
-  // Embed YouTube video URL
+  const handleWatchVideos = () => {
+    navigate(`/CourseVideos/${id}`);
+  };
+
   const getYouTubeEmbedUrl = (url) => {
     const videoIdMatch = url.match(/(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
     return videoIdMatch ? `https://www.youtube.com/embed/${videoIdMatch[1]}` : url;
   };
 
-  // Loading, error handling, and course rendering logic
+  // Handle loading state
   if (loading) {
     return (
       <div className="text-center my-5">
@@ -56,12 +63,14 @@ const CoursesDetails = () => {
     );
   }
 
+  // Handle error state
   if (error) {
-    return <p>Error fetching course details: {error}</p>;
+    return <p className="text-danger text-center">Error: {error}</p>;
   }
 
+  // Handle case where no course was found
   if (!course) {
-    return <p>Course not found.</p>;
+    return <p className="text-center">No course found.</p>;
   }
 
   return (
@@ -78,13 +87,18 @@ const CoursesDetails = () => {
         </Col>
         <Col md={6}>
           <h1 className="course-detail-title">{course.title}</h1>
-          <p className="course-detail-price"><strong>سعر الكورس :</strong> {course.price} دينار</p>
-          <p className="course-detail-description"><strong>الوصف :</strong> {course.description}</p>
-          <p className="course-detail-field"><strong>المجال :</strong> {course.field}</p>
+          <p className="course-detail-price">
+            <strong>سعر الكورس :</strong> {course.price} دينار
+          </p>
+          <p className="course-detail-description">
+            <strong>الوصف :</strong> {course.description}
+          </p>
+          <p className="course-detail-field">
+            <strong>المجال :</strong> {course.field}
+          </p>
 
-          {/* Conditional button rendering */}
           {isPaidUser ? (
-            <Button className="btn-success mt-3 w-100" onClick={() => navigate(`/CourseVideos/${id}`)}>
+            <Button className="btn-success mt-3 w-100" onClick={handleWatchVideos}>
               عرض جميع الفيديوهات
             </Button>
           ) : (
@@ -92,9 +106,8 @@ const CoursesDetails = () => {
               اشترك في هذا الكورس
             </Button>
           )}
-
           <div className="course-rating mt-3">
-            <span>التقييم: {course.rating || 'غير متوفر'} ★</span>
+            <span>التقييم: {course.rating || ' ★★★★★'} </span>
           </div>
         </Col>
       </Row>

@@ -98,9 +98,9 @@ const RightSide = () => {
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
-      <Link to='/ContactDash' className='btn-title'>
+      <Link to='/AllrequestTeckets' className='btn-title'>
         {/* <IoIosContacts  className='me-2' />  */}
-        الاستشارات 
+      كل الاستشارات فى المنصة
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">

@@ -14,6 +14,8 @@ import img9 from '../../assets/services/إدارة الجودة .jpg';
 import img10 from '../../assets/services/التدريب والتطوير.jpg';
 import img11 from '../../assets/services/العلاقات العامة .jpg';
 import img12 from '../../assets/code4.jpg';
+import img13 from '../../assets/services/الذكاء الاصطناعى.jpg';
+
 
 
 // بيانات الخدمات
@@ -148,7 +150,22 @@ const servicesData = [
             "تطوير نظم إدارة المحتوى وتكاملها مع المنصات المختلفة",
             <Link to="/full-services" className="btn btn-primary">طلب الخدمة </Link>
         ]
+    },
+    {
+        id: 13,
+        title: "خدمات الذكاء الاصطناعي للجمعيات",
+        description: "استفد من حلولنا المبتكرة في الذكاء الاصطناعي لتحسين أداء الجمعيات وتطوير خدماتها.",
+        image: img13, // يمكنك تحديث صورة مخصصة لهذه الخدمة
+        points: [
+            "تطوير أنظمة تحليل البيانات لدعم اتخاذ القرارات الفعالة.",
+            "تقديم حلول ذكاء اصطناعي لتسهيل إدارة التبرعات والمتطوعين.",
+            "إنشاء أنظمة ذكية لإدارة الحملات التسويقية وزيادة التفاعل.",
+            "تحسين عمليات التنبؤ بالموارد وتحليل الأداء التنظيمي.",
+            "تطبيق تقنيات التعلم الآلي لتعزيز فعالية البرامج الخدمية.",
+          
+        ]
     }
+    
 ];
 
 const Card = () => {
@@ -165,6 +182,12 @@ const Card = () => {
         setShowModal(false);
         setModalService(null);
     };
+    const handleorderservice = ()=>{
+        const phoneNumber = "0096565012126";
+  const message = encodeURIComponent("مرحبًا، أود الاستفسار عن الخدمة."); 
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+  window.open(whatsappUrl, "_blank");
+    }
 
     if (serviceId) {
         const service = servicesData.find((service) => service.id.toString() === serviceId);
@@ -220,6 +243,9 @@ const Card = () => {
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
                         إغلاق
+                    </Button>
+                    <Button variant="secondary" onClick={handleorderservice}>
+                        طلب الخدمة 
                     </Button>
                 </Modal.Footer>
             </Modal>

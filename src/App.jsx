@@ -63,6 +63,7 @@ import BookPyment from "./components/BookStore/pymentBook/BookPyment";
 import CheckBook from "./components/BookStore/pymentBook/CheckBook";
 import ThanksBook from "./components/BookStore/pymentBook/ThanksBook";
 import BookView from "./components/BookStore/BookView";
+import AllRequestTeckets from "./components/dashboard/AllTickets/AllRequestTeckets";
 function App() {
   return (
     <div className="App">
@@ -91,6 +92,9 @@ function App() {
           <Route path="/rechangepass" element={<Rechangepass/>} />
           <Route path="/ContactDash" element={<ContactDash/>} />
           <Route path="/questions" element={<Questions/>} />
+          <Route path="/AllrequestTeckets" element={<AllRequestTeckets/>} />
+
+          
           <Route path="/allquestions" element={<AllQuestions/>} />
           <Route path="/instractor" element={<SignupInstructor/>} />
           <Route path="/noneactive" element={<Nonactivemonitor/>} />

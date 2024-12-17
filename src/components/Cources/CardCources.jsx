@@ -13,7 +13,7 @@ const CardCources = () => {
     const fetchCourses = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses`);
-        console.log('API Response:', response.data); // Log the response
+        console.log('API Response:', response.data);
 
         if (response.data && Array.isArray(response.data.document)) {
           setCourses(response.data.document);
@@ -31,16 +31,16 @@ const CardCources = () => {
   }, []);
 
   const handleEnrollClick = (courseId) => {
-    console.log('Navigating to course ID:', courseId); // Log the course ID
-    navigate(`/CoursesDetails/${courseId}`); // Navigate with course ID
+    console.log('Navigating to course ID:', courseId);
+    navigate(`/CoursesDetails/${courseId}`);
   };
   
   if (loading) {
-    return <p>جارى تحميل الكورس ....... </p>;
+    return <p>جارى تحميل الكورسات ....... </p>;
   }
 
   if (error) {
-    return <p>Error fetching courses: {error}</p>;
+    return <p>حدث خطأ أثناء تحميل الكورسات: {error}</p>;
   }
 
   return (
@@ -48,26 +48,35 @@ const CardCources = () => {
       <div className='heading-title'>
         <h1>الكورسات التدريبية</h1>
       </div>
-      <Row className="justify-content-center">
-        {courses.map((course) => (
-          <Col md={4} lg={3} key={course._id} className="mb-4"> {/* Ensure you're using the correct key */}
-            <Card className="h-100 text-center">
-              <Card.Body>
-                <Card.Img variant="top" src={course.image} alt={course.title} className='card-img' />
-                <Card.Title>{course.title}</Card.Title>
-                <Card.Text>المجال : {course.field}</Card.Text>
-                <Card.Text>السعر: {course.price}دينار </Card.Text>
-                <Button 
-                  className="btn btn-course" 
-                  onClick={() => handleEnrollClick(course._id)} // Ensure this is the correct ID
-                >
-                  تفاصيل الدورة
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+
+      {/* Conditionally render when there are no courses */}
+      {courses.length === 0 ? (
+        <div className="text-center mt-5">
+          <h3>لا يوجد كورسات حالياً</h3>
+          <p>عُذرًا، لا توجد دورات متاحة في الوقت الحالي.</p>
+        </div>
+      ) : (
+        <Row className="justify-content-center">
+          {courses.map((course) => (
+            <Col md={4} lg={3} key={course._id} className="mb-4">
+              <Card className="h-100 text-center">
+                <Card.Body>
+                  <Card.Img variant="top" src={course.image} alt={course.title} className='card-img' />
+                  <Card.Title>{course.title}</Card.Title>
+                  <Card.Text>المجال : {course.field}</Card.Text>
+                  <Card.Text>السعر: {course.price} دينار </Card.Text>
+                  <Button 
+                    className="btn btn-course" 
+                    onClick={() => handleEnrollClick(course._id)}
+                  >
+                    تفاصيل الدورة
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
     </Container>
   );
 };
