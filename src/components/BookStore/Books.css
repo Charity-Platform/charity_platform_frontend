@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-image: url(../../assets/10.jpeg);
+  background-image: url(../../assets/libarary.jpeg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -14,7 +14,7 @@
   padding: 0 20px;
   color: #fff;
 }
-
+/* 
 .hero-content {
   text-align: center;
   max-width: 600px;
@@ -23,7 +23,7 @@
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
-}
+} */
 
 .hero-title-main {
   font-size: 40px;
@@ -138,6 +138,19 @@
 
 /* Media Queries for Responsiveness */
 @media (max-width: 576px) {
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url(../../assets/libarary.jpeg);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 80vh;
+    padding: 0 20px;
+    color: #fff;
+  }
   .hero-title-main {
     font-size: 25px;
     font-weight: bold;
@@ -205,6 +218,12 @@
   font-size: 1rem;
   margin: 20px 0;
   color: #666; /* Slightly lighter color for description */
+  white-space: normal; /* السماح للنص بالالتفاف */
+  word-wrap: break-word; /* كسر الكلمات الطويلة */
+  overflow-wrap: break-word; /* كسر النص في حالة الكلمات الطويلة */
+  overflow: hidden; /* منع النص من الخروج عن الحدود */
+  max-width: 100%; /* تأكد من أن النص لن يتجاوز عرض الصندوق */
+  line-height: 1.5; 
 }
 
 .btn-download {

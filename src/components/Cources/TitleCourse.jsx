@@ -7,10 +7,10 @@ import icon4 from '../../assets/logo.png';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 
 const dataCard = [
-  { title: 'تنمية بشرية ', icon:icon1, description: 'تنمية مهارات العمل الجماعى ' },
-  { title: 'تنظيم الوقت ', icon:icon2, description: 'تطوير الذات والمهارات ' },
-  { title: 'إدارة الموارد', icon:icon3, description: 'تطوير البثيئة العمليه ' },
-  { title: 'العمل الخيرى ', icon: icon4 , description: 'تخطيط وتنفيذ المشاريع ' },
+  { title: 'تخصص فريد في مجالات العمل الخيري والإنساني', icon:icon1, description: ' محتوى مخصص لتطوير مهارات العاملين في القطاع الخيري، بما يتناسب مع احتياجاتهم الفعلية ومعايير المؤسسات الإنسانية' },
+  { title: 'دورات تدريبية معتمدة من خبراء ومتخصصين', icon:icon2, description: ' دورات تدريبات يقدمها مستشارون معتمدون وخبراء في جميع مجالات  العمل الخيري والإنساني .' },
+  { title: ' مرونة في التعلم ' ,  icon:icon3, description: ' إمكانية الوصول إلى المواد التدريبية عبر الإنترنت في أي وقت ومن أي مكان، مما يتيح للعاملين الجمع بين التعلم وأعمالهم اليومية.' },
+  { title: 'تحديث مستمر للمحتوى التدريبي ', icon: icon4 , description: ' برامج تدريبية متطورة ومحدثة  باستمرار لتواكب أحدث الاتجاهات والتطورات في مجالات العمل الخيري والإنساني.' },
 //   { title: 'MEDIA COURSES', icon: 'path-to-icon', description: 'Description here' },
 //   { title: 'USER INTERFACE', icon: 'path-to-icon', description: 'Description here' },
 ];

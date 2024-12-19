@@ -97,9 +97,15 @@
 /* Card title and text overflow handling */
 .card-title,
 .card-text {
-  white-space: nowrap;
+  all: unset; /* إزالة كل الخصائص الافتراضية */
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
+  word-break: break-word;
+  max-width: 100%;
+  display: block;
+  line-height: 1.5;
+  max-height: 6em;
 }
 
 /* Responsive adjustments */

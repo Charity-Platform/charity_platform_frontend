@@ -64,6 +64,11 @@ import CheckBook from "./components/BookStore/pymentBook/CheckBook";
 import ThanksBook from "./components/BookStore/pymentBook/ThanksBook";
 import BookView from "./components/BookStore/BookView";
 import AllRequestTeckets from "./components/dashboard/AllTickets/AllRequestTeckets";
+import WelcomeMessage from "./components/Monitors/WelcomeMessage";
+import AddFields from "./components/dashboard/Fields/AddFields";
+import AllFields from "./components/dashboard/Fields/AllFields";
+import EmployeeDetails from "./components/dashboard/Jobs/EmployeeDetails";
+import SalaryForMentor from "./components/dashboard/salary/SalaryForMentor";
 function App() {
   return (
     <div className="App">
@@ -139,6 +144,16 @@ function App() {
           <Route path="/loadingForCheck/auth/request/payment/book/:id" element={<CheckBook/>} />
           <Route path="/thankbook/:id" element={<ThanksBook/>} />
           <Route path="/BookView/:id" element={<BookView/>} />
+          <Route path="/welcomementor" element={<WelcomeMessage/>} />
+          <Route path="/dashboard/add_Field" element={<AddFields/>} />
+          <Route path="/dashboard/AllFields" element={<AllFields/>} />
+          <Route path="/dashboard/employee-details/:id" element={<EmployeeDetails/>} />
+          <Route path="/dashbord/acceptedsalary/:mentorId" element={<SalaryForMentor/>} />
+
+
+
+
+
 
         
 

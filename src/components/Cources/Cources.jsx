@@ -9,8 +9,8 @@ const Cources = () => {
     </video>
     <div className="overlay"></div>
       <div className="content">
-        <h1> مبادرة واعى لتدريب وتطوير العاملين فى المجال الخيرى</h1>
-        <h2>مكانك الأفضل لتدريب أفضل </h2>
+        <h1> منصة تطوير لتدريب وتأهيل العاملين في المجال الخيري</h1>
+        <h2>منصتك المفضلة لتدريب متخصص </h2>
         <button className="btn btn-Header" >إبدأ التعلم الان </button>
       </div>
     </div>

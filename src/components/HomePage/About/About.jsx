@@ -28,20 +28,17 @@ const About = () => {
 
         {/* Vision Section */}
         <div className="about-box">
-          <h2 className="section-title">رؤيتنا</h2>
+          <h2 className="section-title">الرؤية</h2>
           <p className="section-content">
-          المنصة الأولى والرائدة في الكويت والوطن العربي لتقديم الدعم الشامل والمتخصص للمؤسسات الخيرية والإنسانية،
-           ومساعدتها في تطوير أدائها لتحقيق الاستدامة وإحداث تأثير إيجابي واسع النطاق في المجتمع.
+          المنصة الأولى والرائدة في الوطن العربي لدعم وتطوير العمل الخيري والإنساني.
           </p>
         </div>
 
         {/* Mission Section */}
         <div className="about-box">
-          <h2 className="section-title">رسالتنا</h2>
+          <h2 className="section-title">الرسالة</h2>
           <p className="section-content">
-            تمكين المؤسسات الخيرية والانسانية من خلال تقديم خدمات متخصصة، وبناء
-            استراتيجيات مبتكرة ومناسبة وفعالة تضمن استدامتها وزيادة تأثيرها
-            الإيجابي في المجتمع.
+          تمكين المؤسسات الخيرية والإنسانية عبر خدمات متخصصة، وبناء استراتيجيات مبتكرة وفعالة تضمن استدامتها وزيادة تأثيرها الإيجابي. 
           </p>
         </div>
 
@@ -51,30 +48,67 @@ const About = () => {
   <div className="goals-content">
     <div className="goal-column">
       <ul>
-        <li><span className='span-title'>تعزيز كفاءة المؤسسات الخيرية:</span> تحسين إدارة العمليات والموارد لضمان تحقيق الأهداف بأعلى مستويات الكفاءة.</li>
-        <li><span className='span-title'> زيادة الوعي بالمشاريع الخيرية:</span> تطوير استراتيجيات تسويقية لزيادة الوعي والدعم للمشاريع الخيرية.</li>
+        <li><span className='span-title'>  1.	تعزيز كفاءة وفعالية المؤسسات الخيرية والارتقاء بجود خدماتها.</span></li>
+       
       </ul>
     </div>
     <div className="goal-column">
       <ul>
-        <li><span className='span-title'>توفير الدعم الاستشاري المتخصص:</span> تقديم استشارات من خبراء في المجال الخيري لمساعدة المؤسسات على التغلب على التحديات وتحقيق النجاح.</li>
-        <li><span className='span-title'> تنمية الموارد المالية:</span> تطوير أساليب مبتكرة لجمع التبرعات وتنمية الموارد لدعم استدامة المشاريع الخيرية.</li>
+        <li><span className='span-title'>2.	تأهيل وتدريب الكفاءات من العاملين في المجال الخيري والإنساني.</span></li>
+       
       </ul>
     </div>
     <div className="goal-column">
       <ul>
-        <li><span className='span-title'>تحقيق الشفافية والمساءلة:</span> مساعدة المؤسسات الخيرية في تحقيق أعلى معايير الشفافية والمساءلة لضمان الثقة والدعم المستمر من المجتمع.</li>
-        <li><span className='span-title'> تأهيل الكفاءات: </span>المساهمة في تأهيل وتدريب الكفاءات المتخصصة العاملة بالمجال الخيري .</li>
+        <li><span className='span-title'>3.	توفير دعم استشاري متخصص والاستفادة من الخبرات ونقل المعرفة.</span></li>
+      
       </ul>
     </div>
     <div className="goal-column">
       <ul>
-        <li><span className='span-title'> الاستدامة:</span> تعزيز مفهوم الاستدامة وإدارة المعرفة في القطاع الخيري من خلال الشراكات الاستراتيجية.</li>
+        <li><span className='span-title'> 4.	تقديم خدمات إدارية متكاملة وفق أفضل التطبيقات والمنهجيات الحديثة.</span></li>
+      </ul>
+    </div>
+    <div className="goal-column">
+      <ul>
+        <li><span className='span-title'>5.	مساعدة المؤسسات الخيرية في تحقيق أعلى معايير الشفافية والمساءلة. </span></li>
+      </ul>
+    </div>
+    <div className="goal-column">
+      <ul>
+        <li><span className='span-title'>6.	تعزيز الاستدامة وإدارة المعرفة في القطاع الخيرية </span></li>
       </ul>
     </div>
   </div>
 </div>
-
+<div className="about-box goals-section">
+  <h2 className="section-title">قيمنا </h2>
+  <div className="goals-content">
+    <div className="goal-column">
+      <ul>
+        <li><span className='span-title'>	الابتكار </span>حلول وخدمات استشارية متجددة ومواكبة لأحدث الممارسات في العمل الخيري والإنساني</li>
+        <li><span className='span-title'>الاحترافية </span>  الالتزام بمعايير عالية في تقديم الاستشارات والتدريب لضمان الجودة والتميز</li>
+      </ul>
+    </div>
+    <div className="goal-column">
+      <ul>
+        <li><span className='span-title'>	التمكين </span> دعم المؤسسات لتطوير قدراتها وتحقيق أهدافها بكفاءة وفاعلية.</li>
+        <li><span className='span-title'>التأثير </span> التركيز على تحقيق الأثر الإيجابي والمستدام للمؤسسات والمجتمعات المستهدفة.</li>
+      </ul>
+    </div>
+    <div className="goal-column">
+      <ul>
+        <li><span className='span-title'>	الإنسانية </span> التركيز على القيم الأخلاقية والإنسانية في كل ما نقدمه</li>
+        <li><span className='span-title'> تأهيل الكفاءات  </span>المساهمة في تأهيل وتدريب الكفاءات المتخصصة العاملة بالمجال الخيري .</li>
+      </ul>
+    </div>
+    <div className="goal-column">
+      <ul>
+        <li><span className='span-title'> الاستدامة </span> تعزيز مفهوم الاستدامة وإدارة المعرفة في القطاع الخيري من خلال الشراكات الاستراتيجية.</li>
+      </ul>
+    </div>
+  </div>
+</div>
       </div>
 
       <About_Icon />

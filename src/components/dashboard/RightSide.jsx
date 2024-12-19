@@ -62,9 +62,9 @@ const RightSide = () => {
         كل المستخدمين
       </Link>
       </button>
-      <button className="btn-comunity btn  d-flex align-items-center">
-      <Link to='/blogsDash' className='btn-title'>
-        <FaUsers className='me-2' /> المدونة
+      <button className="btn-comunity btn  d-flex align-items-center" style={{background:'red'}}>
+      <Link to='/dashbord/acceptedsalary' className='btn-title'>
+       الطلبات المالية للمستشارين
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
@@ -140,9 +140,9 @@ const RightSide = () => {
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
-      <Link to='/active_jobs' className='btn-title'>
+      <Link to='/dashboard/add_Field' className='btn-title'>
         {/* <IoIosContacts  className='me-2' />  */}
-
+        اضافة مجال 
       </Link>
       </button>
     </div>

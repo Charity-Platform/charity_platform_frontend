@@ -94,9 +94,9 @@ const NavBar = () => {
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
                       >
-                        <Dropdown.Item as={NavLink} to="/services">
+                        {/* <Dropdown.Item as={NavLink} to="/services">
                         تأسيس وبناء الجمعيات الخيرية
-                        </Dropdown.Item>
+                        </Dropdown.Item> */}
                         <Dropdown.Item as={NavLink} to="/services">
                         التسويق وبناء الهوية 
                         </Dropdown.Item>
@@ -135,6 +135,9 @@ const NavBar = () => {
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
                         مجال الاستشارات الشرعية 
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        تطبيقات الذكاء الاصطناعي والامن السيبراني في العمل الخيري
                         </Dropdown.Item>
                       </Dropdown.Menu>
                     )}

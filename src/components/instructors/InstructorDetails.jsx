@@ -17,15 +17,15 @@ const InstructorDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate(); // Initialize navigate
 
-  const onlinePrice = 200;
-  const offlinePrice = 300;
+  // const onlinePrice = 200;
+  // const offlinePrice = 300;
 
   useEffect(() => {
     const fetchMentorData = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${id}`);
         setMentor(response.data.data);
-        setPrice(onlinePrice);
+        // setPrice(onlinePrice);
       } catch (error) {
         console.error('Error fetching mentor data:', error);
       }
@@ -54,10 +54,10 @@ const InstructorDetails = () => {
     fetchMentorInstructions();
   }, [id]);
 
-  const handleSessionTypeChange = (type) => {
-    setSessionType(type);
-    setPrice(type === 'online' ? onlinePrice : offlinePrice);
-  };
+  // const handleSessionTypeChange = (type) => {
+  //   setSessionType(type);
+  //   setPrice(type === 'online' ? onlinePrice : offlinePrice);
+  // };
 
   const handleShowDetails = (instruction) => {
     setSelectedInstruction(instruction);

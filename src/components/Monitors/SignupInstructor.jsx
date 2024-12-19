@@ -64,7 +64,11 @@ const SignupInstructor = () => {
       });
   
      
-      navigate('/verifyemail', { state: { email: formData.email } });
+      navigate('/verifyemail', {
+         state: {
+           email: formData.email ,
+           message: "مرحباً بك في الموقع! يمكنك الآن إضافة دورات وكتب واستشارات بعد تأكيد البريد الإلكتروني الخاص بك."
+          } });
     } catch (error) {
       console.error('Signup failed:', error.response?.data || error.message);
       setErrors({ submit: 'Signup failed. Please try again.' });
@@ -141,13 +145,13 @@ const SignupInstructor = () => {
           </Row>
 
           <Form.Group controlId="formAddress" className="mb-3">
-            <Form.Label>العنوان </Form.Label>
+            <Form.Label>دولة الاقامة  </Form.Label>
             <Form.Control
               type="text"
               name="address"
               value={formData.address}
               onChange={handleChange}
-              placeholder="Enter your address"
+              placeholder="ادخل اسم الدولة التى تعيش فيها "
             />
           </Form.Group>
 
@@ -266,13 +270,13 @@ const SignupInstructor = () => {
           </Form.Group>
 
           <Form.Group controlId="formHourePrice" className="mb-3">
-            <Form.Label>متوسط ثمن الساعه </Form.Label>
+            <Form.Label> تكلفة الاستشارة </Form.Label>
             <Form.Control
               type="number"
               name="hourePrice"
               value={formData.hourePrice}
               onChange={handleChange}
-              placeholder="ادخل ثمن الساعه للاستشارة "
+              placeholder="ادخل تكلفة للاستشارة "
             />
           </Form.Group>
 
