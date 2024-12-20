@@ -63,10 +63,16 @@ const RightSide = () => {
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center" style={{background:'red'}}>
-      <Link to='/dashbord/acceptedsalary' className='btn-title'>
-       الطلبات المالية للمستشارين
+      <Link to='/admin/dashbord/allSalaryRequest' className='btn-title'>
+       الطلبات المالية الواردة
       </Link>
       </button>
+      <button className="btn-comunity btn  d-flex align-items-center" style={{background:'red'}}>
+      <Link to='/admin/dashbord/acceptedsalary' className='btn-title'>
+       الطلبات المالية الموافق عليها
+      </Link>
+      </button>
+
       <button className="btn-comunity btn  d-flex align-items-center">
       <Link to='/noneactive' className='btn-title'>
         {/* <FaUsers className='me-2' /> */}

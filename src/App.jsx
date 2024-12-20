@@ -68,7 +68,10 @@ import WelcomeMessage from "./components/Monitors/WelcomeMessage";
 import AddFields from "./components/dashboard/Fields/AddFields";
 import AllFields from "./components/dashboard/Fields/AllFields";
 import EmployeeDetails from "./components/dashboard/Jobs/EmployeeDetails";
-import SalaryForMentor from "./components/dashboard/salary/SalaryForMentor";
+import SalaryForMentor from "./components/Monitors/MentorDashBoard/salary/SalaryForMentor";
+import AllRequestTekit from "./components/Monitors/MentorDashBoard/AllRequestTekit";
+import AcceptSalary from "./components/dashboard/salaryforadmin/AcceptSalary";
+import AllSalaryRequest from "./components/dashboard/salaryforadmin/AllSalaryRequest";
 function App() {
   return (
     <div className="App">
@@ -149,6 +152,13 @@ function App() {
           <Route path="/dashboard/AllFields" element={<AllFields/>} />
           <Route path="/dashboard/employee-details/:id" element={<EmployeeDetails/>} />
           <Route path="/dashbord/acceptedsalary/:mentorId" element={<SalaryForMentor/>} />
+          <Route path="/allRequestTekit" element={<AllRequestTekit/>} />
+          <Route path="/admin/dashbord/acceptedsalary" element={<AcceptSalary/>} />
+          <Route path="/admin/dashbord/allSalaryRequest" element={<AllSalaryRequest/>} />
+
+          
+
+
 
 
 

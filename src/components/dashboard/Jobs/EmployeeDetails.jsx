@@ -21,7 +21,7 @@ const EmployeeDetails = () => {
     const fetchEmployeeDetails = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}employee/${id}`);
-        setEmployee(response.data.document[1]);
+        setEmployee(response.data.document);
       } catch (error) {
         console.error('Error fetching employee details:', error);
         setError('An error occurred while fetching employee details.');

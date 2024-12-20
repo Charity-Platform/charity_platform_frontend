@@ -8,6 +8,8 @@ const AllBooks = () => {
   const [selectedBook, setSelectedBook] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [imageFile, setImageFile] = useState(null);
+  const [pdfFile, setPdfFile] = useState(null);  // To hold the PDF file
+  const [reviewFile, setReviewFile] = useState(null);  // To hold the review file
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -26,12 +28,16 @@ const AllBooks = () => {
     setSelectedBook(book);
     setShowModal(true);
     setImageFile(null);
+    setPdfFile(null);
+    setReviewFile(null);
   };
 
   const handleCloseModal = () => {
     setSelectedBook(null);
     setShowModal(false);
     setImageFile(null);
+    setPdfFile(null);
+    setReviewFile(null);
   };
 
   const handleDelete = async (id) => {
@@ -47,18 +53,23 @@ const AllBooks = () => {
     event.preventDefault();
     const { title, description, price, isFree } = selectedBook;
 
-    // Make sure `isFree` is explicitly a boolean
+    // Ensure `isFree` is a boolean
     const isFreeValue = isFree === 'true' ? true : false;
-
     const priceValue = isFreeValue ? 0 : Number(price); // If it's free, set price to 0
 
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
     formData.append('price', priceValue);
-    formData.append('isFree', isFreeValue); // Make sure isFree is a boolean
+    formData.append('isFree', isFreeValue);  // Ensure isFree is a boolean
     if (imageFile) {
       formData.append('image', imageFile);
+    }
+    if (pdfFile) {
+      formData.append('pdf', pdfFile);  // Add the selected PDF file
+    }
+    if (reviewFile) {
+      formData.append('review', reviewFile);  // Add the selected review file
     }
 
     try {
@@ -71,7 +82,7 @@ const AllBooks = () => {
         }
       );
 
-      const updatedBook = response.data;
+      const updatedBook = response.data.document;
       const updatedBooks = books.map((book) => (book._id === updatedBook._id ? { ...book, ...updatedBook } : book));
       setBooks(updatedBooks);
       alert("تم التحديث");
@@ -83,12 +94,12 @@ const AllBooks = () => {
 
   return (
     <Container>
-      <h1 className="text-center my-4">جميع الكتب الخاصة بكم </h1>
+      <h1 className="text-center my-4">جميع الكتب الخاصة بكم</h1>
       <Row>
         {books.length > 0 ? (
           books.map((book) => (
-            <Col key={book._id} xs={12} md={6} lg={4} className="mb-4">
-              <Card className="shadow-sm">
+            <Col key={book._id} xs={12} md={6} lg={3} className="mb-4">
+              <Card className="shadow-sm book-card">
                 <Card.Img
                   variant="top"
                   src={book.image || 'https://via.placeholder.com/150'}
@@ -100,10 +111,10 @@ const AllBooks = () => {
                   <Card.Text className="text-truncate">{book.description}</Card.Text>
                   <Card.Text>Price: {book.isFree ? 'Free' : `$${book.price}`}</Card.Text>
                   <div className="d-flex justify-content-between">
-                    <Button variant="primary" onClick={() => handleUpdate(book)}>
+                    <Button variant="primary" onClick={() => handleUpdate(book)} className="m-2">
                       تحديث
                     </Button>
-                    <Button variant="danger" onClick={() => handleDelete(book._id)}>
+                    <Button variant="danger" onClick={() => handleDelete(book._id)} className="m-2" style={{backgroundColor:'red'}}>
                       حذف
                     </Button>
                   </div>
@@ -112,7 +123,7 @@ const AllBooks = () => {
             </Col>
           ))
         ) : (
-          <p className="text-center">حدث مشكله ف الاتصال بالانترنت حاول مره اخرى </p>
+          <p className="text-center">حدث مشكله في الاتصال بالإنترنت حاول مره اخرى</p>
         )}
       </Row>
 
@@ -133,7 +144,7 @@ const AllBooks = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>تفاصيل :</Form.Label>
+                <Form.Label>تفاصيل:</Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
@@ -146,10 +157,10 @@ const AllBooks = () => {
                 <Form.Label>سعر الكتاب:</Form.Label>
                 <Form.Control
                   type="number"
-                  value={selectedBook.isFree ? 0 : selectedBook.price} // If free, set the value to 0
+                  value={selectedBook.isFree ? 0 : selectedBook.price}
                   onChange={(e) => setSelectedBook({ ...selectedBook, price: e.target.value })}
                   required
-                  disabled={selectedBook.isFree} // Disable price input if the book is free
+                  disabled={selectedBook.isFree}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -161,6 +172,7 @@ const AllBooks = () => {
                     const isChecked = e.target.checked;
                     setSelectedBook({ ...selectedBook, isFree: isChecked, price: isChecked ? 0 : selectedBook.price });
                   }}
+                  style={{ transform: 'scale(0.8)' }}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -170,6 +182,23 @@ const AllBooks = () => {
                   onChange={(e) => setImageFile(e.target.files[0])}
                 />
               </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>PDF للكتاب :</Form.Label>
+                <Form.Control
+                  type="file"
+                  accept=".pdf"
+                  onChange={(e) => setPdfFile(e.target.files[0])}
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>مراجعة الكتاب :</Form.Label>
+                <Form.Control
+                  type="file"
+                  accept=".pdf"
+                  onChange={(e) => setReviewFile(e.target.files[0])}
+                />
+              </Form.Group>
+
               <Button variant="success" type="submit" className="w-100 mt-3">
                 حفظ كل التغييرات
               </Button>

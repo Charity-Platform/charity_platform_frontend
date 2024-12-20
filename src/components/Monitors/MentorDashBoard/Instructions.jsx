@@ -53,7 +53,7 @@ const Instructions = () => {
         withCredentials: true,
       });
       console.log('Form submitted successfully', response.data);
-      toast.success("تم إضافة استشارة جديدة");
+      toast.success("تم إضافة استشارة جديدة بنجاح");
       setFormData({
         title: '',
         duration: '',
@@ -73,30 +73,30 @@ const Instructions = () => {
   };
 
   return (
-    <Container className="py-5">
-      <h2 className="text-center mb-4">Create Consultation Ticket</h2>
+    <Container className="py-5" dir='rtl'>
+      <h2 className="text-center mb-4">إنشاء استشارة جديدة</h2>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="formTitle">
-            <Form.Label>Title</Form.Label>
+            <Form.Label>عنوان الاستشارة</Form.Label>
             <Form.Control
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
-              placeholder="Enter ticket title"
+              placeholder="أدخل عنوان الاستشارة"
               required
             />
           </Form.Group>
 
           <Form.Group as={Col} md="6" controlId="formDuration">
-            <Form.Label>Duration (in minutes)</Form.Label>
+            <Form.Label>المدة (بالدقائق)</Form.Label>
             <Form.Control
               type="number"
               name="duration"
               value={formData.duration}
               onChange={handleChange}
-              placeholder="Enter duration"
+              placeholder="أدخل مدة الاستشارة"
               required
             />
           </Form.Group>
@@ -104,7 +104,7 @@ const Instructions = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="formStartDate">
-            <Form.Label>Start Time (HH:MM)</Form.Label>
+            <Form.Label>وقت البدء (ساعة:دقيقة)</Form.Label>
             <Form.Control
               type="time"
               name="startDate"
@@ -115,13 +115,13 @@ const Instructions = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="6" controlId="formPrice">
-            <Form.Label>Price</Form.Label>
+            <Form.Label>السعر</Form.Label>
             <Form.Control
               type="number"
               name="price"
               value={formData.price}
               onChange={handleChange}
-              placeholder="Enter price"
+              placeholder="أدخل سعر الاستشارة"
               required
             />
           </Form.Group>
@@ -129,7 +129,7 @@ const Instructions = () => {
 
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="formDay">
-            <Form.Label>Day</Form.Label>
+            <Form.Label>اليوم</Form.Label>
             <Form.Control
               type="date"
               name="day"
@@ -140,20 +140,20 @@ const Instructions = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="6" controlId="formType">
-            <Form.Label>Type</Form.Label>
+            <Form.Label>نوع الاستشارة</Form.Label>
             <Form.Select name="type" value={formData.type} onChange={handleChange} required>
-              <option value="">Select Type</option>
-              <option value="online">Online</option>
-              <option value="offline">Offline</option>
+              <option value="">اختر نوع الاستشارة</option>
+              <option value="online">عن بُعد</option>
+              <option value="offline">حضورياً</option>
             </Form.Select>
           </Form.Group>
         </Row>
 
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="formField">
-            <Form.Label>Field</Form.Label>
+            <Form.Label>التخصص</Form.Label>
             <Form.Select name="field" value={formData.field} onChange={handleChange} required>
-              <option value="">Select Field</option>
+              <option value="">اختر التخصص</option>
               {fields.map((field) => (
                 <option key={field.id} value={field.name}>
                   {field.name}
@@ -163,13 +163,13 @@ const Instructions = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="6" controlId="formContent">
-            <Form.Label>Additional Information</Form.Label>
+            <Form.Label>معلومات إضافية</Form.Label>
             <Form.Control
               as="textarea"
               name="content"
               value={formData.content}
               onChange={handleChange}
-              placeholder="Enter additional information for the mentor"
+              placeholder="أدخل أية معلومات إضافية"
               rows={3}
             />
           </Form.Group>
@@ -179,15 +179,14 @@ const Instructions = () => {
           {isLoading ? (
             <>
               <Spinner animation="border" size="sm" /> {/* Loading spinner */}
-              &nbsp; Loading...
+              &nbsp; جارٍ الإرسال...
             </>
           ) : (
-            'Create Ticket'
+            'إضافة الاستشارة'
           )}
         </Button>
       </Form>
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} closeOnClick />
-
     </Container>
   );
 };
