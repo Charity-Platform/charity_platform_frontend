@@ -35,7 +35,7 @@ const RightSide = () => {
   };
 
   return (
-    <div className="sidebar p-3">
+    <div className="sidebar p-3" >
     <h4>Admin Page</h4>
     <div className="btn-group-vertical" dir='rtl'>
         <div className="mb-3 ">
@@ -115,12 +115,12 @@ const RightSide = () => {
         الأسئلة 
       </Link>
       </button>
-      <button className="btn-comunity btn  d-flex align-items-center">
+      {/* <button className="btn-comunity btn  d-flex align-items-center">
       <Link to='/all_tickets' className='btn-title'>
-        {/* <IoIosContacts  className='me-2' />  */}
+      
         كل الاستشارات  
       </Link>
-      </button>
+      </button> */}
       <button className="btn-comunity btn  d-flex align-items-center">
       <Link to='/all_books' className='btn-title'>
         {/* <IoIosContacts  className='me-2' />  */}

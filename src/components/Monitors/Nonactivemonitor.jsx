@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Container, Card, Row, Col } from 'react-bootstrap';
+import { Button, Container, Card, Row, Col, Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../Context/AuthContext'; // Adjust the import path as needed
@@ -7,8 +7,10 @@ import { useAuth } from '../../Context/AuthContext'; // Adjust the import path a
 const Nonactivemonitor = () => {
   const [mentors, setMentors] = useState([]);
   const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false); // To control the modal visibility
+  const [selectedMentorId, setSelectedMentorId] = useState(null); // To store the mentor's ID when choosing
+  const [fees, setFees] = useState(''); // Store the fee input by admin
   const navigate = useNavigate();
-  const { Loggedin } = useAuth(); // Use the auth context if needed
 
   useEffect(() => {
     const fetchMentors = async () => {
@@ -19,10 +21,9 @@ const Nonactivemonitor = () => {
 
         const mentorsData = response.data.data; // Extract the mentors data
         const message = response.data.message; // Extract the response message
-         console.log("all request data",response.data)
+        console.log("all request data", response.data);
         if (Array.isArray(mentorsData) && mentorsData.length > 0) {
           setMentors(mentorsData);
-          
         } else if (message) {
           setError(message); // Set the response message as the error
         } else {
@@ -37,23 +38,27 @@ const Nonactivemonitor = () => {
     fetchMentors();
   }, []);
 
-  const handleAccept = async (id) => {
-    if (!id) {
-      console.error('Received undefined ID:', id);
-      setError('Mentor ID is undefined. Please try again.');
+  const handleAccept = async () => {
+    if (!selectedMentorId || fees === '') {
+      setError('Please select a mentor and enter a fee.');
       return;
     }
 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}mentors/accept/${id}`, {}, {
+      // Send the mentor ID and fee in the request
+      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}mentors/accept/${selectedMentorId}`, {
+        fees, // Send fees in the request body
+      }, {
         withCredentials: true,
       });
 
       if (response.status === 200) {
         alert('Mentor accepted successfully!');
-        setMentors((prevMentors) =>
-          prevMentors.filter((mentor) => mentor._id !== id)
-        ); // Remove the accepted mentor from the list
+        // Close the modal and clear state
+        setShowModal(false);
+        setFees('');
+        // Remove the accepted mentor from the list
+        setMentors(prevMentors => prevMentors.filter(mentor => mentor._id !== selectedMentorId));
       } else {
         setError(`Failed to accept mentor. Status code: ${response.status}`);
       }
@@ -77,7 +82,7 @@ const Nonactivemonitor = () => {
             <Col xs={6} key={mentor._id} className="mb-4">
               <Card>
                 <Card.Body>
-                  <Card.Title> الاسم : {mentor.name}</Card.Title>
+                  <Card.Title>الاسم : {mentor.name}</Card.Title>
                   <Card.Text>
                     <strong>البريد الإلكترونى :</strong> {mentor.email}
                     <br />
@@ -88,7 +93,10 @@ const Nonactivemonitor = () => {
                     <strong>معلومات اضافية :</strong> {mentor.description}
                     <br />
                   </Card.Text>
-                  <Button variant="success" onClick={() => handleAccept(mentor._id)}>
+                  <Button variant="success" onClick={() => {
+                    setSelectedMentorId(mentor._id);
+                    setShowModal(true);
+                  }}>
                     قبول المستشار فى المنصة
                   </Button>
                 </Card.Body>
@@ -99,6 +107,35 @@ const Nonactivemonitor = () => {
           !error && <p className="text-center text-muted">لا يوجد مستشارين غير نشطين.</p>
         )}
       </Row>
+
+      {/* Modal to enter fees for accepting mentor */}
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>إدخال نسبة الخصم للمستشار</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formFees">
+              <Form.Label>  نسبة الخصم المراد خصمها مع كل عملية </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder=" أدخل نسبة الخصم"
+                value={fees}
+                onChange={(e) => setFees(e.target.value)}
+              />
+              <Form.Text className="text-muted">أدخل نسبة الخصم كنسبة مئوية (0-100).</Form.Text>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            إلغاء
+          </Button>
+          <Button variant="primary" onClick={handleAccept}>
+            قبول
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

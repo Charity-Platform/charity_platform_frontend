@@ -69,30 +69,20 @@ const AllRequestTickets = () => {
   // حذف التذكرة
   // حذف التذكرة
 const handleDeleteTicket = async (ticketId, ticketOwnerId) => {
-  const userId = localStorage.getItem('userId'); // استرجاع معرف المستخدم المسجل الدخول
+  // const userId = localStorage.getItem('userId'); // استرجاع معرف المستخدم المسجل الدخول
 
-  // التأكد من أن المستخدم الذي قام بتسجيل الدخول هو المالك للتذكرة
-  if (ticketOwnerId !== userId) {
-    toast.error('لا يمكنك حذف هذه التذكرة لأنها ليست ملكك.');
-    return;
-  }
-
-  const token = localStorage.getItem('authToken'); // استرجاع التوكن من التخزين المحلي
-  if (!token) {
-    toast.error('يجب تسجيل الدخول لحذف التذكرة.');
-    return;
-  }
+  // // التأكد من أن المستخدم الذي قام بتسجيل الدخول هو المالك للتذكرة
+  // if (ticketOwnerId !== userId) {
+  //   toast.error('لا يمكنك حذف هذه التذكرة لأنها ليست ملكك.');
+  //   return;
+  // }
 
   try {
     // إرسال طلب الحذف باستخدام توكن التوثيق
     const response = await axios.delete(
       `${import.meta.env.VITE_MAIN_URL}tickets/${ticketId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}` // إرسال التوكن كـ رأس التوثيق
-        },
-        withCredentials: true,
-      }
+       {withCredentials:true},
+   
     );
 
     if (response.status === 200) {

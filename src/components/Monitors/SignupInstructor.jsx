@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Form, Button, Row, Col, Card, Container, InputGroup } from 'react-bootstrap';
+import { Form, Button, Row, Col, Card, Container } from 'react-bootstrap';
 
 const SignupInstructor = () => {
   const navigate = useNavigate();
@@ -11,31 +11,42 @@ const SignupInstructor = () => {
     phone: '',
     birthdate: '',
     address: '',
-    facebook: '',
-    twitter: '',
-    linkedin: '',
-    instagram: '',
     image: '',
     links: '',
     description: '',
-    field: '',
+    field: '', // selected field
     hourePrice: '',
-    password: '' // Add password to formData
+    password: '' 
   });
 
   const [errors, setErrors] = useState({});
+  const [fields, setFields] = useState([]); // To store available fields from API
 
-  // Handle input change
+  // Fetch fields from API on component mount
+  useEffect(() => {
+    const fetchFields = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}fields`, {
+          headers: { 'Content-Type': 'application/json' }
+        });
+        console.log("all field request",response.data.document)
+        setFields(response.data.document); // Set the fields received from the API
+      } catch (error) {
+        console.error('Error fetching fields:', error);
+      }
+    };
+    
+    fetchFields();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Basic validation
     const newErrors = {};
     if (!formData.name) newErrors.name = 'Name is required';
     if (!formData.email) newErrors.email = 'Email is required';
@@ -50,7 +61,6 @@ const SignupInstructor = () => {
     }
   
     try {
-      // Convert comma-separated links into an array
       const linksArray = formData.links.split(',').map(link => link.trim()).filter(link => link);
   
       await axios.post(`${import.meta.env.VITE_MAIN_URL}auth/signup-mentor`, {
@@ -63,23 +73,22 @@ const SignupInstructor = () => {
         withCredentials: true,
       });
   
-     
       navigate('/verifyemail', {
-         state: {
-           email: formData.email ,
-           message: "مرحباً بك في الموقع! يمكنك الآن إضافة دورات وكتب واستشارات بعد تأكيد البريد الإلكتروني الخاص بك."
-          } });
+        state: {
+          email: formData.email,
+          message: "مرحباً بك في الموقع! يمكنك الآن إضافة دورات وكتب واستشارات بعد تأكيد البريد الإلكتروني الخاص بك."
+        }
+      });
     } catch (error) {
       console.error('Signup failed:', error.response?.data || error.message);
       setErrors({ submit: 'Signup failed. Please try again.' });
     }
   };
-  
 
   return (
     <Container className="signup-instructor">
       <Card className="p-4 shadow">
-        <h2 className="text-center mb-4">تسجيل كمستشار </h2>
+        <h2 className="text-center mb-4">تسجيل كمستشار</h2>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={6}>
@@ -155,78 +164,6 @@ const SignupInstructor = () => {
             />
           </Form.Group>
 
-          {/* <Form.Group controlId="formSocialMedia" className="mb-3">
-            <Row>
-              <Col md={6}>
-                <Form.Label>Facebook</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text>https://</InputGroup.Text>
-                  <Form.Control
-                    type="url"
-                    name="facebook"
-                    value={formData.facebook}
-                    onChange={handleChange}
-                    placeholder="facebook.com/username"
-                  />
-                </InputGroup>
-              </Col>
-
-              <Col md={6}>
-                <Form.Label>Twitter</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text>https://</InputGroup.Text>
-                  <Form.Control
-                    type="url"
-                    name="twitter"
-                    value={formData.twitter}
-                    onChange={handleChange}
-                    placeholder="twitter.com/username"
-                  />
-                </InputGroup>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={6}>
-                <Form.Label>LinkedIn</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text>https://</InputGroup.Text>
-                  <Form.Control
-                    type="url"
-                    name="linkedin"
-                    value={formData.linkedin}
-                    onChange={handleChange}
-                    placeholder="linkedin.com/in/username"
-                  />
-                </InputGroup>
-              </Col>
-
-              <Col md={6}>
-                <Form.Label>Instagram</Form.Label>
-                <InputGroup>
-                  <InputGroup.Text>https://</InputGroup.Text>
-                  <Form.Control
-                    type="url"
-                    name="instagram"
-                    value={formData.instagram}
-                    onChange={handleChange}
-                    placeholder="instagram.com/username"
-                  />
-                </InputGroup>
-              </Col>
-            </Row>
-          </Form.Group> */}
-
-          {/* <Form.Group controlId="formLinks" className="mb-3">
-            <Form.Label>Portfolio Links (comma separated)</Form.Label>
-            <Form.Control
-              type="text"
-              name="links"
-              value={formData.links}
-              onChange={handleChange}
-              placeholder="https://github.com/username, https://portfolio.com"
-            />
-          </Form.Group> */}
-
           <Row>
             <Col md={6}>
               <Form.Group controlId="formImage" className="mb-3">
@@ -243,15 +180,21 @@ const SignupInstructor = () => {
 
             <Col md={6}>
               <Form.Group controlId="formField" className="mb-3">
-                <Form.Label> ادخل مجالك  </Form.Label>
+                <Form.Label>ادخل مجالك  </Form.Label>
                 <Form.Control
-                  type="text"
+                  as="select"
                   name="field"
                   value={formData.field}
                   onChange={handleChange}
                   isInvalid={!!errors.field}
-                  placeholder="المجال المتخصص فيه "
-                />
+                >
+                  <option value="">اختر المجال</option>
+                  {fields.map((field) => (
+                    <option key={field.id} value={field.name}>
+                      {field.name}
+                    </option>
+                  ))}
+                </Form.Control>
                 <Form.Control.Feedback type="invalid">{errors.field}</Form.Control.Feedback>
               </Form.Group>
             </Col>
@@ -296,7 +239,7 @@ const SignupInstructor = () => {
           {errors.submit && <p className="text-danger">{errors.submit}</p>}
 
           <Button variant="primary" type="submit" className="w-50">
-            تسجيل 
+            تسجيل
           </Button>
         </Form>
       </Card>
