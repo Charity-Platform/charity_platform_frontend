@@ -1,167 +1,262 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Card, Button, Spinner, Form } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Spinner, Form, Modal } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AllRequestTickets = () => {
-  const [tickets, setTickets] = useState([]); // State for tickets
-  const [fields, setFields] = useState([]); // State for fields (categories)
-  const [owners, setOwners] = useState({}); // State for owner data
-  const [selectedField, setSelectedField] = useState(''); // State for selected field filter
-  const [filterText, setFilterText] = useState(''); // Word-based filter input
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
+  const [tickets, setTickets] = useState([]); // بيانات التذاكر
+  const [fields, setFields] = useState([]); // المجالات المتاحة
+  const [selectedField, setSelectedField] = useState(''); // تصفية بناءً على المجال المحدد
+  const [filterText, setFilterText] = useState(''); // تصفية نصية
+  const [loading, setLoading] = useState(false); // حالة التحميل
+  const [error, setError] = useState(null); // حالة الخطأ
+  const [selectedTicket, setSelectedTicket] = useState(null); // للتفاصيل المختارة
+  const [showDetails, setShowDetails] = useState(false); // لتفعيل المودال
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); // لتفعيل المودال تأكيد الحذف
+  const [ticketToDelete, setTicketToDelete] = useState(null); // لتحديد التذكرة للحذف
 
-  // Fetch available fields (categories) for filtering
+  // جلب المجالات المتاحة للتصفية
   const fetchFields = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}fields`);
-      if (response.data && response.data.document) {
+      if (response.data && Array.isArray(response.data.document)) {
         setFields(response.data.document);
       } else {
         setFields([]);
-        setError('No available fields to display.');
+        setError('لا توجد مجالات متاحة.');
       }
-    } catch (error) {
-      setError('Error fetching fields.');
+    } catch (err) {
+      setError('فشل في تحميل المجالات.');
     }
   };
 
-  // Fetch tickets from API using query parameters
+  // جلب التذاكر بناءً على المجال المحدد
   const fetchTickets = async (field) => {
     setLoading(true);
     try {
       const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}tickets/field`, {
-        params: { field }, // Send 'field' as query parameter
+        params: field ? { field } : {}, // إضافة المجال كمعامل استعلام إذا وُجد
       });
-
-      if (response.data && Array.isArray(response.data)) {
-        setTickets(response.data);
-        await fetchOwners(response.data); // Fetch owner data after tickets are retrieved
+      if (response.data && Array.isArray(response.data.data)) {
+        setTickets(response.data.data);
       } else {
         setTickets([]);
-        setError('No tickets found.');
+        setError('لم يتم العثور على تذاكر.');
       }
-    } catch (error) {
-      setError('Error fetching tickets.');
+    } catch (err) {
+      setError('فشل في تحميل التذاكر.');
     } finally {
       setLoading(false);
     }
   };
 
-  // Fetch owner data based on ticket owners
-  const fetchOwners = async (tickets) => {
-    try {
-      const ownerIds = tickets.map((ticket) => ticket.owner);
-      const uniqueOwnerIds = [...new Set(ownerIds)]; // Remove duplicates
-
-      const ownerRequests = uniqueOwnerIds.map((id) =>
-        axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${id}`) // Fetch mentor data
-      );
-
-      const ownerResponses = await Promise.all(ownerRequests);
-      const ownerMap = {};
-
-      ownerResponses.forEach((response) => {
-        if (response.data && response.data.data && response.data.data.name) {
-          ownerMap[response.data.data._id] = response.data.data.name;
-        }
-      });
-
-      setOwners(ownerMap); // Set the owners state
-    } catch (error) {
-      setError('Error fetching owners.');
-    }
-  };
-
-  // Trigger fetching fields on component mount
+  // جلب المجالات عند التحميل الأول
   useEffect(() => {
     fetchFields();
   }, []);
 
-  // Trigger fetching tickets when the selected field changes
+  // جلب التذاكر كلما تغير المجال المحدد
   useEffect(() => {
-    if (selectedField) {
-      fetchTickets(selectedField);
-    }
+    fetchTickets(selectedField);
   }, [selectedField]);
 
-  // Filter tickets based on user input text (e.g., title)
+  // تصفية التذاكر بناءً على النص المُدخل
   const filteredTickets = tickets.filter((ticket) =>
     ticket.title.toLowerCase().includes(filterText.toLowerCase())
   );
 
+  // حذف التذكرة
+  // حذف التذكرة
+const handleDeleteTicket = async (ticketId, ticketOwnerId) => {
+  const userId = localStorage.getItem('userId'); // استرجاع معرف المستخدم المسجل الدخول
+
+  // التأكد من أن المستخدم الذي قام بتسجيل الدخول هو المالك للتذكرة
+  if (ticketOwnerId !== userId) {
+    toast.error('لا يمكنك حذف هذه التذكرة لأنها ليست ملكك.');
+    return;
+  }
+
+  const token = localStorage.getItem('authToken'); // استرجاع التوكن من التخزين المحلي
+  if (!token) {
+    toast.error('يجب تسجيل الدخول لحذف التذكرة.');
+    return;
+  }
+
+  try {
+    // إرسال طلب الحذف باستخدام توكن التوثيق
+    const response = await axios.delete(
+      `${import.meta.env.VITE_MAIN_URL}tickets/${ticketId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}` // إرسال التوكن كـ رأس التوثيق
+        },
+        withCredentials: true,
+      }
+    );
+
+    if (response.status === 200) {
+      // إذا كانت الاستجابة ناجحة، إزالة التذكرة المحذوفة من الحالة
+      setTickets(tickets.filter(ticket => ticket._id !== ticketId));
+      toast.success('تم حذف التذكرة بنجاح!');
+    } else {
+      toast.error('فشل في حذف التذكرة.');
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 403) {
+      // في حالة وجود خطأ 403 (محظور) من الخادم
+      toast.error('لا تمتلك صلاحيات لحذف هذه التذكرة.');
+    } else {
+      toast.error('حدث خطأ أثناء حذف التذكرة.');
+    }
+    console.error(error.message);
+  }
+};
+
+  
+
   return (
-    <Container className="py-5">
-      <h2 className="text-center mb-4">All Request Tickets</h2>
+    <Container className="py-5" dir='rtl'>
+      <h2 className="text-center mb-4">جميع الاستشارات النشطة داخل المنصة</h2>
+      {/* عرض رسائل الخطأ */}
+      {error && <p className="text-danger text-center">{error}</p>}
 
-      {/* Display error if it exists */}
-      {error && <p className="error-message text-danger text-center">Error: {error}</p>}
-
-      {/* Loading spinner */}
+      {/* مؤشر التحميل */}
       {loading && (
-        <div className="text-center my-5">
+        <div className="text-center">
           <Spinner animation="border" variant="primary" />
         </div>
       )}
 
-      {/* Field Filter Dropdown */}
-      <Form.Group controlId="fieldFilter" className="mb-3">
-        <Form.Label>Select a Field</Form.Label>
-        <Form.Select
-          value={selectedField}
-          onChange={(e) => setSelectedField(e.target.value)}
-        >
-          <option value="">Select a field...</option>
-          {fields.length > 0 ? (
-            fields.map((field) => (
-              <option key={field._id} value={field.name}>
-                {field.name}
-              </option>
-            ))
-          ) : (
-            <option disabled>No fields available</option>
-          )}
-        </Form.Select>
-      </Form.Group>
+      {/* الفلاتر */}
+      <Row className="mb-4">
+        <Col md={6}>
+          <Form.Group controlId="fieldFilter">
+            <Form.Label>تصفية حسب المجال</Form.Label>
+            <Form.Select
+              value={selectedField}
+              onChange={(e) => setSelectedField(e.target.value)}
+            >
+              <option value="">كل المجالات</option>
+              {fields.map((field) => (
+                <option key={field._id} value={field.name}>
+                  {field.name}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+        </Col>
+        <Col md={6}>
+          <Form.Group controlId="textFilter">
+            <Form.Label>البحث حسب العنوان</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="ابحث عن التذاكر..."
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
 
-      {/* Text Filter Input */}
-      <Form.Group controlId="wordFilter" className="mb-4">
-        <Form.Label>Filter by Title</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter words to filter..."
-          value={filterText}
-          onChange={(e) => setFilterText(e.target.value)}
-        />
-      </Form.Group>
-
-      {/* Ticket Cards */}
-      <Row className="justify-content-center">
+      {/* عرض التذاكر */}
+      <Row >
         {filteredTickets.length > 0 ? (
           filteredTickets.map((ticket) => (
             <Col md={4} lg={3} key={ticket._id} className="mb-4">
-              <Card className="h-100 text-center">
-                <Card.Body>
+              <Card className="h-100" >
+                <Card.Body  >
                   <Card.Title>{ticket.title}</Card.Title>
-                  <Card.Text>
-                    <strong>Duration:</strong> {ticket.duration} minutes<br />
-                    <strong>Start Time:</strong> {ticket.startDate}<br />
-                    <strong>Price:</strong> ${ticket.price}<br />
-                    <strong>Type:</strong> {ticket.type}<br />
-                    <strong>Active:</strong> {ticket.isActive ? 'Yes' : 'No'}<br />
-                    <strong>Owner:</strong> {owners[ticket.owner] || 'Unknown'}
+                  <Card.Text  >
+                    <strong>المدة:</strong> {ticket.duration} دقيقة
+                    <br />
+                    <strong>وقت البدء:</strong> {ticket.startDate}
+                    <br />
+                    <strong>السعر:</strong> ${ticket.price}
+                    <br />
+                    <strong>النوع:</strong> {ticket.type}
+                    <br />
+                    <strong>نشط:</strong> {ticket.isActive ? 'نعم' : 'لا'}
+                    <br />
+                    <strong>المالك:</strong> {ticket.owner?.name || 'غير معروف'}
                   </Card.Text>
-                  <Button variant="primary">View Details</Button>
+                  <Button 
+                    variant="primary" 
+                    onClick={() => {
+                      setSelectedTicket(ticket);
+                      setShowDetails(true);
+                    }}
+                  >
+                    عرض التفاصيل
+                  </Button>
+                  <Button 
+                    variant="danger" 
+                    className="mt-2" 
+                    onClick={() => {
+                      setTicketToDelete(ticket);
+                      setShowDeleteConfirm(true);
+                    }}
+                  >
+                    حذف
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
           ))
         ) : (
           <Col>
-            <p className="text-center">No tickets found for this filter.</p>
+            <p className="text-center">لا توجد تذاكر متاحة.</p>
           </Col>
         )}
       </Row>
+
+      {/* Toast Notification */}
+      <ToastContainer />
+
+      {/* Modal عرض التفاصيل */}
+      <Modal show={showDetails} onHide={() => setShowDetails(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>تفاصيل التذكرة</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedTicket && (
+            <div>
+              <p><strong>عنوان:</strong> {selectedTicket.title}</p>
+              <p><strong>المدة:</strong> {selectedTicket.duration} دقيقة</p>
+              <p><strong>وقت البدء:</strong> {selectedTicket.startDate}</p>
+              <p><strong>السعر:</strong> ${selectedTicket.price}</p>
+              <p><strong>النوع:</strong> {selectedTicket.type}</p>
+              <p><strong>المالك:</strong> {selectedTicket.owner?.name || 'غير معروف'}</p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDetails(false)}>
+            إغلاق
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal تأكيد الحذف */}
+      <Modal show={showDeleteConfirm} onHide={() => setShowDeleteConfirm(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>تأكيد الحذف</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>هل أنت متأكد أنك تريد حذف هذه التذكرة؟</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteConfirm(false)}>
+            إلغاء
+          </Button>
+          <Button 
+            variant="danger" 
+            onClick={() => handleDeleteTicket(ticketToDelete._id)}
+          >
+            حذف
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };

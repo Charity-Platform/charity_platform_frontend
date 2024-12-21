@@ -110,7 +110,7 @@ const AcceptSalary = () => {
             <th>الاسم</th>
             <th>القيمة المالية المتحولة</th>
             <th>تاريخ القبول</th>
-            <th>المبلغ الإجمالي للادمن </th> {/* Add column to display total sent to mentor */}
+            <th>المبلغ الإجمالي المدفوع من الادمن  </th> {/* Add column to display total sent to mentor */}
           </tr>
         </thead>
         <tbody>

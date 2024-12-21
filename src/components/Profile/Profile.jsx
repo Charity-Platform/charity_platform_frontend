@@ -137,7 +137,7 @@ const [hasid , sethasid]=useState();
               </button>
             </Link>
           )}
-          {userData.role === "admin" && (
+          {userData.role === "admin" || userData.role === "manager" && (
             <Link to="/DashBoard">
               <button className="profile-btn-secondary m-2 dashbord-button">
                 الدخول على صفحة الادمن
