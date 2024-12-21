@@ -1,7 +1,7 @@
 import Home from "./pages/Home/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, HashRouter } from "react-router-dom";
 import About from "./pages/About/About";
 import Instructors from "./pages/Instructors/Instructors";
 import Services from "./pages/Services/Services";
@@ -76,7 +76,7 @@ function App() {
   return (
     <div className="App">
      
-      <Router>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -155,61 +155,10 @@ function App() {
           <Route path="/allRequestTekit" element={<AllRequestTekit/>} />
           <Route path="/admin/dashbord/acceptedsalary" element={<AcceptSalary/>} />
           <Route path="/admin/dashbord/allSalaryRequest" element={<AllSalaryRequest/>} />
-
-          
-
-
-
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        
 
-
-
-
-
-
-
-
-
-
-
-
-  
         </Routes>
-      </Router>
+      </HashRouter>
     
     </div>
   );
