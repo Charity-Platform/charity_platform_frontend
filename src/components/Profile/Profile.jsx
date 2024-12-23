@@ -11,9 +11,6 @@ const Profile = () => {
   const [showModal, setShowModal] = useState({ info: false, password: false });
   const [userInfo, setUserInfo] = useState({ name: "", phone: "" });
   const [passwordInfo, setPasswordInfo] = useState({ currentPassword: "", newPassword: "" });
-  const [courses ,setcourses ]= useState([]);
-  const [books ,setbooks ]= useState([]);
-  const [instruction ,setinstruction ]= useState([]);
 const [hasid , sethasid]=useState();
 
   // Fetch user data on initial render
@@ -30,28 +27,6 @@ const [hasid , sethasid]=useState();
     };
     fetchUserData();
 
-    //git all courses 
-    const fetchAllUser = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses/${hasid}`, { withCredentials: true });
-        setcourses(response.data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      }
-    };
-    fetchAllUser();
-
-    
-    //git all books 
-    const fetchAllBooks = async () => {
-      try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}books/${hasid}`, { withCredentials: true });
-        setcourses(response.data);
-      } catch (error) {
-        console.error("Error fetching courses:", error);
-      }
-    };
-    fetchAllBooks();
   }, []);
 
   const toggleModal = (modalType) => {

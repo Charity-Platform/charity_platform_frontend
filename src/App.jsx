@@ -144,7 +144,7 @@ function App() {
           <Route path="/loadingForCheck/auth/payment/course/:id" element={<LoadingForCheckCourses />} />
           <Route path="/thanksForCourse/:id" element={<ThanksCourse />} />
           <Route path="/bookpyment/:id" element={<BookPyment/>} />
-          <Route path="/loadingForCheck/auth/request/payment/book/:id" element={<CheckBook/>} />
+          <Route path="/auth/request/payment/book/:id" element={<CheckBook/>} />
           <Route path="/thankbook/:id" element={<ThanksBook/>} />
           <Route path="/BookView/:id" element={<BookView/>} />
           <Route path="/welcomementor" element={<WelcomeMessage/>} />
