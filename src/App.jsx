@@ -137,14 +137,14 @@ function App() {
           <Route path="/active_jobs" element={<ActiveJobs/>} />
           <Route path="/applicationForm/:id" element={<JobApplicationForm/>} />
           <Route path="/jobs_founder" element={<JobsApplied/>} />
-          <Route path="/auth/payment/consultation" element={<LoadingForCheck/>} />
+          <Route path="/#/auth/payment/consultation" element={<LoadingForCheck/>} />
           <Route path="/ServicesPayment/:id" element={<ServicesPayment/>} />
           <Route path="/thank-you" element={<Thanks/>} />
           <Route path="/CoursesPyment/:id" element={<CoursesPyment />} />
-          <Route path="/auth/payment/course/:id" element={<LoadingForCheckCourses />} />
+          <Route path="/#/auth/payment/course/:id" element={<LoadingForCheckCourses />} />
           <Route path="/thanksForCourse/:id" element={<ThanksCourse />} />
           <Route path="/bookpyment/:id" element={<BookPyment/>} />
-          <Route path="/auth/request/payment/book/:id" element={<CheckBook/>} />
+          <Route path="/#/auth/request/payment/book/:id" element={<CheckBook/>} />
           <Route path="/thankbook/:id" element={<ThanksBook/>} />
           <Route path="/BookView/:id" element={<BookView/>} />
           <Route path="/welcomementor" element={<WelcomeMessage/>} />
