@@ -96,49 +96,52 @@ const NavBar = () => {
                       >
                         {/* <Dropdown.Item as={NavLink} to="/services">
                         تأسيس وبناء الجمعيات الخيرية
-                        </Dropdown.Item> */}
-                        <Dropdown.Item as={NavLink} to="/services">
-                        التسويق وبناء الهوية 
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        إدارة المشاريع الخيرية
-                        </Dropdown.Item>
+                        </Dropdown.Item> */} 
                         <Dropdown.Item as={NavLink} to="/services">
                         التخطيط الاستراتيجي
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
-                        الامتثال والحوكمة وإدارة المخاطر
+                        البناء المؤسسي والتنظيمي 
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        الحوكمة وإدارة المخاطر
+                        </Dropdown.Item>                       
+                        <Dropdown.Item as={NavLink} to="/services">
+                        إدارة المشاريع الخيرية
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
                         إدارة الجودة وتحسين الأداء
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
-                        التخطيط المالي والميزانيات
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        تنمية الموارد المالية
+                        تنمية الموارد
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
                         التدريب والتطوير
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
-                        العلاقات العامة والتواصل وبناء الشراكات
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        تطوير المواقع الالكترونية 
+                        التسويق وبناء الهوية 
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
                         إدارة المشاريع التعليمية
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
-                        مجال الاستشارات القانونية
+                        التخطيط المالي والميزانيات
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
-                        مجال الاستشارات الشرعية 
+                        العلاقات العامة وبناء الشراكات
                         </Dropdown.Item>
                         <Dropdown.Item as={NavLink} to="/services">
-                        تطبيقات الذكاء الاصطناعي والامن السيبراني في العمل الخيري
+                        تطويرالمواقع الالكترونية
                         </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        تطبيقات الذكاء الاصطناعي في العمل الخيري
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        الاستشارات القانونية
+                        </Dropdown.Item>
+                        <Dropdown.Item as={NavLink} to="/services">
+                        الاستشارات الشرعية                       
+                         </Dropdown.Item>
                       </Dropdown.Menu>
                     )}
                   </Dropdown.Item>
