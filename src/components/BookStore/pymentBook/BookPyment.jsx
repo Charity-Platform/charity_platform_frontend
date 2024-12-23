@@ -50,7 +50,7 @@ const BookPyment = () => {
 
   return (
     <Container className="py-5 text-center">
-      <h1 className="mb-4">الدفع مقابل الخدمة</h1>
+      <h1 className="mb-4">برجاء استكمال عملية الدفع   </h1>
       <p className="mb-4">
          يرجى الضغط على الزر أدناه لإتمام عملية الدفع. سيتم التحقق من الدفع بمجرد إرساله.  
       </p>
