@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './CardCources.css'; // Add a CSS file for additional styles
+import './Cources.css'; // Add a CSS file for additional styles
 
 const CardCources = () => {
   const [courses, setCourses] = useState([]);
