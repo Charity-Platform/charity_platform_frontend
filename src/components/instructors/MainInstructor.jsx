@@ -73,9 +73,9 @@ const handeldetails = (id)=>{
             <Card style={{ width: '25rem', height: '32rem' }}>
               <Card.Img variant="top" src={mentor.image || 'default-image.jpg'} className='card-image' />
               <Card.Body>
-                <Card.Title>الدكتور : {mentor.name}</Card.Title>
+                <Card.Title className='mb-2'>المستشار  : {mentor.name}</Card.Title>
                 <Card.Text className='job-description'>
-                  <h5 className='job-description-text'>{mentor.field}</h5>
+                  <h5 className='job-description-text mb-4'style={{color:'#07a79d'}}>{mentor.field}</h5>
                 </Card.Text>
                 <Card.Text className='location'>
                   <h5 className='text-location'>

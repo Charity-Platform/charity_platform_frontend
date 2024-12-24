@@ -11,12 +11,12 @@ const SignupInstructor = () => {
     phone: '',
     birthdate: '',
     address: '',
-    image: '',
+    image: null, // Updated to null for file upload
     links: '',
     description: '',
     field: '', // selected field
     hourePrice: '',
-    password: '' 
+    password: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -29,24 +29,28 @@ const SignupInstructor = () => {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}fields`, {
           headers: { 'Content-Type': 'application/json' }
         });
-        console.log("all field request",response.data.document)
+        console.log("all field request", response.data.document);
         setFields(response.data.document); // Set the fields received from the API
       } catch (error) {
         console.error('Error fetching fields:', error);
       }
     };
-    
+
     fetchFields();
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, files } = e.target;
+    if (name === "image") {
+      setFormData((prev) => ({ ...prev, [name]: files[0] })); // Save uploaded file
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const newErrors = {};
     if (!formData.name) newErrors.name = 'Name is required';
     if (!formData.email) newErrors.email = 'Email is required';
@@ -54,25 +58,30 @@ const SignupInstructor = () => {
     if (!formData.birthdate) newErrors.birthdate = 'Birthdate is required';
     if (!formData.field) newErrors.field = 'Field is required';
     if (!formData.password) newErrors.password = 'Password is required';
-  
+
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-  
+
     try {
       const linksArray = formData.links.split(',').map(link => link.trim()).filter(link => link);
-  
-      await axios.post(`${import.meta.env.VITE_MAIN_URL}auth/signup-mentor`, {
-        ...formData,
-        links: linksArray, // Send links as an array
-        active: true,
-        accepted: true,
-      }, {
-        headers: { 'Content-Type': 'application/json' },
+      const formDataObj = new FormData(); // Use FormData for file uploads
+
+      // Append form data to the FormData object
+      Object.entries(formData).forEach(([key, value]) => {
+        if (key === "links") {
+          formDataObj.append(key, JSON.stringify(linksArray)); // Convert links to string
+        } else {
+          formDataObj.append(key, value);
+        }
+      });
+
+      await axios.post(`${import.meta.env.VITE_MAIN_URL}auth/signup-mentor`, formDataObj, {
+        headers: { 'Content-Type': 'multipart/form-data' }, // Set appropriate headers
         withCredentials: true,
       });
-  
+
       navigate('/verifyemail', {
         state: {
           email: formData.email,
@@ -167,13 +176,12 @@ const SignupInstructor = () => {
           <Row>
             <Col md={6}>
               <Form.Group controlId="formImage" className="mb-3">
-                <Form.Label>ادخل لينك الصورة الخاصة </Form.Label>
+                <Form.Label>رفع الصورة الخاصة </Form.Label>
                 <Form.Control
-                  type="url"
+                  type="file"
                   name="image"
-                  value={formData.image}
                   onChange={handleChange}
-                  placeholder="لينك الصورة "
+                  accept="image/*"
                 />
               </Form.Group>
             </Col>

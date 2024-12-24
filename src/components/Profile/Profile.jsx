@@ -1,190 +1,209 @@
-import "./Profile.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import axios from "axios";
-import { FaUserEdit } from "react-icons/fa";
-import Footer from "../../components/HomePage/Footer/Footer";
-import NavBar from "../../components/HomePage/NavBar/NavBar";
-import { Link } from "react-router-dom";
 
-const Profile = () => {
-  const [userData, setUserData] = useState(null);
-  const [showModal, setShowModal] = useState({ info: false, password: false });
-  const [userInfo, setUserInfo] = useState({ name: "", phone: "" });
-  const [passwordInfo, setPasswordInfo] = useState({ currentPassword: "", newPassword: "" });
-const [hasid , sethasid]=useState();
+const JobApplicationForm = () => {
+  const { jobId } = useParams(); // Get the job ID from the URL
+  const [jobDetails, setJobDetails] = useState(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    age:"",
+    resume: null,
+    message: "",
+    experience: "",
+  });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
+  const { id } = useParams(); 
 
-  // Fetch user data on initial render
+  // Fetch job details by ID
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchJobDetails = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}users/me`, { withCredentials: true });
-        setUserData(response.data);
-        setUserInfo({ name: response.data.name, phone: response.data.phone });
-        sethasid(response.data._id)
+        const response = await axios.get(
+         `${import.meta.env.VITE_MAIN_URL}jobs/${id}`
+        );
+        setJobDetails(response.data);
+        console.log(response.data);
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error fetching job details:", error.response?.data || error.message);
+        setError("حدث خطأ أثناء تحميل بيانات الوظيفة.");
       }
     };
-    fetchUserData();
+    fetchJobDetails();
+  }, [id]);
 
-  }, []);
-
-  const toggleModal = (modalType) => {
-    setShowModal(prev => ({
-      info: modalType === "info" ? !prev.info : false,
-      password: modalType === "password" ? !prev.password : false
-    }));
-  };
-
-  // Handle input change for user info and password
-  const handleInputChange = (e, type) => {
+  // Handle form input changes
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    if (type === "userInfo") {
-      setUserInfo(prev => ({ ...prev, [name]: value }));
-    } else {
-      setPasswordInfo(prev => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleUpdateInfo = async () => {
+  // Handle file input for resume
+  const handleFileChange = (e) => {
+    setFormData((prev) => ({ ...prev, resume: e.target.files[0] }));
+  };
+
+  // Submit the application form
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    const formDataToSubmit = new FormData();
+    formDataToSubmit.append("name", formData.name);
+    formDataToSubmit.append("email", formData.email);
+    formDataToSubmit.append("phone", formData.phone);
+    formDataToSubmit.append("resume", formData.resume);
+    formDataToSubmit.append("message", formData.message);
+
     try {
-      await axios.put(`${import.meta.env.VITE_MAIN_URL}users/updateMe`, userInfo, { withCredentials: true });
-      alert("تم تحديث المعلومات بنجاح");
-      setUserData(prevData => ({ ...prevData, ...userInfo }));
-      toggleModal("info");
+      const response = await axios.post(
+        `${import.meta.env.VITE_MAIN_URL}jobs/apply/${jobId}`,
+        formDataToSubmit
+      );
+      if(response.status === 200 ){
+         setSuccess("تم إرسال طلبك بنجاح!");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        age:"",
+        resume: null,
+        message: "",
+        experience:"",
+      });
+      }
+     
     } catch (error) {
-      console.error("Error updating info:", error);
-      alert("Failed to update information. Please try again.");
+      console.error("Error submitting application:", error);
+      setError("حدث خطأ أثناء إرسال الطلب. حاول مرة أخرى.");
     }
   };
-
-  const handleChangePassword = async () => {
-    if (!passwordInfo.currentPassword || !passwordInfo.newPassword) {
-      alert("Please fill in all required fields.");
-      return;
-    }
-    try {
-      await axios.put(`${import.meta.env.VITE_MAIN_URL}users/update-password`, passwordInfo, { withCredentials: true });
-      alert("Password updated successfully!");
-      toggleModal("password");
-    } catch (error) {
-      console.error("Error updating password:", error);
-      alert(`Failed to update password. ${error.response?.data?.message || "Please try again."}`);
-    }
-  };
-
-  if (!userData) {
-    return <div className="profile-text-center">Loading...</div>;
-  }
 
   return (
-    <>
-      <NavBar />
-      <div className="profile-content-page">
-        <div className="profile-user-card">
-          <div className="profile-img-container">
-            <img
-              className="profile-bg-image"
-              src="https://cdn.pixabay.com/photo/2019/01/29/11/19/career-3962170_1280.jpg"
-              alt="Background"
-            />
-          </div>
-          <div className="profile-user-data">
-            <h1>{userData.name || "No Name Available"} : الأسم</h1>
-            <p>{userData.email || "No Email Available"} : البريد الإلكترونى</p>
-            <p>{userData.phone || "No Phone Available"} : رقم الهاتف</p>
-            <p>{userData.role || "No Role Assigned"} : الوظيفة</p>
-          </div>
-          <div className="profile-action-buttons">
-            <button onClick={() => toggleModal("info")} className="profile-btn-primary">
-              <FaUserEdit /> تحديث المعلومات
-            </button>
-            <button onClick={() => toggleModal("password")} className="profile-btn-secondary">
-              تحديث الباسورد
-            </button>
-          </div>
+    <Container className="py-5">
+      {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
 
-          {/* Display appropriate dashboard button based on user role */}
-          {userData.role === "mentor" && (
-            <Link to={`/adminMentor/${userData._id}`}>
-              <button className="profile-btn-secondary m-2 dashbord-button">
-                الدخول على صفحة المنتور
-              </button>
-            </Link>
-          )}
-          {userData.role === "admin" || userData.role === "manager" && (
-            <Link to="/DashBoard">
-              <button className="profile-btn-secondary m-2 dashbord-button">
-                الدخول على صفحة الادمن
-              </button>
-            </Link>
-          )}
-
-          <ul className="profile-user-data-list">
-            <li><strong>تاريخ الانضمام :</strong> {userData.createdAt ? new Date(userData.createdAt).toLocaleDateString() : "Unknown"}</li>
-            <li><strong>اخر تاريخ للانضمام :</strong> {userData.updatedAt ? new Date(userData.updatedAt).toLocaleDateString() : "Unknown"}</li>
-          </ul>
-        </div>
-      </div>
-
-      {/* Modal rendering logic */}
-      {(showModal.info || showModal.password) && (
-        <div className="profile-modal">
-          <div className="profile-modal-content">
-            {showModal.info ? (
-              <>
-                <h2>تحديث المعلومات</h2>
-                <input
-                  type="text"
-                  name="name"
-                  value={userInfo.name}
-                  onChange={(e) => handleInputChange(e, "userInfo")}
-                  placeholder="أدخل الاسم الجديد"
-                />
-                <input
-                  type="text"
-                  name="phone"
-                  value={userInfo.phone}
-                  onChange={(e) => handleInputChange(e, "userInfo")}
-                  placeholder="أدخل رقم الهاتف الجديد"
-                />
-                <button onClick={handleUpdateInfo} className="profile-btn-save">
-                  حفظ التغييرات
-                </button>
-              </>
-            ) : (
-              <>
-                <h2>تغيير كلمة المرور</h2>
-                <input
-                  type="password"
-                  name="currentPassword"
-                  value={passwordInfo.currentPassword}
-                  onChange={(e) => handleInputChange(e, "password")}
-                  placeholder="أدخل كلمة المرور الحالية"
-                />
-                <input
-                  type="password"
-                  name="newPassword"
-                  value={passwordInfo.newPassword}
-                  onChange={(e) => handleInputChange(e, "password")}
-                  placeholder="أدخل كلمة المرور الجديدة"
-                />
-                <button onClick={handleChangePassword} className="profile-btn-save">
-                  تحديث كلمة المرور
-                </button>
-              </>
-            )}
-            <button onClick={() => toggleModal(showModal.info ? "info" : "password")} className="profile-btn-close">
-              إغلاق
-            </button>
-          </div>
-        </div>
+      {jobDetails ? (
+        <Card className="mb-4">
+          <Card.Body>
+            <Card.Title>معلومات عن الوظيفة</Card.Title>
+            <p>
+              <strong>العنوان:</strong> {jobDetails.title}
+            </p>
+            <p>
+              <strong>الوصف:</strong> {jobDetails.description}
+            </p>
+            <p>
+             {jobDetails.type} <strong> : نوع الوظيفة</strong> 
+            </p>
+          </Card.Body>
+        </Card>
+      ) : (
+        <p>جاري تحميل معلومات الوظيفة...</p>
       )}
-      
 
-      <Footer />
-    </>
+      <Form onSubmit={handleSubmit}>
+        <h4 className="mb-4">تقديم على الوظيفة</h4>
+
+        <Form.Group controlId="name" className="mb-3">
+          <Form.Label>الاسم الكامل</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            placeholder="أدخل اسمك الكامل"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="email" className="mb-3">
+          <Form.Label>البريد الإلكتروني</Form.Label>
+          <Form.Control
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            placeholder="أدخل بريدك الإلكتروني"
+          />
+        </Form.Group>
+
+        <Form.Group controlId="phone" className="mb-3">
+          <Form.Label>رقم الهاتف</Form.Label>
+          <Form.Control
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            placeholder="أدخل رقم هاتفك"
+          />
+        </Form.Group>
+        <Form.Group controlId="phone" className="mb-3">
+          <Form.Label> العمر</Form.Label>
+          <Form.Control
+            type="text"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+            required
+            placeholder=" كم عمرك  "
+          />
+        </Form.Group>
+        <Form.Group controlId="phone" className="mb-3">
+          <Form.Label> سنوات الخبرة </Form.Label>
+          <Form.Control
+            type="text"
+            name="experience"
+            value={formData.experience}
+            onChange={handleChange}
+            required
+            placeholder="أدخل عدد سنوات الخبرة فى المجال "
+          />
+        </Form.Group>
+        <Form.Group controlId="resume" className="mb-3">
+          <Form.Label>السيرة الذاتية</Form.Label>
+          <Form.Control
+            type="file"
+            name="resume"
+            onChange={handleFileChange}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group controlId="message" className="mb-3">
+          <Form.Label>رسالة إضافية</Form.Label>
+          <Form.Control
+            as="textarea"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            placeholder="اكتب رسالة إضافية (اختياري)"
+            rows={4}
+          />
+        </Form.Group>
+
+        <Button type="submit" variant="primary" className="mt-3">
+          إرسال الطلب
+        </Button>
+        <Button
+          variant="secondary"
+          className="mt-3 mx-2"
+          onClick={() => navigate("/jobs")}
+        >
+          العودة للوظائف
+        </Button>
+      </Form>
+    </Container>
   );
 };
 
-export default Profile;
+export default JobApplicationForm;

@@ -74,7 +74,7 @@ const Instructor = () => {
             <Card style={{ width: '25rem', height: '32rem' }} className="card">
               <Card.Img variant="top" src={mentor.image || 'default-image.jpg'} className="card-image" />
               <Card.Body>
-                <Card.Title>الدكتور : {mentor.name}</Card.Title>
+                <Card.Title>المستشار  : {mentor.name}</Card.Title>
                 <Card.Text className="job-description">
                   <h5 className="job-description-text">{mentor.field}</h5>
                 </Card.Text>
