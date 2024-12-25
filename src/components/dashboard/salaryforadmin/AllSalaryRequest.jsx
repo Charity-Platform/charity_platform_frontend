@@ -1,181 +1,217 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Container, Card, Button, Row, Col, Modal, Spinner } from 'react-bootstrap';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Table, Container, Spinner, Form, Button, Row, Col } from "react-bootstrap";
+import { format } from "date-fns";
+import { arSA } from "date-fns/locale";
 
 const AllSalaryRequest = () => {
-  const [requests, setRequests] = useState([]);
-  const [mentorDetails, setMentorDetails] = useState({});
-  const [selectedRequest, setSelectedRequest] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [acceptedUsers, setAcceptedUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [mentors, setMentors] = useState({});
+  const [mentorTotal, setMentorTotal] = useState({});
+  const [totalEquity, setTotalEquity] = useState(0);
+  const [filter, setFilter] = useState("all"); // Default filter
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const reportRef = useRef(); // For printing
 
-  // Fetch all requests and mentor details
   useEffect(() => {
-    const fetchRequests = async () => {
-      setIsLoading(true);
+    const fetchAcceptedUsers = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_MAIN_URL}mentors/pending-deposites`,
+          `${import.meta.env.VITE_MAIN_URL}mentors/accepted-deposites`,
           { withCredentials: true }
         );
         const data = response.data.data;
 
-        const mentorPromises = data.map(async (request) => {
-          const mentorInfo = await fetchMentorDetails(request.mentor);
-          return { [request.mentor]: mentorInfo };
+        const mentorPromises = data.map(async (user) => {
+          if (user.mentor) {
+            const mentorInfo = await fetchMentorDetails(user.mentor);
+            return { [user.mentor]: mentorInfo };
+          }
+          return {};
         });
 
         const mentorDetailsResults = await Promise.all(mentorPromises);
         const updatedMentorDetails = Object.assign({}, ...mentorDetailsResults);
 
-        setMentorDetails(updatedMentorDetails);
-        setRequests(data);
+        const totalEquityForMentors = data.reduce((acc, user) => {
+          if (user.mentor) {
+            acc[user.mentor] = (acc[user.mentor] || 0) + user.equity;
+          }
+          return acc;
+        }, {});
+
+        const totalEquityValue = data.reduce((sum, user) => sum + user.equity, 0);
+
+        setMentors(updatedMentorDetails);
+        setMentorTotal(totalEquityForMentors);
+        setTotalEquity(totalEquityValue);
+        setAcceptedUsers(data);
+        setFilteredUsers(data); // Default filtered data is all users
       } catch (error) {
-        toast.error('فشل في جلب الطلبات');
+        setError("البيانات غير صحيحة");
+        toast.error("البيانات غير صحيحة");
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
     };
 
-    fetchRequests();
+    fetchAcceptedUsers();
   }, []);
 
-  // Fetch complete mentor details by ID
   const fetchMentorDetails = async (mentorId) => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_MAIN_URL}mentors/${mentorId}`,
         { withCredentials: true }
       );
-
-      const { name, email, balance, fees, address } = response.data.data;
-      return { name, email, balance, fees, address };
+      const { name } = response.data.data;
+      return { name };
     } catch (error) {
       toast.error(`فشل في جلب تفاصيل المدرب لـ ID: ${mentorId}`);
-      return {
-        name: 'غير معروف',
-        email: 'غير متوفر',
-        balance: 0,
-        fees: 0,
-        address: 'غير متوفر',
-      };
+      return { name: "غير معروف" };
     }
   };
 
-  // Handle Accept Order
-  const acceptOrder = async (id, mentorBalance, equity) => {
-    if (!id) {
-      toast.error('معرف الطلب غير صحيح');
-      return;
-    }
-  
-    // Check if the mentorBalance is less than the equity
-    if (mentorBalance < equity) {
-      toast.error(`رصيدك غير كافي لقبول الطلب. لديك ${mentorBalance} بينما يتطلب ${equity}.`);
-      return;
-    }
-  
-    console.log("id is", id);
-    // Log the actual URL being sent
-    const requestUrl = `${import.meta.env.VITE_MAIN_URL}mentors/accept-deposite/${id}`;
-  
-    try {
-      const response = await axios.post(requestUrl, null, { withCredentials: true });
-      if (response.status === 200) {
-        toast.success('تم قبول الطلب بنجاح');
-        setRequests((prevRequests) => prevRequests.filter((request) => request._id !== id));
-        setShowModal(false); 
-      }
-    } catch (error) {
-      console.error('Error occurred while accepting order:', error);
-  
-      if (error.response) {
-        if (error.response.data?.message) {
-          toast.error(`خطأ: ${error.response.data.message}`);
-        } else {
-          toast.error('حدث خطأ في السيرفر');
-        }
-      } else {
-        toast.error('خطأ غير معروف');
-      }
-    }
-  };
-  
-  
+  // Filter data based on selected filter
+  useEffect(() => {
+    let filteredData = acceptedUsers;
 
-  // Open modal with selected request details
-  const handleOpenModal = (request) => {
-    setSelectedRequest(request);
-    setShowModal(true);
+    if (filter === "today") {
+      const today = new Date();
+      filteredData = acceptedUsers.filter(
+        (user) =>
+          new Date(user.createdAt).toDateString() === today.toDateString()
+      );
+    } else if (filter === "week") {
+      const lastWeek = new Date();
+      lastWeek.setDate(lastWeek.getDate() - 7);
+      filteredData = acceptedUsers.filter(
+        (user) => new Date(user.createdAt) >= lastWeek
+      );
+    } else if (filter === "month") {
+      const lastMonth = new Date();
+      lastMonth.setMonth(lastMonth.getMonth() - 1);
+      filteredData = acceptedUsers.filter(
+        (user) => new Date(user.createdAt) >= lastMonth
+      );
+    } else if (filter === "custom" && startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      filteredData = acceptedUsers.filter(
+        (user) =>
+          new Date(user.createdAt) >= start && new Date(user.createdAt) <= end
+      );
+    }
+
+    setFilteredUsers(filteredData);
+    setTotalEquity(filteredData.reduce((sum, user) => sum + user.equity, 0));
+  }, [filter, startDate, endDate, acceptedUsers]);
+
+  if (loading) {
+    return (
+      <div className="text-center">
+        <Spinner animation="border" role="status" variant="primary">
+          <span className="visually-hidden">جارٍ التحميل...</span>
+        </Spinner>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <div className="alert alert-danger text-center" role="alert">
+          {error}
+        </div>
+      </Container>
+    );
+  }
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
-    <Container className="py-5">
-      <h2 className="text-center mb-4">طلبات الرواتب</h2>
-      {isLoading ? (
-        <div className="text-center">
-          <Spinner animation="border" />
-        </div>
-      ) : requests.length > 0 ? (
-        <Row xs={1} md={2} lg={3} className="g-4">
-          {requests.map((request) => {
-            const mentorInfo = mentorDetails[request.mentor] || {};
-            return (
-              <Col key={request._id}>
-                <Card className="h-100">
-                  <Card.Body>
-                    <Card.Title>مقدم الطلب: {mentorInfo.name || 'جاري التحميل...'}</Card.Title>
-                    <Card.Text>المبلغ المطلوب: {request.equity} دك</Card.Text>
-                    <Card.Text>تاريخ الطلب: {new Date(request.createdAt).toLocaleDateString()}</Card.Text>
-                    <Button variant="primary" onClick={() => handleOpenModal(request)}>
-                      التفاصيل
-                    </Button>
-                    <Button
-                      variant="success"
-                      onClick={() => acceptOrder(request._id)}
-                      className="ms-2"
-                    >
-                      قبول الطلب
-                    </Button>
-                  </Card.Body>
-                </Card>
+    <Container fluid="md" className="my-4">
+      <h2 className="text-center mb-4">تقرير المستخدمين المقبولين</h2>
+
+      <Form>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>اختر الفلترة</Form.Label>
+              <Form.Select
+                onChange={(e) => setFilter(e.target.value)}
+                value={filter}
+              >
+                <option value="all">الكل</option>
+                <option value="today">اليوم</option>
+                <option value="week">الأسبوع الماضي</option>
+                <option value="month">الشهر الماضي</option>
+                <option value="custom">تاريخ مخصص</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          {filter === "custom" && (
+            <>
+              <Col>
+                <Form.Group>
+                  <Form.Label>من</Form.Label>
+                  <Form.Control
+                    type="date"
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </Form.Group>
               </Col>
-            );
-          })}
-        </Row>
-      ) : (
-        <p className="text-center">لا توجد طلبات حالياً.</p>
-      )}
-
-      {/* Modal for Request Details */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>تفاصيل الطلب</Modal.Title>
-        </Modal.Header>
-        <Modal.Body dir="rtl">
-          {selectedRequest ? (
-            <div>
-              <p><strong>اسم المدرب:</strong> {mentorDetails[selectedRequest.mentor]?.name}</p>
-              <p><strong>البريد الإلكتروني:</strong> {mentorDetails[selectedRequest.mentor]?.email}</p>
-              <p><strong>الرصيد:</strong> {mentorDetails[selectedRequest.mentor]?.balance} دك</p>
-              <p><strong>الرسوم المخصومة:</strong> {mentorDetails[selectedRequest.mentor]?.fees} دك</p>
-              <p><strong>المبلغ المطلوب:</strong> {selectedRequest.equity} دك</p>
-              <p><strong>تاريخ الطلب:</strong> {new Date(selectedRequest.createdAt).toLocaleDateString()}</p>
-            </div>
-          ) : (
-            <p>تعذر جلب التفاصيل.</p>
+              <Col>
+                <Form.Group>
+                  <Form.Label>إلى</Form.Label>
+                  <Form.Control
+                    type="date"
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+            </>
           )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            إغلاق
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </Row>
+      </Form>
 
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick />
+      <Button className="my-3" onClick={handlePrint}>
+        طباعة التقرير
+      </Button>
+
+      <div ref={reportRef}>
+        <Table striped bordered hover responsive className="text-center">
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>القيمة المالية</th>
+              <th>تاريخ القبول</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => (
+              <tr key={user._id}>
+                <td>{mentors[user.mentor]?.name || "غير معروف"}</td>
+                <td>{user.equity} دك</td>
+                <td>{format(new Date(user.createdAt), "dd/MM/yyyy", { locale: arSA })}</td>
+              </tr>
+            ))}
+            <tr>
+              <td colSpan="2">الإجمالي</td>
+              <td>{totalEquity} دك</td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
     </Container>
   );
 };

@@ -115,7 +115,7 @@ const Instructions = () => {
           </Form.Group>
 
           <Form.Group as={Col} md="6" controlId="formPrice">
-            <Form.Label>السعر</Form.Label>
+            <Form.Label>السعر (بالدينار)</Form.Label>
             <Form.Control
               type="number"
               name="price"
