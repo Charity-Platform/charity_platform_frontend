@@ -1,17 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { Table, Container, Row, Col, Spinner } from 'react-bootstrap';
+
+import React, { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Table, Container, Spinner, Form, Button, Row, Col } from "react-bootstrap";
+import { format } from "date-fns";
+import { arSA } from "date-fns/locale";
 
 const AcceptSalary = () => {
   const [acceptedUsers, setAcceptedUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [mentors, setMentors] = useState({}); // To store mentor names based on their IDs
-  const [mentorTotal, setMentorTotal] = useState({}); // To store the total amount for each mentor
-  const [totalEquity, setTotalEquity] = useState(0); // Total sum of all equity values
+  const [error, setError] = useState("");
+  const [mentors, setMentors] = useState({});
+  const [mentorTotal, setMentorTotal] = useState({});
+  const [totalEquity, setTotalEquity] = useState(0);
+  const [filter, setFilter] = useState("all"); // Default filter
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const reportRef = useRef(); // For printing
 
-  // Fetch accepted users and their mentor details
   useEffect(() => {
     const fetchAcceptedUsers = async () => {
       setLoading(true);
@@ -27,13 +34,12 @@ const AcceptSalary = () => {
             const mentorInfo = await fetchMentorDetails(user.mentor);
             return { [user.mentor]: mentorInfo };
           }
-          return {}; // If no mentor, return empty object
+          return {};
         });
 
         const mentorDetailsResults = await Promise.all(mentorPromises);
         const updatedMentorDetails = Object.assign({}, ...mentorDetailsResults);
 
-        // Calculate total equity sent to each mentor
         const totalEquityForMentors = data.reduce((acc, user) => {
           if (user.mentor) {
             acc[user.mentor] = (acc[user.mentor] || 0) + user.equity;
@@ -41,16 +47,16 @@ const AcceptSalary = () => {
           return acc;
         }, {});
 
-        // Calculate the total sum of all equity values
         const totalEquityValue = data.reduce((sum, user) => sum + user.equity, 0);
 
         setMentors(updatedMentorDetails);
         setMentorTotal(totalEquityForMentors);
-        setTotalEquity(totalEquityValue); // Set the total sum of equity
+        setTotalEquity(totalEquityValue);
         setAcceptedUsers(data);
+        setFilteredUsers(data); // Default filtered data is all users
       } catch (error) {
-        setError('البيانات غير صحيحة');
-        toast.error('البيانات غير صحيحة');
+        setError("البيانات غير صحيحة");
+        toast.error("البيانات غير صحيحة");
       } finally {
         setLoading(false);
       }
@@ -59,26 +65,54 @@ const AcceptSalary = () => {
     fetchAcceptedUsers();
   }, []);
 
-  // Fetch mentor details
   const fetchMentorDetails = async (mentorId) => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_MAIN_URL}mentors/${mentorId}`,
         { withCredentials: true }
       );
-      const { name, email, balance, fees, address } = response.data.data;
-      return { name, email, balance, fees, address };
+      const { name } = response.data.data;
+      return { name };
     } catch (error) {
       toast.error(`فشل في جلب تفاصيل المدرب لـ ID: ${mentorId}`);
-      return {
-        name: 'غير معروف',
-        email: 'غير متوفر',
-        balance: 0,
-        fees: 0,
-        address: 'غير متوفر',
-      };
+      return { name: "غير معروف" };
     }
   };
+
+  // Filter data based on selected filter
+  useEffect(() => {
+    let filteredData = acceptedUsers;
+
+    if (filter === "today") {
+      const today = new Date();
+      filteredData = acceptedUsers.filter(
+        (user) =>
+          new Date(user.createdAt).toDateString() === today.toDateString()
+      );
+    } else if (filter === "week") {
+      const lastWeek = new Date();
+      lastWeek.setDate(lastWeek.getDate() - 7);
+      filteredData = acceptedUsers.filter(
+        (user) => new Date(user.createdAt) >= lastWeek
+      );
+    } else if (filter === "month") {
+      const lastMonth = new Date();
+      lastMonth.setMonth(lastMonth.getMonth() - 1);
+      filteredData = acceptedUsers.filter(
+        (user) => new Date(user.createdAt) >= lastMonth
+      );
+    } else if (filter === "custom" && startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      filteredData = acceptedUsers.filter(
+        (user) =>
+          new Date(user.createdAt) >= start && new Date(user.createdAt) <= end
+      );
+    }
+
+    setFilteredUsers(filteredData);
+    setTotalEquity(filteredData.reduce((sum, user) => sum + user.equity, 0));
+  }, [filter, startDate, endDate, acceptedUsers]);
 
   if (loading) {
     return (
@@ -100,49 +134,84 @@ const AcceptSalary = () => {
     );
   }
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <Container fluid="md" className="my-4">
-      <h2 className="text-center mb-4">قائمة المستخدمين المقبولين</h2>
+      <h2 className="text-center mb-4">تقرير المستخدمين المقبولين</h2>
 
-      <Table striped bordered hover responsive className="text-center">
-        <thead>
-          <tr>
-            <th>الاسم</th>
-            <th>القيمة المالية المتحولة</th>
-            <th>تاريخ القبول</th>
-            <th>المبلغ الإجمالي المدفوع من الادمن  </th> {/* Add column to display total sent to mentor */}
-          </tr>
-        </thead>
-        <tbody>
-          {acceptedUsers.length > 0 ? (
-            acceptedUsers.map((user) => {
-              const mentorInfo = mentors[user.mentor] || {}; // Get mentor info using mentorId
-              const totalForMentor = mentorTotal[user.mentor] || 0; // Get total sent to mentor
-
-              return (
-                <tr key={user._id}>
-                  <td>
-                    {mentorInfo.name ? mentorInfo.name : `اسم المستخدم: ${user.mentor}`}
-                  </td>
-                  <td>{user.equity}</td>
-                  <td>{new Date(user.createdAt).toLocaleString()}</td>
-                  {/* <td>{totalForMentor} دك</td> Display total amount for mentor */}
-                </tr>
-              );
-            })
-          ) : (
-            <tr>
-              <td colSpan="4">لا يوجد مستخدمين مقبولين حالياً</td>
-            </tr>
+      <Form>
+        <Row>
+          <Col>
+            <Form.Group>
+              <Form.Label>اختر الفلترة</Form.Label>
+              <Form.Select
+                onChange={(e) => setFilter(e.target.value)}
+                value={filter}
+              >
+                <option value="all">الكل</option>
+                <option value="today">اليوم</option>
+                <option value="week">الأسبوع الماضي</option>
+                <option value="month">الشهر الماضي</option>
+                <option value="custom">تاريخ مخصص</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          {filter === "custom" && (
+            <>
+              <Col>
+                <Form.Group>
+                  <Form.Label>من</Form.Label>
+                  <Form.Control
+                    type="date"
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>إلى</Form.Label>
+                  <Form.Control
+                    type="date"
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </Form.Group>
+              </Col>
+            </>
           )}
+        </Row>
+      </Form>
 
-          {/* Add an empty row for displaying the total amount */}
-          <tr>
-            <td colSpan="3" className="text-end"><strong>الإجمالي:</strong></td>
-            <td>{totalEquity} دك</td> {/* Display the total equity sum */}
-          </tr>
-        </tbody>
-      </Table>
+      <Button className="my-3" onClick={handlePrint}>
+        طباعة التقرير
+      </Button>
+
+      <div ref={reportRef}>
+        <Table striped bordered hover responsive className="text-center">
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>القيمة المالية</th>
+              <th>تاريخ القبول</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => (
+              <tr key={user._id}>
+                <td>{mentors[user.mentor]?.name || "غير معروف"}</td>
+                <td>{user.equity} دك</td>
+                <td>{format(new Date(user.createdAt), "dd/MM/yyyy", { locale: arSA })}</td>
+              </tr>
+            ))}
+            <tr>
+              <td colSpan="2">الإجمالي</td>
+              <td>{totalEquity} دك</td>
+            </tr>
+          </tbody>
+        </Table>
+      </div>
     </Container>
   );
 };
