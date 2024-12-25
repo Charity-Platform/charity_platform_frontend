@@ -72,6 +72,7 @@ import SalaryForMentor from "./components/Monitors/MentorDashBoard/salary/Salary
 import AllRequestTekit from "./components/Monitors/MentorDashBoard/AllRequestTekit";
 import AcceptSalary from "./components/dashboard/salaryforadmin/AcceptSalary";
 import AllSalaryRequest from "./components/dashboard/salaryforadmin/AllSalaryRequest";
+import GetAllApplicantJob from "./components/dashboard/Jobs/GetAllApplicantJob";
 function App() {
   return (
     <div className="App">
@@ -155,7 +156,7 @@ function App() {
           <Route path="/allRequestTekit" element={<AllRequestTekit/>} />
           <Route path="/admin/dashbord/acceptedsalary" element={<AcceptSalary/>} />
           <Route path="/admin/dashbord/allSalaryRequest" element={<AllSalaryRequest/>} />
-       
+          <Route path="/jobs/applications/:jobId" element={<GetAllApplicantJob />} />
 
         </Routes>
       </HashRouter>

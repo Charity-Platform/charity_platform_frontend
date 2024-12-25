@@ -87,7 +87,7 @@ const SalaryForMentor = () => {
         {/* Request Form */}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="depositAmount" className="mb-3">
-            <Form.Label>طلب إيداع جديد</Form.Label>
+            <Form.Label>طلب سحب جديد</Form.Label>
             <Form.Control
               type="number"
               placeholder="أدخل مبلغ السحب المطلوب"

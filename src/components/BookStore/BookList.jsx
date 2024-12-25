@@ -1,4 +1,3 @@
-// src/components/BookList.js
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap'; // Import Bootstrap components
 import { useNavigate } from 'react-router-dom'; // Use useNavigate
@@ -29,18 +28,21 @@ const BookList = ({ books }) => {
                 {/* وصف: {book.description} */}
               </Card.Text>
               <Card.Text className="price-text">
-                {/* Check if the book price is 0 and show 'مجاني' */}
                 {book.price === 0 ? (
-                  <span className="badge bg-success px-3 py-2">مجاني</span>
+                  <span className="badge bg-success px-4 py-2 mb-4">مجاني</span>
                 ) : (
                   `${book.price} د.ك`
                 )}
               </Card.Text>
-              <button 
-                className="btn btn-primary w-100 mt-auto" 
-                onClick={() => handleShowBooks(book._id)}>
-                تفاصيل الكتاب
-              </button>
+              {/* Adjust Button */}
+              <div className="mt-auto">
+                <button 
+                  className="btn btn-primary w-100" 
+                  style={{ minHeight: '40px' }} // Ensure consistent height
+                  onClick={() => handleShowBooks(book._id)}>
+                  تفاصيل الكتاب
+                </button>
+              </div>
             </Card.Body>
           </Card>
         </Col>

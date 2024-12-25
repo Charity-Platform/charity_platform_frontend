@@ -65,7 +65,7 @@ const CardCources = () => {
                   variant="top"
                   src={course.image || 'default-course-image.jpg'} // Use a default image if none is provided
                   alt={course.title}
-                  className="card-img"
+                  className="card-img align-self-center"
                 />
                 <Card.Body>
                   <Card.Title>{course.title || 'عنوان الدورة غير متوفر'}</Card.Title>
