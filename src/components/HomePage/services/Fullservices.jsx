@@ -41,7 +41,7 @@ const NewFullServices = () => {
           <Button variant="primary" className="new-hero-button"
            onClick={() =>
             window.open(
-              "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+              "https://wa.me/96565012126?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
               "_blank"
             )
           }
@@ -87,7 +87,7 @@ const NewFullServices = () => {
                   className="new-service-btn"
                   onClick={() =>
                     window.open(
-                      "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                      "https://wa.me/96565012126?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
                       "_blank"
                     )
                   }
@@ -125,7 +125,7 @@ const NewFullServices = () => {
                   className="new-service-btn"
                   onClick={() =>
                     window.open(
-                      "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                      "https://wa.me/96565012126?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
                       "_blank"
                     )
                   }
@@ -159,7 +159,7 @@ const NewFullServices = () => {
                   className="new-service-btn"
                   onClick={() =>
                     window.open(
-                      "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                      "https://wa.me/96565012126?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
                       "_blank"
                     )
                   }
@@ -186,7 +186,7 @@ const NewFullServices = () => {
               <Button variant="primary" className="new-image-section-btn"
                onClick={() =>
                 window.open(
-                  "https://wa.me/201126989864?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
+                  "https://wa.me/96565012126?text=أريد%20مزيد%20من%20المعلومات%20عن%20خدماتك",
                   "_blank"
                 )
               }

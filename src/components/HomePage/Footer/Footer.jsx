@@ -27,7 +27,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="https://wa.me/201126989864"
+                    href="https://wa.me/96565012126"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -56,7 +56,7 @@ const Footer = () => {
               <p>جميع الحقوق محفوظة لدى استشارة © 2024</p>
               <h6>
                 <a href="#" className="color:#000">
-                  ❤ MTI_Coder
+                  ❤ DevOrbix 
                 </a>
               </h6>
             </div>
