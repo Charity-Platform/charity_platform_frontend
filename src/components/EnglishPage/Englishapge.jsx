@@ -164,7 +164,7 @@ const EnglishPage = () => {
           <div>
             <p>Connect with us on WhatsApp:</p>
             <a
-              href="https://wa.me/96565012126"
+              href="https://wa.me/201126989864"
               target="_blank"
               rel="noopener noreferrer"
               className="whatsapp-link"
