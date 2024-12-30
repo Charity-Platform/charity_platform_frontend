@@ -78,6 +78,8 @@ const EnglishPage = () => {
           itemClass="slider-image-wrapper"
         >
           <img src={img1} alt="Header 1" className="slider-image" />
+           <img src={img4} alt="Header 2" className="slider-image" />
+          <img src={img5} alt="Header 3" className="slider-image" />
         </Carousel>
       </section>
 
