@@ -121,6 +121,8 @@ const [hasid , sethasid]=useState();
             <p>{userData.role || "No Role Assigned"} : الوظيفة</p>
             <p>  المجال : {userData.field || "No field Assigned"}</p>
             <p> الدولة المقيمم فيها  : {userData.address || "No city Assigned"}</p>
+            <p> الدولة المقيمم فيها  : {userData.address || "No city Assigned"}</p>
+            <p> تفاصيل الخبرة  : {userData.description || "No description Assigned"}</p>
 
 
           </div>
