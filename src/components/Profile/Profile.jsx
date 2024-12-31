@@ -119,8 +119,8 @@ const [hasid , sethasid]=useState();
             <p>{userData.email || "No Email Available"} : البريد الإلكترونى</p>
             <p>{userData.phone || "No Phone Available"} : رقم الهاتف</p>
             <p>{userData.role || "No Role Assigned"} : الوظيفة</p>
-            <p> : المجال {userData.field || "No field Assigned"}</p>
-            <p> : الدولة المقيمم فيها {userData.address || "No city Assigned"}</p>
+            <p>  المجال : {userData.field || "No field Assigned"}</p>
+            <p> الدولة المقيمم فيها  : {userData.address || "No city Assigned"}</p>
 
 
           </div>
