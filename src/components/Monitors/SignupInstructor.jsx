@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Form, Button, Row, Col, Card, Container } from 'react-bootstrap';
+import { Form, Button, Row, Col, Card, Container,Spinner} from 'react-bootstrap';
 
 const SignupInstructor = () => {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ const SignupInstructor = () => {
 
   const [errors, setErrors] = useState({});
   const [fields, setFields] = useState([]); // To store available fields from API
+  const [isLoading, setIsLoading] = useState(false); // Loading state for the submit button
 
   // Fetch fields from API on component mount
   useEffect(() => {
@@ -258,8 +259,8 @@ const SignupInstructor = () => {
 
           {errors.submit && <p className="text-danger">{errors.submit}</p>}
 
-          <Button variant="primary" type="submit" className="w-50">
-            تسجيل
+          <Button variant="primary" type="submit" className="w-50" disabled={isLoading}>
+            {isLoading ? <Spinner animation="border" size="sm" /> : 'تسجيل'}
           </Button>
         </Form>
       </Card>
