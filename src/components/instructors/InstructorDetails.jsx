@@ -11,6 +11,7 @@ const InstructorDetails = () => {
   const [mentor, setMentor] = useState(null);
   const [courses, setCourses] = useState([]);
   const [instructions, setInstructions] = useState([]);
+  // const [books, setbooks] = useState([]);
   const [sessionType, setSessionType] = useState('online');
   const [price, setPrice] = useState(0);
   const [selectedInstruction, setSelectedInstruction] = useState(null);
@@ -40,6 +41,15 @@ const InstructorDetails = () => {
       }
     };
 
+    // const fetchMentorbooks = async () => {
+    //   try {
+    //     const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}books/mentor/${id}`);
+    //     setbooks(response.data.data);
+    //   } catch (error) {
+    //     console.error('Error fetching books:', error);
+    //   }
+    // };
+    
     const fetchMentorInstructions = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}tickets/mentor/${id}`);
@@ -51,6 +61,7 @@ const InstructorDetails = () => {
 
     fetchMentorData();
     fetchMentorCourses();
+    // fetchMentorbooks();
     fetchMentorInstructions();
   }, [id]);
 
@@ -84,6 +95,8 @@ const InstructorDetails = () => {
           <Card.Text>Phone: {mentor.phone}</Card.Text> */}
           <Card.Text>مجال العمل : {mentor.field}</Card.Text>
           <Card.Text>الدولة : {mentor.address}</Card.Text>
+          <Card.Text>تفاصيل عن المستشار : {mentor.description}</Card.Text>
+
         </Card.Body>
       </Card>
 
@@ -159,6 +172,9 @@ const InstructorDetails = () => {
           )}
         </div>
       </div>
+
+      
+   
     </div>
   );
 };

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [showModal, setShowModal] = useState({ info: false, password: false });
-  const [userInfo, setUserInfo] = useState({ name: "", phone: "" });
+  const [userInfo, setUserInfo] = useState({ name: "", phone: "" , email: "" , description: "" , field: "" , address: ""});
   const [passwordInfo, setPasswordInfo] = useState({ currentPassword: "", newPassword: "" });
   const [courses ,setcourses ]= useState([]);
   const [books ,setbooks ]= useState([]);
@@ -22,7 +22,7 @@ const [hasid , sethasid]=useState();
       try {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}users/me`, { withCredentials: true });
         setUserData(response.data);
-        setUserInfo({ name: response.data.name, phone: response.data.phone });
+        setUserInfo({ name: response.data.name, phone: response.data.phone , email: response.data.email , description: response.data.description , field: response.data.field , address: response.data.address});
         sethasid(response.data._id)
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -119,6 +119,10 @@ const [hasid , sethasid]=useState();
             <p>{userData.email || "No Email Available"} : البريد الإلكترونى</p>
             <p>{userData.phone || "No Phone Available"} : رقم الهاتف</p>
             <p>{userData.role || "No Role Assigned"} : الوظيفة</p>
+            <p>{userData.field || "No field Assigned"} : المجال</p>
+            <p>{userData.address || "No city Assigned"} : الدولة المقيمم فيها</p>
+
+
           </div>
           <div className="profile-action-buttons">
             <button onClick={() => toggleModal("info")} className="profile-btn-primary">
@@ -172,6 +176,34 @@ const [hasid , sethasid]=useState();
                   value={userInfo.phone}
                   onChange={(e) => handleInputChange(e, "userInfo")}
                   placeholder="أدخل رقم الهاتف الجديد"
+                />
+                <input
+                  type="text"
+                  name="email"
+                  value={userInfo.email}
+                  onChange={(e) => handleInputChange(e, "userInfo")}
+                  placeholder="أدخل البريد الالكترونى الجديد"
+                />
+                 <input
+                  type="text"
+                  name="field"
+                  value={userInfo.field}
+                  onChange={(e) => handleInputChange(e, "userInfo")}
+                  placeholder="أدخل المجال الجديد"
+                />
+                <input
+                  type="text"
+                  name="address"
+                  value={userInfo.address}
+                  onChange={(e) => handleInputChange(e, "userInfo")}
+                  placeholder="أدخل العنوان الجديد"
+                />
+                <input
+                  type="text"
+                  name="description"
+                  value={userInfo.description}
+                  onChange={(e) => handleInputChange(e, "userInfo")}
+                  placeholder="أدخل تفاصيل الخبرة الجديدة"
                 />
                 <button onClick={handleUpdateInfo} className="profile-btn-save">
                   حفظ التغييرات

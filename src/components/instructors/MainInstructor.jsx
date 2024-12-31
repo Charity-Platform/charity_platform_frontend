@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import Card from 'react-bootstrap/Card';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import './MainInstructor.css';
 import { useNavigate } from 'react-router-dom';
 
 const MainInstructor = () => {
-  const [mentors, setMentors] = useState([]); // Store mentor data
-  const [loading, setLoading] = useState(true); // Show loading spinner or message
-  const [error, setError] = useState(null); // Handle error messages
-  const navigate = useNavigate(); // React Router navigation function
+  const [mentors, setMentors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [selectedMentor, setSelectedMentor] = useState(null); // Selected mentor's details
+  const navigate = useNavigate();
 
   // Fetch active mentors from API
   useEffect(() => {
     const fetchMentors = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/active`);
-        setMentors(response.data.data || []); // Use an empty array if no data is present
+        setMentors(response.data.data || []);
         setLoading(false);
       } catch (err) {
         setError('حدث خطأ أثناء تحميل البيانات. يرجى المحاولة مرة أخرى.');
@@ -26,10 +30,20 @@ const MainInstructor = () => {
 
     fetchMentors();
   }, []);
-
   // Navigate to details page for a specific mentor
-  const handleDetails = (id) => {
+  const handleNavigateDetails = (id) => {
     navigate(`/InstructorDetails/${id}`);
+  };
+  // Show mentor details in a modal
+  const handleDetails = (mentor) => {
+    setSelectedMentor(mentor); // Set the selected mentor to be displayed in the modal
+    setShowModal(true); // Show the modal
+  };
+
+  // Hide the modal
+  const handleClose = () => {
+    setShowModal(false);
+    setSelectedMentor(null); // Reset selected mentor when modal is closed
   };
 
   // Responsive configuration for the carousel
@@ -52,25 +66,21 @@ const MainInstructor = () => {
     },
   };
 
-  // Display loading message while data is being fetched
   if (loading) {
     return <p className="loading-text">جاري تحميل البيانات...</p>;
   }
 
-  // Display error message if data fetching fails
   if (error) {
     return <p className="error-text" style={{ color: 'red' }}>{error}</p>;
   }
 
-  // Display a message if no mentor data is available
   if (mentors.length === 0) {
     return <p className="no-data-text">لا يوجد مستشارون متاحون حالياً. يرجى المحاولة لاحقاً.</p>;
   }
 
-  // Render the carousel of mentors
   return (
     <div className="container text-center instructor-section">
-      <h1 className="heading w-2 p-5 text-center-instructor">المستشارين</h1>
+      <h1 className="heading w-2 p-5 text-center-instructor"></h1>
       <Carousel 
         responsive={responsive}
         swipeable={true}
@@ -99,11 +109,34 @@ const MainInstructor = () => {
                   </h5>
                 </Card.Text>
               </Card.Body>
-              <button className="btn-card" onClick={() => handleDetails(mentor._id)}>استشرنى</button>
+              <div className=""> 
+                <button className="btn-card w-50" style={{backgroundColor:'#07a79d' , color:"#fff"}} onClick={() => handleNavigateDetails(mentor._id)}>استشرنى</button>
+                <button className="btn-card" onClick={() => handleDetails(mentor)}>تفاصيل </button>
+              </div>
             </Card>
           </div>
         ))}
       </Carousel>
+
+      {/* Mentor Details Modal */}
+      {selectedMentor && (
+        <Modal show={showModal} onHide={handleClose} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>تفاصيل المستشار   :   {selectedMentor.name}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body dir='rtl'>
+            <div>
+              {/* <h3 className="mt-3">{selectedMentor.name}</h3> */}
+              <p><strong>التخصص : </strong>{selectedMentor.field}</p>
+              <p><strong>الموقع : </strong>{selectedMentor.address}</p>
+              <p><strong>الوصف  : </strong>{selectedMentor.description || 'لا يوجد وصف لهذا المستشار.'}</p>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>إغلاق</Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 };
