@@ -52,12 +52,20 @@ const SignupInstructor = () => {
     e.preventDefault();
 
     const newErrors = {};
-    if (!formData.name) newErrors.name = 'Name is required';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.phone) newErrors.phone = 'Phone number is required';
-    if (!formData.birthdate) newErrors.birthdate = 'Birthdate is required';
-    if (!formData.field) newErrors.field = 'Field is required';
-    if (!formData.password) newErrors.password = 'Password is required';
+    if (!formData.name) newErrors.name = ' من فضلك ادخل اسمك الكامل';
+    if (!formData.email) newErrors.email = ' من فضلك ادخل البريد الالكترونى الخاص بك';
+    if (!formData.phone) newErrors.phone = ' من فضلك ادخل رقم الجوال الخاص بك';
+    if (!formData.birthdate) newErrors.birthdate = ' من فضلك ادخل تاريخ الميلاد الخاص بك';
+    if (!formData.field) newErrors.field = ' من فضلك اختر المجال الذى ترغب فى التسجيل به';
+    if (!formData.password) newErrors.password = ' من فضلك ادخل الرقم السرى الخاص بك';
+    if (!formData.image) newErrors.image = 'من فضلك ارفع صورة شخصية';
+    if (!formData.description) newErrors.description = ' من فضلك ادخل تفاصيل عن خبراتك فى المجال';
+    if (!formData.address) newErrors.address = 'من فضلك ادخل الدولة التى تعيش فيها';
+    if (!formData.hourePrice) newErrors.hourePrice = 'من فضك ادخل تكلفة الاستشارة';
+
+
+
+
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -169,6 +177,7 @@ const SignupInstructor = () => {
               name="address"
               value={formData.address}
               onChange={handleChange}
+              isInvalid={!!errors.address}
               placeholder="ادخل اسم الدولة التى تعيش فيها "
             />
           </Form.Group>
@@ -181,6 +190,7 @@ const SignupInstructor = () => {
                   type="file"
                   name="image"
                   onChange={handleChange}
+                  isInvalid={!!errors.image}
                   accept="image/*"
                 />
               </Form.Group>
@@ -215,6 +225,7 @@ const SignupInstructor = () => {
               rows={3}
               name="description"
               value={formData.description}
+              isInvalid={!!errors.description}
               onChange={handleChange}
               placeholder="اخبرنا عن خبراتك فى المجال المتخصص فيه "
             />
@@ -227,6 +238,7 @@ const SignupInstructor = () => {
               name="hourePrice"
               value={formData.hourePrice}
               onChange={handleChange}
+              isInvalid={!!errors.hourePrice}
               placeholder="ادخل تكلفة للاستشارة "
             />
           </Form.Group>
