@@ -77,7 +77,11 @@ const EnglishPage = () => {
           showDots
           itemClass="slider-image-wrapper"
         >
+<<<<<<< HEAD
            <img src={img1} alt="Header 1" className="slider-image" />
+=======
+          <img src={img1} alt="Header 1" className="slider-image" />
+>>>>>>> ba62d4ae91b82df002fd1a0a7483f04820e4fa7f
            <img src={img4} alt="Header 2" className="slider-image" />
           <img src={img5} alt="Header 3" className="slider-image" />
         </Carousel>
