@@ -99,7 +99,7 @@ const InstructorDetails = () => {
                 <Card.Text className="instructor-instruction-time">
                   <FaClock className="instructor-time-icon" /> مدة الاستشارة : {instruction.duration} دقيقة 
                 </Card.Text>
-                <Card.Text className="instruction-details">Price: ${instruction.price}</Card.Text>
+                <Card.Text className="instruction-details"> ثمن الاستشارة : {instruction.price} دينار</Card.Text>
                 <Button variant="success" className="instructor-order-btn"
                 onClick={() => navigate(`/ServicesPayment/${instruction._id}`)}
                 >حجز الاستشارة</Button>
@@ -149,7 +149,7 @@ const InstructorDetails = () => {
                 <Card.Body>
                   <Card.Title>{course.title}</Card.Title>
                   <Card.Text>مدة  الدورة : {course.duration} ساعه </Card.Text>
-                  <Card.Text>ثمن الدورة : ${course.price}</Card.Text>
+                  <Card.Text>ثمن الدورة :{course.price} دينار</Card.Text>
                   <Button variant="primary" onClick={() => handleViewCourseDetails(course._id)}>عرض التفاصيل </Button> {/* Updated button */}
                 </Card.Body>
               </Card>

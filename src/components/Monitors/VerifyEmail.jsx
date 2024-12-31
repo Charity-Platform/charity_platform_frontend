@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Form, Button, Card, Container } from 'react-bootstrap';
+import { Form, Button, Card, Container, Spinner } from 'react-bootstrap';
 
 const VerifyEmail = () => {
   const location = useLocation();
@@ -10,6 +10,7 @@ const VerifyEmail = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [welcomeMessage, setWelcomeMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Loading state for the submit button
 
   // الحصول على البريد الإلكتروني من الـ state
   const email = location.state?.email || ''; 
@@ -26,6 +27,8 @@ const VerifyEmail = () => {
       setErrorMessage('البريد الإلكتروني أو رمز التحقق مفقود.');
       return;
     }
+
+    setIsLoading(true); // تشغيل حالة التحميل
 
     try {
       // تضمين البريد الإلكتروني ورمز التحقق في طلب الـ POST
@@ -60,6 +63,8 @@ const VerifyEmail = () => {
       console.error('تفاصيل الخطأ:', error.response?.data || error.message);
       setErrorMessage('فشل التحقق. يرجى التأكد من الرمز.');
       setSuccessMessage('');
+    } finally {
+      setIsLoading(false); // إيقاف حالة التحميل
     }
   };
 
@@ -84,8 +89,8 @@ const VerifyEmail = () => {
           {successMessage && <p className="text-success">{successMessage}</p>}
           {welcomeMessage && <p className="text-info">{welcomeMessage}</p>}
 
-          <Button variant="primary" type="submit" className="w-100">
-            تحقق من البريد الإلكتروني
+          <Button variant="primary" type="submit" className="w-50" disabled={isLoading}>
+            {isLoading ? <Spinner animation="border" size="sm" /> : ' تحقق من البريد الإلكتروني'}
           </Button>
         </Form>
       </Card>

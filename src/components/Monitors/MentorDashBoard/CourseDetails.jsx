@@ -97,7 +97,7 @@ const CourseDetails = () => {
                 <Card.Body>
                   <Card.Title>{course.title}</Card.Title>
                   <Card.Text>{course.description}</Card.Text>
-                  <Card.Subtitle className="mb-2 text-muted">Price: ${course.price}</Card.Subtitle>
+                  <Card.Subtitle className="mb-2 text-muted">السعر: {course.price} دينار</Card.Subtitle>
                   <Card.Text><strong>Field:</strong> {course.field}</Card.Text>
                   <Card.Text><strong>Course Link:</strong> <a href={course.courseLink} target="_blank" rel="noopener noreferrer">Watch Course</a></Card.Text>
                 </Card.Body>
