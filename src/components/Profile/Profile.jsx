@@ -84,19 +84,30 @@ const [hasid , sethasid]=useState();
   };
 
   const handleChangePassword = async () => {
+    // تحقق من ملء الحقول
     if (!passwordInfo.currentPassword || !passwordInfo.newPassword) {
       alert("Please fill in all required fields.");
       return;
     }
+  
     try {
-      await axios.put(`${import.meta.env.VITE_MAIN_URL}users/update-password`, passwordInfo, { withCredentials: true });
+      const response = await axios.put(
+        `${import.meta.env.VITE_MAIN_URL}users/update-password`,
+        {
+          currentPassword: passwordInfo.currentPassword,
+          newPassword: passwordInfo.newPassword,
+        },
+        { withCredentials: true }
+      );
       alert("Password updated successfully!");
       toggleModal("password");
     } catch (error) {
       console.error("Error updating password:", error);
-      alert(`Failed to update password. ${error.response?.data?.message || "Please try again."}`);
+      const errorMessage = error.response?.data?.message || "Please try again.";
+      alert(`Failed to update password. ${errorMessage}`);
     }
   };
+  
 
   if (!userData) {
     return <div className="profile-text-center">Loading...</div>;
@@ -120,7 +131,6 @@ const [hasid , sethasid]=useState();
             <p>{userData.phone || "No Phone Available"} : رقم الهاتف</p>
             <p>{userData.role || "No Role Assigned"} : الوظيفة</p>
             <p>  المجال : {userData.field || "No field Assigned"}</p>
-            <p> الدولة المقيمم فيها  : {userData.address || "No city Assigned"}</p>
             <p> الدولة المقيمم فيها  : {userData.address || "No city Assigned"}</p>
             <p> تفاصيل الخبرة  : {userData.description || "No description Assigned"}</p>
 
@@ -206,6 +216,13 @@ const [hasid , sethasid]=useState();
                   value={userInfo.description}
                   onChange={(e) => handleInputChange(e, "userInfo")}
                   placeholder="أدخل تفاصيل الخبرة الجديدة"
+                />
+                 <input
+                  type="file"
+                  name="image"
+                  onChange={handleImageChange}
+                  accept="image/*"
+                  placeholder="اختر صورة جديدة"
                 />
                 <button onClick={handleUpdateInfo} className="profile-btn-save">
                   حفظ التغييرات
