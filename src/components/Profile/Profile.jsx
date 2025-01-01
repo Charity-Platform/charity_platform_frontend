@@ -11,6 +11,7 @@ const Profile = () => {
   const [showModal, setShowModal] = useState({ info: false, password: false });
   const [userInfo, setUserInfo] = useState({ name: "", phone: "" , email: "" , description: "" , field: "" , address: ""});
   const [passwordInfo, setPasswordInfo] = useState({ currentPassword: "", newPassword: "" });
+  const [image, setImage] = useState(null);
   const [courses ,setcourses ]= useState([]);
   const [books ,setbooks ]= useState([]);
   const [instruction ,setinstruction ]= useState([]);
@@ -69,6 +70,9 @@ const [hasid , sethasid]=useState();
     } else {
       setPasswordInfo(prev => ({ ...prev, [name]: value }));
     }
+  };
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
   };
 
   const handleUpdateInfo = async () => {
