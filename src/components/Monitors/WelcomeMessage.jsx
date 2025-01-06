@@ -29,7 +29,7 @@ const WelcomeMessage = () => {
         </p>
 
         <p className="mt-3">
-          لأي استفسار، لا تتردد في <a  href="https://wa.me/201126989864"
+          لأي استفسار، لا تتردد في <a  href="https://wa.me/0096565012126"
                     target="_blank">التواصل معنا</a>.
         </p>
 
