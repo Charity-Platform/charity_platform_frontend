@@ -110,6 +110,12 @@ const RightSide = () => {
       </Link>
       </button>
       <button className="btn-comunity btn  d-flex align-items-center">
+      <Link to='/all_tickets' className='btn-title'>
+        {/* <IoIosContacts  className='me-2' />  */}
+        كل الاستشارات  
+      </Link>
+      </button>
+      <button className="btn-comunity btn  d-flex align-items-center">
       <Link to='/questions' className='btn-title'>
         {/* <IoIosContacts  className='me-2' />  */}
         الأسئلة 

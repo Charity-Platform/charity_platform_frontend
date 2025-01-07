@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -16,6 +16,8 @@ const NavBar = () => {
   const [showSubmenu, setShowSubmenu] = useState(false);
   const handleMouseEnter = () => setShowSubmenu(true);
   const handleMouseLeave = () => setShowSubmenu(false);
+  const [fields, setFields] = useState([]); // To store available fields from API
+
   const navigate = useNavigate();
   const { setRole, setuser, setLoggedin, user } = useAuth();
 
@@ -36,6 +38,22 @@ const NavBar = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchFields = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}fields`, {
+          headers: { 'Content-Type': 'application/json' }
+        });
+        console.log("all field request", response.data.document);
+        setFields(response.data.document); // Set the fields received from the API
+      } catch (error) {
+        console.error('Error fetching fields:', error);
+      }
+    };
+
+    fetchFields();
+  }, []);
+
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary Nav" dir="rtl">
@@ -47,7 +65,7 @@ const NavBar = () => {
             aria-controls="basic-navbar-nav"
             className="p-2 toggle"
           />
-          <Navbar.Collapse id="basic-navbar-nav">
+       <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="m-2 p-2 navbar">
               <Nav.Link as={NavLink} to="/" exact activeClassName="active">
                 الرئيسية
@@ -55,123 +73,52 @@ const NavBar = () => {
               <Nav.Link as={NavLink} to="/about">
                 من نحن
               </Nav.Link>
-              {/* Dropdown for services */}
-              <Dropdown onToggle={(isOpen) => setShowSubmenu(isOpen)}>
-                
+              
+              {/* Dropdown for Fields */}
+              <Dropdown>
                 <Dropdown.Toggle
                   as={NavLink}
-                  id="services-dropdown"
+                  id="fields-dropdown"
                   className="custom-dropdown-toggle"
-                  to="/services"
                 >
                   الخدمات
                 </Dropdown.Toggle>
-
                 <Dropdown.Menu>
-                {/* <Dropdown.Item as={NavLink} to="/jobs">
-                    الوظائف
-                  </Dropdown.Item> */}
-                  <Dropdown.Item
-                    as="div"
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                    style={{ cursor: "pointer", position: "relative" }}
-                  >
-                    الاستشارات
-                    <span className="ms-2">&#9662;</span>
-                    {showSubmenu && (
-                      <Dropdown.Menu
-                        show
-                        style={{
-                          position: "absolute",
-                          left: "100%",
-                          top: 0,
-                          marginTop: "5px",
-                          borderRadius: "8px",
-                          boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-                          backgroundColor: "#fff", // Ensure submenu background is white
-                        }}
-                        onMouseEnter={handleMouseEnter}
-                        onMouseLeave={handleMouseLeave}
-                      >
-                        {/* <Dropdown.Item as={NavLink} to="/services">
-                        تأسيس وبناء الجمعيات الخيرية
-                        </Dropdown.Item> */} 
-                        <Dropdown.Item as={NavLink} to="/services">
-                        التخطيط الاستراتيجي
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        البناء المؤسسي والتنظيمي 
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        الحوكمة وإدارة المخاطر
-                        </Dropdown.Item>                       
-                        <Dropdown.Item as={NavLink} to="/services">
-                        إدارة المشاريع الخيرية
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        إدارة الجودة وتحسين الأداء
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        تنمية الموارد
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        التدريب والتطوير
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        التسويق وبناء الهوية 
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        إدارة المشاريع التعليمية
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        التخطيط المالي والميزانيات
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        العلاقات العامة وبناء الشراكات
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        تطويرالمواقع الالكترونية
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        تطبيقات الذكاء الاصطناعي في العمل الخيري
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        الاستشارات القانونية
-                        </Dropdown.Item>
-                        <Dropdown.Item as={NavLink} to="/services">
-                        الاستشارات الشرعية                       
-                         </Dropdown.Item>
-                      </Dropdown.Menu>
-                    )}
-                  </Dropdown.Item>
-
-                  
+                  {fields.map((field) => (
+                    <Dropdown.Item
+                      key={field._id}
+                      as={NavLink}
+                      to={"/services"} // Example: Navigate using a slug or field ID
+                    >
+                      {field.name}
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
+              
               <Nav.Link as={NavLink} to="/instructors">
                 المستشارين
               </Nav.Link>
               <Nav.Link as={NavLink} to="/Cources">
-              منصة تطوير
+                منصة تطوير
               </Nav.Link>
               <Nav.Link as={NavLink} to="/books">
                 المكتبة الخيرية
               </Nav.Link>
               <Nav.Link as={NavLink} to="/blog">
-              ملتقى التوظيف
+                ملتقى التوظيف
               </Nav.Link>
               <Nav.Link as={NavLink} to="/contact">
                 تواصل معنا
               </Nav.Link>
-              <Button
-                  type="button"
-                  className="mx-1 btn btn-primary"
-                >
-                <Link to="/englishPage" className='English-text'>English Page</Link>
-                </Button>
+              <Button type="button" className="mx-1 btn btn-primary">
+                <Link to="/englishPage" className="English-text">
+                  English Page
+                </Link>
+              </Button>
             </Nav>
           </Navbar.Collapse>
+
           <div className="icon-user">
             {user ? (
               <>

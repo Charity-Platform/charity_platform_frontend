@@ -59,6 +59,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 8px; /* Adjust this value as needed */
+    text-decoration: none;
   }
   
   .custom-dropdown-toggle::after {

@@ -102,19 +102,11 @@ const Instructions = () => {
           </Form.Group>
         </Row>
 
-        <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="formStartDate">
-            <Form.Label>وقت البدء (ساعة:دقيقة)</Form.Label>
-            <Form.Control
-              type="time"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
+      
 
-          <Form.Group as={Col} md="6" controlId="formPrice">
+        <Row className="mb-3">
+        
+        <Form.Group as={Col} md="6" controlId="formPrice">
             <Form.Label>السعر (بالدينار)</Form.Label>
             <Form.Control
               type="number"
@@ -122,19 +114,6 @@ const Instructions = () => {
               value={formData.price}
               onChange={handleChange}
               placeholder="أدخل سعر الاستشارة"
-              required
-            />
-          </Form.Group>
-        </Row>
-
-        <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="formDay">
-            <Form.Label>اليوم</Form.Label>
-            <Form.Control
-              type="date"
-              name="day"
-              value={formData.day}
-              onChange={handleChange}
               required
             />
           </Form.Group>
@@ -174,6 +153,7 @@ const Instructions = () => {
             />
           </Form.Group>
         </Row>
+        
 
         <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
           {isLoading ? (
