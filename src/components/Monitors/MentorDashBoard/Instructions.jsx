@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
-import { format } from 'date-fns';
 
 const Instructions = () => {
   const [formData, setFormData] = useState({
@@ -10,13 +9,14 @@ const Instructions = () => {
     duration: '',
     startDate: '',
     price: '',
+    day: '',
     type: '',
     field: '',
-    content: '',
+    content: ''
   });
 
   const [fields, setFields] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -24,9 +24,13 @@ const Instructions = () => {
         const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}fields`, {
           withCredentials: true,
         });
-        setFields(Array.isArray(response.data.document) ? response.data.document : []);
+        if (Array.isArray(response.data.document)) {
+          setFields(response.data.document);
+        } else {
+          console.error('Expected an array but got:', response.data);
+        }
       } catch (error) {
-        console.error('Error fetching fields:', error.message);
+        console.error('Error fetching fields:', error);
       }
     };
 
@@ -34,47 +38,42 @@ const Instructions = () => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(true); // Set loading state to true
 
     try {
-      // Format the date
-      const formattedStartDate = format(new Date(formData.startDate), 'MM-dd-yyyy');
-
-      const response = await axios.post(
-        `${import.meta.env.VITE_MAIN_URL}tickets`,
-        { ...formData, startDate: formattedStartDate },
-        { withCredentials: true }
-      );
-
+      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formData, {
+        withCredentials: true,
+      });
       console.log('Form submitted successfully', response.data);
-      toast.success('تم إضافة استشارة جديدة بنجاح');
-
-      // Reset the form
+      toast.success("تم إضافة استشارة جديدة بنجاح");
       setFormData({
         title: '',
         duration: '',
         startDate: '',
         price: '',
+       // day: '',
         type: '',
         field: '',
-        content: '',
+        content: ''
       });
     } catch (error) {
-      console.error('Submission error:', error.response ? error.response.data : error.message);
-      toast.error('حدث خطأ أثناء إضافة الاستشارة');
+      console.error('There was an error submitting the form', error.response ? error.response.data : error.message);
+      toast.error("حدث خطأ أثناء إضافة الاستشارة"); // Error toast message
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Reset loading state
     }
   };
 
   return (
-    <Container className="py-5" dir="rtl">
+    <Container className="py-5" dir='rtl'>
       <h2 className="text-center mb-4">إنشاء استشارة جديدة</h2>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
@@ -103,8 +102,11 @@ const Instructions = () => {
           </Form.Group>
         </Row>
 
+      
+
         <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="formPrice">
+        
+        <Form.Group as={Col} md="6" controlId="formPrice">
             <Form.Label>السعر (بالدينار)</Form.Label>
             <Form.Control
               type="number"
@@ -131,9 +133,9 @@ const Instructions = () => {
             <Form.Label>التخصص</Form.Label>
             <Form.Select name="field" value={formData.field} onChange={handleChange} required>
               <option value="">اختر التخصص</option>
-              {fields.map(({ id, name }) => (
-                <option key={id} value={name}>
-                  {name}
+              {fields.map((field) => (
+                <option key={field.id} value={field.name}>
+                  {field.name}
                 </option>
               ))}
             </Form.Select>
@@ -151,24 +153,26 @@ const Instructions = () => {
             />
           </Form.Group>
         </Row>
-
+        
         <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="formStartDate">
-            <Form.Label>تاريخ البداية</Form.Label>
+        <Form.Group as={Col} md="6" controlId="formContent">
+            <Form.Label>  البداية</Form.Label>
             <Form.Control
-              type="date"
+              type="time"
               name="startDate"
               value={formData.startDate}
               onChange={handleChange}
               required
             />
           </Form.Group>
+
         </Row>
 
         <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
           {isLoading ? (
             <>
-              <Spinner animation="border" size="sm" /> &nbsp; جارٍ الإرسال...
+              <Spinner animation="border" size="sm" /> {/* Loading spinner */}
+              &nbsp; جارٍ الإرسال...
             </>
           ) : (
             'إضافة الاستشارة'
