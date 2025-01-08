@@ -9,7 +9,7 @@ const Instructions = () => {
     duration: '',
     startDate: '',
     price: '',
-    day: '',
+   // day: '',
     type: '',
     field: '',
     content: ''
@@ -47,9 +47,12 @@ const Instructions = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Set loading state to true
-
+    const formattedData = {
+      ...formData,
+      startDate: new Date(formData.startDate).toISOString(), // Convert to ISO format
+    };
     try {
-      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formData, {
+      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formattedData, {
         withCredentials: true,
       });
       console.log('Form submitted successfully', response.data);
@@ -59,7 +62,7 @@ const Instructions = () => {
         duration: '',
         startDate: '',
         price: '',
-        day: '',
+        //day: '',
         type: '',
         field: '',
         content: ''
@@ -162,18 +165,6 @@ const Instructions = () => {
               name="startDate"
               value={formData.startDate}
               onChange={handleChange}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} md="6" controlId="formContent">
-            <Form.Label> اليوم </Form.Label>
-            <Form.Control
-              type="day"
-              name="day"
-              value={formData.day}
-              onChange={handleChange}
-              placeholder="أدخل يوم الاستشارة"
               required
             />
           </Form.Group>
