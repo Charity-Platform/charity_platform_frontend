@@ -47,12 +47,9 @@ const Instructions = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Set loading state to true
-    const formattedData = {
-      ...formData,
-      startDate: new Date(formData.startDate).toISOString(), // Convert to ISO format
-    };
+  
     try {
-      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formattedData, {
+      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formData, {
         withCredentials: true,
       });
       console.log('Form submitted successfully', response.data);
@@ -62,7 +59,6 @@ const Instructions = () => {
         duration: '',
         startDate: '',
         price: '',
-        //day: '',
         type: '',
         field: '',
         content: ''
@@ -74,6 +70,7 @@ const Instructions = () => {
       setIsLoading(false); // Reset loading state
     }
   };
+  
 
   return (
     <Container className="py-5" dir='rtl'>
