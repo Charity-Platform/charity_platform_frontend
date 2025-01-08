@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
+import { formatISO } from 'date-fns';
 
 const Instructions = () => {
   const [formData, setFormData] = useState({
@@ -47,9 +48,9 @@ const Instructions = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Set loading state to true
-    
-    // Format the startDate using dayjs or another date library
-    const formattedStartDate = dayjs(formData.startDate).toISOString();
+  
+    // Format the startDate using date-fns
+    const formattedStartDate = formatISO(new Date(formData.startDate));
   
     try {
       const response = await axios.post(
@@ -75,6 +76,7 @@ const Instructions = () => {
       setIsLoading(false); // Reset loading state
     }
   };
+  
 
   return (
     <Container className="py-5" dir='rtl'>
