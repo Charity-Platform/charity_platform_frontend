@@ -88,22 +88,21 @@ const [hasid , sethasid]=useState();
   };
 
   const handleChangePassword = async () => {
-    // تحقق من ملء الحقول
     if (!passwordInfo.currentPassword || !passwordInfo.newPassword) {
       alert("Please fill in all required fields.");
       return;
     }
   
     try {
+      // Request payload as the API expects
       const response = await axios.put(
         `${import.meta.env.VITE_MAIN_URL}users/update-password`,
         {
-          currentPassword: passwordInfo.currentPassword,
-          newPassword: passwordInfo.newPassword,
+          password: passwordInfo.newPassword, // Send just 'password' for update
         },
         { withCredentials: true }
       );
-      alert("Password updated successfully!");
+      alert("تم تحديث كلمة المرور بنجاح");
       toggleModal("password");
     } catch (error) {
       console.error("Error updating password:", error);
@@ -111,6 +110,7 @@ const [hasid , sethasid]=useState();
       alert(`Failed to update password. ${errorMessage}`);
     }
   };
+  
   
 
   if (!userData) {
