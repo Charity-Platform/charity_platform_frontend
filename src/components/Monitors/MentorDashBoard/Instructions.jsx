@@ -2,21 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Instructions = () => {
   const [formData, setFormData] = useState({
     title: '',
     duration: '',
-    // startDate: '',
+    startDate: '',
     price: '',
-    // day: '',
+    day: '',
     type: '',
     field: '',
     content: ''
   });
 
   const [fields, setFields] = useState([]);
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -46,34 +47,34 @@ const Instructions = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true); // Set loading state to true
+    setIsLoading(true);
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formData, {
         withCredentials: true,
       });
       console.log('Form submitted successfully', response.data);
-      toast.success("تم إضافة استشارة جديدة بنجاح");
+      toast.success('تم إضافة استشارة جديدة بنجاح');
       setFormData({
         title: '',
         duration: '',
-       // startDate: '',
+        startDate: '',
         price: '',
-       // day: '',
+        day: '',
         type: '',
         field: '',
         content: ''
       });
     } catch (error) {
       console.error('There was an error submitting the form', error.response ? error.response.data : error.message);
-      toast.error("حدث خطأ أثناء إضافة الاستشارة"); // Error toast message
+      toast.error('حدث خطأ أثناء إضافة الاستشارة');
     } finally {
-      setIsLoading(false); // Reset loading state
+      setIsLoading(false);
     }
   };
 
   return (
-    <Container className="py-5" dir='rtl'>
+    <Container className="py-5" dir="rtl">
       <h2 className="text-center mb-4">إنشاء استشارة جديدة</h2>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
@@ -102,11 +103,35 @@ const Instructions = () => {
           </Form.Group>
         </Row>
 
-      
+        <Row className="mb-3">
+          <Form.Group as={Col} md="6" controlId="formStartDate">
+            <Form.Label>تاريخ البداية</Form.Label>
+            <Form.Control
+              type="date"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group as={Col} md="6" controlId="formDay">
+            <Form.Label>اليوم</Form.Label>
+            <Form.Select name="day" value={formData.day} onChange={handleChange} required>
+              <option value="">اختر اليوم</option>
+              <option value="الأحد">الأحد</option>
+              <option value="الإثنين">الإثنين</option>
+              <option value="الثلاثاء">الثلاثاء</option>
+              <option value="الأربعاء">الأربعاء</option>
+              <option value="الخميس">الخميس</option>
+              <option value="الجمعة">الجمعة</option>
+              <option value="السبت">السبت</option>
+            </Form.Select>
+          </Form.Group>
+        </Row>
 
         <Row className="mb-3">
-        
-        <Form.Group as={Col} md="6" controlId="formPrice">
+          <Form.Group as={Col} md="6" controlId="formPrice">
             <Form.Label>السعر (بالدينار)</Form.Label>
             <Form.Control
               type="number"
@@ -153,13 +178,11 @@ const Instructions = () => {
             />
           </Form.Group>
         </Row>
-        
 
         <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
           {isLoading ? (
             <>
-              <Spinner animation="border" size="sm" /> {/* Loading spinner */}
-              &nbsp; جارٍ الإرسال...
+              <Spinner animation="border" size="sm" /> &nbsp; جارٍ الإرسال...
             </>
           ) : (
             'إضافة الاستشارة'
