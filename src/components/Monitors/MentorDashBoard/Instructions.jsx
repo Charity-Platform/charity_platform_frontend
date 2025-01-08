@@ -44,7 +44,7 @@ const Instructions = () => {
 
     try {
       // Format the date
-      const formattedStartDate = format(new Date(formData.startDate), 'yyyy-MM-dd');
+      const formattedStartDate = format(new Date(formData.startDate), 'MM-dd-yyyy');
 
       const response = await axios.post(
         `${import.meta.env.VITE_MAIN_URL}tickets`,
