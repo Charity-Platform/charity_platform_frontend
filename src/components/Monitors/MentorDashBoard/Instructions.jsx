@@ -7,9 +7,9 @@ const Instructions = () => {
   const [formData, setFormData] = useState({
     title: '',
     duration: '',
-    startDate: '',
+    // startDate: '',
     price: '',
-    day: '',
+    // day: '',
     type: '',
     field: '',
     content: ''
@@ -57,9 +57,9 @@ const Instructions = () => {
       setFormData({
         title: '',
         duration: '',
-        startDate: '',
+       // startDate: '',
         price: '',
-        day: '',
+       // day: '',
         type: '',
         field: '',
         content: ''
