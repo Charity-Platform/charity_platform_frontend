@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Form, Button, Row, Col, Spinner } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const Instructions = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +16,7 @@ const Instructions = () => {
   });
 
   const [fields, setFields] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
   useEffect(() => {
     const fetchFields = async () => {
@@ -47,14 +46,14 @@ const Instructions = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(true); // Set loading state to true
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formData, {
         withCredentials: true,
       });
       console.log('Form submitted successfully', response.data);
-      toast.success('تم إضافة استشارة جديدة بنجاح');
+      toast.success("تم إضافة استشارة جديدة بنجاح");
       setFormData({
         title: '',
         duration: '',
@@ -67,14 +66,14 @@ const Instructions = () => {
       });
     } catch (error) {
       console.error('There was an error submitting the form', error.response ? error.response.data : error.message);
-      toast.error('حدث خطأ أثناء إضافة الاستشارة');
+      toast.error("حدث خطأ أثناء إضافة الاستشارة"); // Error toast message
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // Reset loading state
     }
   };
 
   return (
-    <Container className="py-5" dir="rtl">
+    <Container className="py-5" dir='rtl'>
       <h2 className="text-center mb-4">إنشاء استشارة جديدة</h2>
       <Form onSubmit={handleSubmit}>
         <Row className="mb-3">
@@ -103,35 +102,11 @@ const Instructions = () => {
           </Form.Group>
         </Row>
 
-        <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="formStartDate">
-            <Form.Label>تاريخ البداية</Form.Label>
-            <Form.Control
-              type="date"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-
-          <Form.Group as={Col} md="6" controlId="formDay">
-            <Form.Label>اليوم</Form.Label>
-            <Form.Select name="day" value={formData.day} onChange={handleChange} required>
-              <option value="">اختر اليوم</option>
-              <option value="الأحد">الأحد</option>
-              <option value="الإثنين">الإثنين</option>
-              <option value="الثلاثاء">الثلاثاء</option>
-              <option value="الأربعاء">الأربعاء</option>
-              <option value="الخميس">الخميس</option>
-              <option value="الجمعة">الجمعة</option>
-              <option value="السبت">السبت</option>
-            </Form.Select>
-          </Form.Group>
-        </Row>
+      
 
         <Row className="mb-3">
-          <Form.Group as={Col} md="6" controlId="formPrice">
+        
+        <Form.Group as={Col} md="6" controlId="formPrice">
             <Form.Label>السعر (بالدينار)</Form.Label>
             <Form.Control
               type="number"
@@ -178,11 +153,37 @@ const Instructions = () => {
             />
           </Form.Group>
         </Row>
+        
+        <Row className="mb-3">
+        <Form.Group as={Col} md="6" controlId="formContent">
+            <Form.Label> تاريخ البداية</Form.Label>
+            <Form.Control
+              type="date"
+              name="startDate"
+              value={formData.startDate}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group as={Col} md="6" controlId="formContent">
+            <Form.Label> اليوم </Form.Label>
+            <Form.Control
+              type="day"
+              name="day"
+              value={formData.day}
+              onChange={handleChange}
+              placeholder="أدخل يوم الاستشارة"
+              required
+            />
+          </Form.Group>
+        </Row>
 
         <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
           {isLoading ? (
             <>
-              <Spinner animation="border" size="sm" /> &nbsp; جارٍ الإرسال...
+              <Spinner animation="border" size="sm" /> {/* Loading spinner */}
+              &nbsp; جارٍ الإرسال...
             </>
           ) : (
             'إضافة الاستشارة'
