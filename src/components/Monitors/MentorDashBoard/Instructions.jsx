@@ -47,11 +47,16 @@ const Instructions = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Set loading state to true
+    
+    // Format the startDate using dayjs or another date library
+    const formattedStartDate = dayjs(formData.startDate).toISOString();
   
     try {
-      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}tickets`, formData, {
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_MAIN_URL}tickets`, 
+        { ...formData, startDate: formattedStartDate }, // Use formatted date
+        { withCredentials: true }
+      );
       console.log('Form submitted successfully', response.data);
       toast.success("تم إضافة استشارة جديدة بنجاح");
       setFormData({
@@ -70,7 +75,6 @@ const Instructions = () => {
       setIsLoading(false); // Reset loading state
     }
   };
-  
 
   return (
     <Container className="py-5" dir='rtl'>
