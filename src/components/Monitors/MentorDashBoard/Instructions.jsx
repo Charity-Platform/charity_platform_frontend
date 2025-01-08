@@ -7,9 +7,7 @@ const Instructions = () => {
   const [formData, setFormData] = useState({
     title: '',
     duration: '',
-    startDate: '',
     price: '',
-    day: '',
     type: '',
     field: '',
     content: ''
@@ -57,9 +55,7 @@ const Instructions = () => {
       setFormData({
         title: '',
         duration: '',
-        startDate: '',
         price: '',
-       // day: '',
         type: '',
         field: '',
         content: ''
@@ -152,20 +148,6 @@ const Instructions = () => {
               rows={3}
             />
           </Form.Group>
-        </Row>
-        
-        <Row className="mb-3">
-        <Form.Group as={Col} md="6" controlId="formContent">
-            <Form.Label>  البداية</Form.Label>
-            <Form.Control
-              type="time"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-              required
-            />
-          </Form.Group>
-
         </Row>
 
         <Button variant="primary" type="submit" className="w-100" disabled={isLoading}>
