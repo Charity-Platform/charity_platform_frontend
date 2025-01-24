@@ -79,6 +79,10 @@ const Nonactivemonitor = () => {
       });
       setMentorDetails(response.data);
       console.log(response.data)
+      console.log('Mentor Details State:', mentorDetails);
+console.log('Modal Open:', showDetailsModal);
+console.log('Rendering Modal:', { mentorDetails, showDetailsModal });
+
       setShowDetailsModal(true);
     } catch (err) {
       console.error('Error fetching mentor details:', err);
