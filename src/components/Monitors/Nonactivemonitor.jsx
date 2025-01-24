@@ -77,11 +77,10 @@ const Nonactivemonitor = () => {
       const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${id}`, {
         withCredentials: true,
       });
-      setMentorDetails(response.data);
-      console.log(response.data)
+      setMentorDetails(response.data.data);
+      console.log(response.data.data)
       console.log('Mentor Details State:', mentorDetails);
-console.log('Modal Open:', showDetailsModal);
-console.log('Rendering Modal:', { mentorDetails, showDetailsModal });
+
 
       setShowDetailsModal(true);
     } catch (err) {
