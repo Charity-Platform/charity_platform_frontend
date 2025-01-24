@@ -164,7 +164,7 @@ const Nonactivemonitor = () => {
                   <Button
                     variant="info"
                     style={{color: "white", backgroundColor: "red" }}
-                    onClick={() => handeldeletemantor(mentor._id)}
+                    onClick={() => handleDeleteMentor(mentor._id)}
                   >
                    حذف 
                   </Button>
