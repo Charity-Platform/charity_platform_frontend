@@ -178,6 +178,7 @@ const AllUser = () => {
                           <td>
                             <Button
                               variant="danger"
+                              style={{color: "white", backgroundColor: "red"}}
                               onClick={() => handleDeleteUser(user._id)}
                             >
                               حذف

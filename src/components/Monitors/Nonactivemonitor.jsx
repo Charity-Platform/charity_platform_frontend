@@ -89,6 +89,38 @@ const Nonactivemonitor = () => {
     }
   };
 
+  //handel delete mentors 
+  const handleDeleteMentor = async (id) => {
+    if (!id) {
+      setError('Mentor ID is required.');
+      console.error('Mentor ID is required.');
+      return;
+    }
+  
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_MAIN_URL}mentors/deleteMentor/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+  
+      if (response.status === 200 || response.status === 204) {
+        alert('Mentor deleted successfully.');
+        setMentors((prevMentors) =>
+          prevMentors.filter((mentor) => mentor._id !== id)
+        );
+      } else {
+        setError('Failed to delete mentor. Unexpected server response.');
+        console.error(`Server response: ${response.status}`);
+      }
+    } catch (err) {
+      console.error('Error deleting mentor:', err.response ? err.response.data : err.message);
+      setError('An error occurred while deleting the mentor. Please try again later.');
+    }
+  };
+  
+
   return (
     <Container className="mt-5" dir="rtl">
       <Button variant="primary" onClick={() => navigate('/dashboard')} className="mb-4">
@@ -128,6 +160,13 @@ const Nonactivemonitor = () => {
                     onClick={() => fetchMentorDetails(mentor._id)}
                   >
                     عرض التفاصيل
+                  </Button>
+                  <Button
+                    variant="info"
+                    style={{color: "white", backgroundColor: "red" }}
+                    onClick={() => handeldeletemantor(mentor._id)}
+                  >
+                   حذف 
                   </Button>
                 </Card.Body>
               </Card>
