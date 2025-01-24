@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Button, Container, Card, Row, Col, Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../../Context/AuthContext'; // Adjust the import path as needed
 
 const Nonactivemonitor = () => {
   const [mentors, setMentors] = useState([]);
   const [error, setError] = useState('');
-  const [showModal, setShowModal] = useState(false); // To control the modal visibility
-  const [selectedMentorId, setSelectedMentorId] = useState(null); // To store the mentor's ID when choosing
-  const [fees, setFees] = useState(''); // Store the fee input by admin
+  const [showAcceptModal, setShowAcceptModal] = useState(false);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedMentorId, setSelectedMentorId] = useState(null);
+  const [fees, setFees] = useState('');
+  const [mentorDetails, setMentorDetails] = useState(null); // To store mentor details for the modal
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,13 +20,12 @@ const Nonactivemonitor = () => {
           withCredentials: true,
         });
 
-        const mentorsData = response.data.data; // Extract the mentors data
-        const message = response.data.message; // Extract the response message
-        console.log("all request data", response.data);
+        const mentorsData = response.data.data;
+        const message = response.data.message;
         if (Array.isArray(mentorsData) && mentorsData.length > 0) {
           setMentors(mentorsData);
         } else if (message) {
-          setError(message); // Set the response message as the error
+          setError(message);
         } else {
           setError('No mentors found.');
         }
@@ -45,26 +45,38 @@ const Nonactivemonitor = () => {
     }
 
     try {
-      // Send the mentor ID and fee in the request
-      const response = await axios.post(`${import.meta.env.VITE_MAIN_URL}mentors/accept/${selectedMentorId}`, {
-        fees, // Send fees in the request body
-      }, {
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_MAIN_URL}mentors/accept/${selectedMentorId}`,
+        { fees },
+        { withCredentials: true }
+      );
 
       if (response.status === 200) {
         alert('Mentor accepted successfully!');
-        // Close the modal and clear state
-        setShowModal(false);
+        setShowAcceptModal(false);
         setFees('');
-        // Remove the accepted mentor from the list
-        setMentors(prevMentors => prevMentors.filter(mentor => mentor._id !== selectedMentorId));
+        setMentors((prevMentors) =>
+          prevMentors.filter((mentor) => mentor._id !== selectedMentorId)
+        );
       } else {
         setError(`Failed to accept mentor. Status code: ${response.status}`);
       }
     } catch (err) {
       console.error('Error accepting mentor:', err.response ? err.response.data : err.message);
       setError('Failed to accept mentor.');
+    }
+  };
+
+  const fetchMentorDetails = async (id) => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/${id}`, {
+        withCredentials: true,
+      });
+      setMentorDetails(response.data);
+      setShowDetailsModal(true);
+    } catch (err) {
+      console.error('Error fetching mentor details:', err);
+      setError('Failed to fetch mentor details.');
     }
   };
 
@@ -91,13 +103,22 @@ const Nonactivemonitor = () => {
                     <strong>التخصص :</strong> {mentor.field}
                     <br />
                     <strong>معلومات اضافية :</strong> {mentor.description}
-                    <br />
                   </Card.Text>
-                  <Button variant="success" onClick={() => {
-                    setSelectedMentorId(mentor._id);
-                    setShowModal(true);
-                  }}>
+                  <Button
+                    variant="success"
+                    onClick={() => {
+                      setSelectedMentorId(mentor._id);
+                      setShowAcceptModal(true);
+                    }}
+                  >
                     قبول المستشار فى المنصة
+                  </Button>
+                  {' '}
+                  <Button
+                    variant="info"
+                    onClick={() => fetchMentorDetails(mentor._id)}
+                  >
+                    عرض التفاصيل
                   </Button>
                 </Card.Body>
               </Card>
@@ -109,17 +130,17 @@ const Nonactivemonitor = () => {
       </Row>
 
       {/* Modal to enter fees for accepting mentor */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal show={showAcceptModal} onHide={() => setShowAcceptModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>إدخال نسبة الخصم للمستشار</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="formFees">
-              <Form.Label>  نسبة الخصم المراد خصمها مع كل عملية </Form.Label>
+              <Form.Label>نسبة الخصم المراد خصمها مع كل عملية</Form.Label>
               <Form.Control
                 type="number"
-                placeholder=" أدخل نسبة الخصم"
+                placeholder="أدخل نسبة الخصم"
                 value={fees}
                 onChange={(e) => setFees(e.target.value)}
               />
@@ -128,11 +149,39 @@ const Nonactivemonitor = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button variant="secondary" onClick={() => setShowAcceptModal(false)}>
             إلغاء
           </Button>
           <Button variant="primary" onClick={handleAccept}>
             قبول
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal to show mentor details */}
+      <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>تفاصيل المستشار</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {mentorDetails ? (
+            <>
+              <img
+                src={mentorDetails.image || 'placeholder.jpg'}
+                alt="Mentor"
+                className="img-fluid mb-3"
+                style={{ maxHeight: '300px' }}
+              />
+              <p><strong>العنوان:</strong> {mentorDetails.address || 'غير متوفر'}</p>
+              <p><strong>الوصف:</strong> {mentorDetails.description || 'غير متوفر'}</p>
+            </>
+          ) : (
+            <p>جاري التحميل...</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDetailsModal(false)}>
+            إغلاق
           </Button>
         </Modal.Footer>
       </Modal>
