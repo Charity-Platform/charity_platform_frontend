@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import axios from 'axios';
+import axios from '../../api/axios';
+import { retryApiCall } from '../../api/apiHelpers';
 import { useNavigate } from 'react-router-dom';
 import './Cources.css'; // Add a CSS file for additional styles
 
@@ -11,24 +12,42 @@ const CardCources = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchCourses = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}courses`);
+        console.log('📥 Fetching courses...');
+        const response = await retryApiCall(
+          () => axios.get('courses'),
+          3
+        );
+        
         console.log('API Response:', response.data);
 
-        if (response.data && Array.isArray(response.data.document)) {
-          setCourses(response.data.document);
-        } else {
-          throw new Error('Unexpected API response format');
+        if (isMounted) {
+          if (response.data && Array.isArray(response.data.document)) {
+            console.log(`✅ Loaded ${response.data.document.length} courses`);
+            setCourses(response.data.document);
+          } else {
+            throw new Error('Unexpected API response format');
+          }
+          setLoading(false);
         }
       } catch (err) {
-        setError(err.message || 'An unexpected error occurred.');
-      } finally {
-        setLoading(false);
+        console.error('❌ Error fetching courses:', err);
+        if (isMounted) {
+          setError(err.message || 'An unexpected error occurred.');
+          setLoading(false);
+        }
       }
     };
 
     fetchCourses();
+    
+    return () => {
+      isMounted = false;
+      console.log('🧹 Cleanup: Courses component unmounted');
+    };
   }, []);
 
   const handleEnrollClick = (courseId) => {

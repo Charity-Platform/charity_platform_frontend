@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../../api/axios';
+import { retryApiCall } from '../../../api/apiHelpers';
 import './Question.css';
 import {
   Accordion,
@@ -13,25 +14,46 @@ import {
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}questions`);
+        console.log('📥 Fetching questions...');
+        const response = await retryApiCall(
+          () => axios.get('questions'),
+          3
+        );
+        
         const data = response.data.document;
 
-        if (data && data.length > 0) {
-          setQuestions(data); // Set questions if they exist
-        } else {
-          setQuestions([]); // Set empty array if no data is returned
+        if (isMounted) {
+          if (data && data.length > 0) {
+            console.log(`✅ Loaded ${data.length} questions`);
+            setQuestions(data);
+          } else {
+            console.log('⚠️ No questions found');
+            setQuestions([]);
+          }
+          setLoading(false);
         }
       } catch (error) {
-        console.error('Error fetching questions:', error);
-        setError('حدث خطأ أثناء جلب الأسئلة. حاول مرة أخرى.');
+        console.error('❌ Error fetching questions:', error);
+        if (isMounted) {
+          setError('حدث خطأ أثناء جلب الأسئلة. حاول مرة أخرى.');
+          setLoading(false);
+        }
       }
     };
 
     fetchQuestions();
+    
+    return () => {
+      isMounted = false;
+      console.log('🧹 Cleanup: Questions component unmounted');
+    };
   }, []);
 
   return (

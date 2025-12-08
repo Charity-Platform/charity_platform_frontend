@@ -3,7 +3,8 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Card from 'react-bootstrap/Card';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../../../api/axios';
+import { retryApiCall } from '../../../api/apiHelpers';
 import './Instructors.css';
 
 const Instructor = () => {
@@ -14,25 +15,44 @@ const Instructor = () => {
 
   // Fetch mentors from API
   useEffect(() => {
+    let isMounted = true; // للتحقق من أن الـ component لسه موجود
+    
     const fetchMentors = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}mentors/active`); 
+        console.log('📥 Fetching mentors...');
+        const response = await retryApiCall(
+          () => axios.get('mentors/active'),
+          3 // 3 محاولات
+        );
+        
         const data = response.data.data;
 
-        if (data && data.length > 0) {
-          setMentors(data);
-        } else {
-          setMentors([]);
+        if (isMounted) {
+          if (data && data.length > 0) {
+            console.log(`✅ Loaded ${data.length} mentors`);
+            setMentors(data);
+          } else {
+            console.log('⚠️ No mentors found');
+            setMentors([]);
+          }
+          setLoading(false);
         }
-        setLoading(false); // Stop loading after data is fetched
       } catch (err) {
-        console.error('Error fetching mentors:', err);
-        setError('حدث خطأ أثناء جلب بيانات المستشارين. حاول مرة أخرى.');
-        setLoading(false);
+        console.error('❌ Error fetching mentors:', err);
+        if (isMounted) {
+          setError('حدث خطأ أثناء جلب بيانات المستشارين. حاول مرة أخرى.');
+          setLoading(false);
+        }
       }
     };
 
     fetchMentors();
+    
+    // Cleanup function
+    return () => {
+      isMounted = false;
+      console.log('🧹 Cleanup: Instructor component unmounted');
+    };
   }, []);
 
   const handleDetails = (id) => {

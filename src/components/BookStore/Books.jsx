@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Books.css'; // Custom CSS file
 import BookList from './BookList';
-import axios from 'axios';
+import axios from '../../api/axios';
+import { retryApiCall } from '../../api/apiHelpers';
 
 const BookApp = () => {
   const [books, setBooks] = useState([]);
@@ -12,26 +13,41 @@ const BookApp = () => {
 
   // Fetch books from API
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchBooks = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_MAIN_URL}books`, {
-          withCredentials: true,
-        });
+        console.log('📥 Fetching books...');
+        const response = await retryApiCall(
+          () => axios.get('books', { withCredentials: true }),
+          3
+        );
 
-        // Verify the structure of the response and set books
-        if (response.data && Array.isArray(response.data.document)) {
-          setBooks(response.data.document);
-        } else {
-          throw new Error('Unexpected API response structure');
+        if (isMounted) {
+          // Verify the structure of the response and set books
+          if (response.data && Array.isArray(response.data.document)) {
+            console.log(`✅ Loaded ${response.data.document.length} books`);
+            setBooks(response.data.document);
+          } else {
+            throw new Error('Unexpected API response structure');
+          }
+          setLoading(false);
         }
       } catch (error) {
-        setError(error.message || 'An error occurred while fetching books.');
-      } finally {
-        setLoading(false);
+        console.error('❌ Error fetching books:', error);
+        if (isMounted) {
+          setError(error.message || 'An error occurred while fetching books.');
+          setLoading(false);
+        }
       }
     };
 
     fetchBooks();
+    
+    return () => {
+      isMounted = false;
+      console.log('🧹 Cleanup: Books component unmounted');
+    };
   }, []);
 
   return (

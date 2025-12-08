@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
-import axios from "axios";
+import axios from "../../api/axios";
+import { retryApiCall } from "../../api/apiHelpers";
 import "./CardServices.css"; // Custom CSS file
 import CardInfo from "./Card";
 import { useNavigate } from "react-router-dom"; // Correct hook
@@ -28,20 +29,35 @@ const CardServices = () => {
 
   // Fetch fields from API
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchFields = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_MAIN_URL}fields`
+        console.log('📥 Fetching fields...');
+        const response = await retryApiCall(
+          () => axios.get('fields'),
+          3
         );
-        setFields(response.data.document || []);
+        
+        if (isMounted) {
+          console.log(`✅ Loaded ${response.data.document?.length || 0} fields`);
+          setFields(response.data.document || []);
+        }
       } catch (error) {
-        setError("حدث خطأ في تحميل المجالات.");
-        console.error("Error fetching fields:", error);
+        console.error('❌ Error fetching fields:', error);
+        if (isMounted) {
+          setError("حدث خطأ في تحميل المجالات.");
+        }
       }
     };
 
     fetchFields();
     window.scrollTo(0, 0);
+    
+    return () => {
+      isMounted = false;
+      console.log('🧹 Cleanup: CardServices fields unmounted');
+    };
   }, []);
 
   // Fetch instructions based on field using the updated API
@@ -49,15 +65,22 @@ const CardServices = () => {
     setLoadingInstructions(true);
     setError(null); // Reset error state on every new request
     try {
+      console.log(`📥 Fetching instructions${fieldName ? ` for field: ${fieldName}` : ''}...`);
       const endpoint = fieldName
-        ? `${import.meta.env.VITE_MAIN_URL}tickets/field?field=${fieldName}`
-        : `${import.meta.env.VITE_MAIN_URL}tickets/field`;
-      const response = await axios.get(endpoint);
+        ? `tickets/field?field=${fieldName}`
+        : `tickets/field`;
+      
+      const response = await retryApiCall(
+        () => axios.get(endpoint),
+        3
+      );
+      
+      console.log(`✅ Loaded ${response.data.data?.length || 0} instructions`);
       setInstructions(response.data.data || []);
     } catch (error) {
+      console.error('❌ Error fetching instructions:', error);
       setInstructions([]);
       setError("حدث خطأ في تحميل الاستشارات.");
-      console.error("Error fetching instructions:", error);
     } finally {
       setLoadingInstructions(false);
     }
@@ -72,7 +95,16 @@ const CardServices = () => {
   };
 
   useEffect(() => {
-    fetchInstructions();
+    let isMounted = true;
+    
+    if (isMounted) {
+      fetchInstructions();
+    }
+    
+    return () => {
+      isMounted = false;
+      console.log('🧹 Cleanup: CardServices instructions unmounted');
+    };
   }, []);
 
   return (

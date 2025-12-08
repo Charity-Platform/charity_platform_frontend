@@ -1,6 +1,7 @@
 import { createContext, useEffect, useContext, useState } from "react";
 import { toast } from 'react-toastify';
-import axios from "axios";
+import axios from "../api/axios";
+import { retryApiCall } from "../api/apiHelpers";
 
 export const Auth = createContext();
 
@@ -13,14 +14,39 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const CheckUser = async () => {
       try {
-        const { data } = await axios.get(`${import.meta.env.VITE_MAIN_URL}users/me`, {
-          withCredentials: true,
-        });
-        if (typeof data === 'object') {
+        console.log('🔐 Checking user authentication...');
+        
+        const { data } = await retryApiCall(
+          () => axios.get('users/me', { withCredentials: true }),
+          2, // Only 2 retries for auth check
+          500 // Shorter delay for auth
+        );
+        
+        if (typeof data === 'object' && data) {
+          console.log('✅ User authenticated:', data.role);
           setuser(data);
           setRole(data?.role);
           setLoggedin(true);
+        } else {
+          console.log('⚠️ No user data received');
+          setLoggedin(false);
         }
+      } catch (error) {
+        console.error('❌ Auth check failed:', error.message);
+        console.error('Error details:', {
+          status: error.response?.status,
+          message: error.response?.data?.message,
+          url: error.config?.url
+        });
+        
+        // Don't show error toast for 401 (user not logged in)
+        if (error.response?.status !== 401) {
+          console.error('Unexpected authentication error');
+        }
+        
+        setLoggedin(false);
+        setuser(null);
+        setRole('');
       } finally {
         setFetched(true);
       }
@@ -33,8 +59,10 @@ export const AuthProvider = ({ children }) => {
   
   const login = async (email, password) => {
     try {
+      console.log('🔑 Attempting login...');
+      
       const {data} = await axios.post(
-        `${import.meta.env.VITE_MAIN_URL}auth/login`,
+        'auth/login',
         {
           email: email,
           password: password,
@@ -46,13 +74,20 @@ export const AuthProvider = ({ children }) => {
           withCredentials: true,
         }
       );
-      console.log(data);
+      
+      console.log('✅ Login successful:', data);
 
-    localStorage.setItem('userId', data.data._id);
+      localStorage.setItem('userId', data.data._id);
       setuser(data.data);
+      setRole(data.data.role);
       setLoggedin(true); 
+      
+      return { success: true, data: data.data };
     } catch (err) {
-      toast.error(err?.response?.data?.message);
+      console.error('❌ Login failed:', err);
+      const errorMessage = err?.response?.data?.message || 'فشل تسجيل الدخول';
+      toast.error(errorMessage);
+      return { success: false, error: errorMessage };
     } finally {
       setFetched(true);
     }
@@ -90,7 +125,20 @@ export const AuthProvider = ({ children }) => {
       login
     }}
   >
-    {Fetched ? children : null}
+    {Fetched ? children : (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        flexDirection: 'column'
+      }}>
+        <div className="spinner-border text-primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+        <p style={{ marginTop: '1rem' }}>جاري التحميل...</p>
+      </div>
+    )}
     </Auth.Provider>
   );
 };
